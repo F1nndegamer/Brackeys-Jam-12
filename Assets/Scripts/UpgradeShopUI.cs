@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UpgradeShopUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private ShopItem[] items;
+    [SerializeField] private TextMeshProUGUI moneyText;
+    private void UpdateUI()
     {
-        
+        moneyText.text = Player.Instance.Money.ToString();
     }
-
-    // Update is called once per frame
-    void Update()
+    public void BuyUpgrade(ItemType upgradeIndex)
     {
-        
+        ShopItem upgrade = items[(int)upgradeIndex];
+        if (Player.Instance.Money >= upgrade.GetShopItemSO().price)
+        {
+            Player.Instance.UpdateMoney(-upgrade.GetShopItemSO().price);
+            upgrade.LevelUp();
+        }
     }
 }
