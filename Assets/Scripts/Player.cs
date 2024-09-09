@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static Player Instance;
+    private int fishCaught;
     public int Money { get; private set; } 
     private void Awake()
     {

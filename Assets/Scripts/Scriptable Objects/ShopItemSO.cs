@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class ShopItemSO : ScriptableObject
 {
+    public ItemType itemType;
     public Sprite icon;
     public string itemName;
     public string description;
@@ -12,5 +13,7 @@ public class ShopItemSO : ScriptableObject
 }
 public enum ItemType
 {
-
+    FishingRod = 0,
+    SecondItem = 1,
+    ThirdItem = 2,
 }
