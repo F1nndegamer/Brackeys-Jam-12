@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,19 +16,45 @@ public class ShopItem : MonoBehaviour
     private int currentLevel = 1;
     private void Start()
     {
+        InitializeItem();
+        UpdateItem();
+
+        purchaseButton.onClick.AddListener(() =>
+        {
+            if (UpgradeShopUI.Instance.BuyItem(this))
+            {
+                isBought = true;
+                UpdateItem();
+            }
+        });
+    }
+    private void InitializeItem()
+    {
         itemNameText.text = shopItemSO.itemName;
         descriptionText.text = shopItemSO.description;
         icon.sprite = shopItemSO.icon;
-        priceText.text = shopItemSO.price.ToString();
-        upgradePriceText.text = shopItemSO.upgradePrice.ToString();
-
-        upgradeButton.interactable = false;
-        purchaseButton.onClick.AddListener(() =>
+    }
+    private void UpdateItem()
+    {
+        purchaseButton.interactable = !isBought;
+        if (shopItemSO.upgradePrice > 0)
         {
-            isBought = true;
-            UpgradeShopUI.Instance.BuyItem(shopItemSO.itemType);
-            upgradeButton.interactable = isBought;
-        });
+            upgradePriceText.text = shopItemSO.upgradePrice.ToString();
+        }
+        else
+        {
+            upgradePriceText.text = "No Upgrade";
+            upgradeButton.interactable = false;
+        }
+        if (isBought)
+        {
+            priceText.text = "Purchased";
+            purchaseButton.interactable = false;
+        }
+        else
+        {
+            priceText.text = shopItemSO.price.ToString();
+        }
     }
     public void LevelUp()
     {
