@@ -287,8 +287,6 @@ MonoBehaviour:
     name: Salmon
     difficulty: 19
     price: 31
-  text: {fileID: 0}
-  slider: {fileID: 0}
   isFishing: 0
 --- !u!70 &24127669
 CapsuleCollider2D:
@@ -4986,6 +4984,55 @@ MonoBehaviour:
   _params: {fileID: 11400000, guid: ade22c9e9ce9548478750db7fee7031c, type: 2}
   _player: {fileID: 24127663}
   _simCam: {fileID: 1681854933}
+--- !u!1 &2129112057
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2129112059}
+  - component: {fileID: 2129112058}
+  m_Layer: 0
+  m_Name: StormManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2129112058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2129112057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f158a7fb26f3d154a9a32d5e36c44cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stormPrefab: {fileID: 2486701580138375598, guid: 79f0c4d5e09c1c64c98efb832055af8b, type: 3}
+  player: {fileID: 24127667}
+  spawnInterval: 20
+  stormSpeed: 7
+  outrunDistance: 15
+--- !u!4 &2129112059
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2129112057}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.0906816, y: 1.3735414, z: -4.773426}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -4999,3 +5046,4 @@ SceneRoots:
   - {fileID: 2095366092}
   - {fileID: 891238113}
   - {fileID: 1192018478}
+  - {fileID: 2129112059}
