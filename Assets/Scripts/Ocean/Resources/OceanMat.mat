@@ -95,9 +95,9 @@ Material:
     m_Ints: []
     m_Floats:
     - _BumpScale: 1
-    - _CausticDensity: 50
+    - _CausticDensity: 200
     - _CausticDepth: 0.25
-    - _CausticPower: 8
+    - _CausticPower: 10
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -111,7 +111,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _PixelSample: 156
+    - _PixelSample: 750
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SmoothnessTextureChannel: 0
@@ -126,7 +126,7 @@ Material:
     - _CausticColor: {r: 1, g: 1, b: 1, a: 0}
     - _Color: {r: 0, g: 0.9388056, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OceanColor: {r: 0.28595585, g: 0.7513724, b: 0.9622642, a: 0}
+    - _OceanColor: {r: 0.5887772, g: 0.840651, b: 0.9528302, a: 0}
     - _TileAmount: {r: 1, g: 1, b: 0, a: 0}
     - _WaterColor: {r: 0, g: 0.5943395, b: 0.990566, a: 0}
     - _WaveColor: {r: 1, g: 1, b: 1, a: 1}
