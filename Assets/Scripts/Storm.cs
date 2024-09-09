@@ -8,7 +8,7 @@ public class StormManager : MonoBehaviour
     public float spawnInterval = 20f; // Time in seconds between storms
     public float stormSpeed = 5f; // Speed of the storm
     public float outrunDistance = 20f; // Distance the player needs to be ahead of the storm to survive
-    private GameObject currentStorm;
+    public GameObject currentStorm;
 
     private void Start()
     {
