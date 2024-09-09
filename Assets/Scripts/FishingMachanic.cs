@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class FishingMachanic : MonoBehaviour
 {
     [SerializeField] private int fishdifficulty;
+    [SerializeField] private List<Fish> fishList;
     private float timer = 3;
     public bool isFishing = false;
     private void Update()
@@ -35,6 +36,7 @@ public class FishingMachanic : MonoBehaviour
         Debug.Log("waiting");
         yield return new WaitForSeconds((Random.value + 0.1f) * fishdifficulty);
         Debug.Log("catch");
+        Fish randomFish = fishList[Random.Range(0, fishList.Count)];
         isFishing = false;
     }
 }
