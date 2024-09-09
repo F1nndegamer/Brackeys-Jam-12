@@ -1,20 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class FishingMachanic : MonoBehaviour
 {
-    [SerializeField] private int fishdifficulty;
     [SerializeField] private List<Fish> fishList;
+    [SerializeField] private TMP_Text text;
+    [SerializeField] private Slider slider;
+    private int fishdifficulty;
     private float timer = 3;
     public Dictionary<Fish, int> invantory = new Dictionary<Fish, int>();
     public bool isFishing = false;
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
+        {
             isFishing = !isFishing;
+        }
         Catching();
     }
     void Catching()
@@ -22,10 +26,10 @@ public class FishingMachanic : MonoBehaviour
         if (!isFishing) return;
         Fish randomFish = fishList[Random.Range(0, fishList.Count)];
         fishdifficulty = randomFish.difficulty;
-        timer -=Time.deltaTime;
+        timer -= Time.deltaTime;
         if (timer < 0)
         {
-            Debug.Log("catch");
+            text.text = "catch";
             timer = (Random.value + 0.1f) * fishdifficulty;
             if (!invantory.ContainsKey(randomFish))
             {
@@ -40,7 +44,7 @@ public class FishingMachanic : MonoBehaviour
         }
         else
         {
-            Debug.Log("waiting");
+            text.text = "waiting";
         }
     }
 }
