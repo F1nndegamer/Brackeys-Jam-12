@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaveManger : MonoBehaviour
+public class WaveManager : MonoBehaviour
 {
 
     [Header("References")]
