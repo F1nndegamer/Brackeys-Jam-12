@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class UpgradeShopUI : MonoBehaviour
 {
     public static UpgradeShopUI Instance;
-    [SerializeField] private ShopItem[] itemArray;
     [SerializeField] private TextMeshProUGUI moneyText;
     private void Awake()
     {
@@ -16,18 +16,28 @@ public class UpgradeShopUI : MonoBehaviour
     {   
         UpdateUI();
     }
-    private void UpdateUI()
+    public void UpdateUI()
     {
         moneyText.text = Player.Instance.Money.ToString();
     }
-    public bool BuyItem(ShopItem shopItem)
+    public bool BuyItem(ShopItem item)
     {
-        if (Player.Instance.Money >= shopItem.GetShopItemSO().price)
+        if (Player.Instance.Money >= item.BuyPrice)
         {
-            Debug.Log(Player.Instance.Money + " - " + shopItem.GetShopItemSO().price);
-            Player.Instance.UpdateMoney(-shopItem.GetShopItemSO().price);
-            ApplyItem(shopItem.GetShopItemSO().itemType);
-            shopItem.LevelUp();
+            Player.Instance.UpdateMoney(-item.BuyPrice);
+            
+            UpdateUI();
+            return true;
+        }
+        UpdateUI();
+        return false;
+    }
+    public bool UpgradeItem(ShopItem item)
+    {
+        if (Player.Instance.Money >= item.CurrentUpgradePrice)
+        {
+            Player.Instance.UpdateMoney(-item.CurrentUpgradePrice);
+
             UpdateUI();
             return true;
         }
@@ -41,7 +51,6 @@ public class UpgradeShopUI : MonoBehaviour
             case ItemType.FishingRod:
                 break;
             case ItemType.RangeFinder:
-                GameplayUI.Instance.EnableRangeFinder();
                 break;
             case ItemType.ThirdItem:
                 break;

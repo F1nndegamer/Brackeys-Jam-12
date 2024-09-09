@@ -1,49 +1,70 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+public enum ItemType
+{
+    FishingRod = 0,
+    RangeFinder = 1,
+    Propeller = 2,
+    ThirdItem = 3,
+}
 public class ShopItem : MonoBehaviour
 {
-    [SerializeField] private ShopItemSO shopItemSO;
     [SerializeField] private Button purchaseButton;
     [SerializeField] private TextMeshProUGUI priceText;
     [SerializeField] private Button upgradeButton;
     [SerializeField] private TextMeshProUGUI upgradePriceText;
-    [SerializeField] private TextMeshProUGUI itemNameText;
-    [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private Image icon;
-    private bool isBought;
+    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private int buyPrice;
+    [SerializeField] private int[] upgradePriceArray;
+    public int BuyPrice => buyPrice;
+    public int[] UpgradePriceArray => upgradePriceArray;
+    public int CurrentUpgradePrice => upgradePriceArray[currentLevel-1];
+
+    private string itemName;
+    private readonly Dictionary<int, string> ROMAN_NUMERALS = new Dictionary<int, string>() { { 1, "I"}, { 2, "II"}, { 3, "III"}, { 4, "IV" }, { 5, "V" } };
+    protected bool isBought;
     private int currentLevel = 1;
+    private void Awake()
+    {
+        itemName = nameText.text;
+    }
     private void Start()
     {
-        InitializeItem();
         UpdateItem();
+        nameText.text = itemName + ROMAN_NUMERALS[currentLevel];
 
         purchaseButton.onClick.AddListener(() =>
         {
             if (UpgradeShopUI.Instance.BuyItem(this))
             {
                 isBought = true;
+                ApplyItem();
                 UpdateItem();
             }
         });
-    }
-    private void InitializeItem()
-    {
-        itemNameText.text = shopItemSO.itemName;
-        descriptionText.text = shopItemSO.description;
-        icon.sprite = shopItemSO.icon;
+        upgradeButton.onClick.AddListener(() =>
+        {
+            if (UpgradeShopUI.Instance.UpgradeItem(this))
+            {
+                LevelUp();
+                UpdateItem();
+            }
+        });
+
     }
     private void UpdateItem()
     {
         purchaseButton.interactable = !isBought;
-        if (shopItemSO.upgradePrice > 0)
+        if (upgradePriceArray.Length > 0 && currentLevel < 4 && CurrentUpgradePrice > 0)
         {
-            upgradePriceText.text = shopItemSO.upgradePrice.ToString();
+            upgradePriceText.text = CurrentUpgradePrice.ToString();
         }
         else
         {
-            upgradePriceText.text = "No Upgrade";
+            upgradePriceText.text = "Max";
             upgradeButton.interactable = false;
         }
         if (isBought)
@@ -53,15 +74,16 @@ public class ShopItem : MonoBehaviour
         }
         else
         {
-            priceText.text = shopItemSO.price.ToString();
+            priceText.text = buyPrice.ToString();
         }
+    }
+    public virtual void ApplyItem()
+    {
     }
     public void LevelUp()
     {
+        Debug.Log("Level Up called");
         currentLevel++;
-    }
-    public ShopItemSO GetShopItemSO()
-    {
-        return shopItemSO;
+        nameText.text = itemName + ROMAN_NUMERALS[currentLevel];
     }
 }

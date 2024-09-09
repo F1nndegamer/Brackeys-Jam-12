@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
         {
             UpdateMoney(100);
+            UpgradeShopUI.Instance.UpdateUI();
         }
     }
     public void UpdateMoney(int money)
