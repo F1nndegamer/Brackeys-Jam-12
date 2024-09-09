@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stormManager: {fileID: 2129112058}
-  animator: {fileID: 0}
+  animator: {fileID: 1101738146}
 --- !u!1 &138110217
 GameObject:
   m_ObjectHideFlags: 0
