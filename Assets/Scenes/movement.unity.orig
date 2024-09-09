@@ -272,6 +272,10 @@ MonoBehaviour:
     difficulty: 2
     price: 1
   - sprite: {fileID: 0}
+<<<<<<< HEAD
+    difficulty: 0
+    price: 0
+=======
     name: Clownfish
     difficulty: 3
     price: 5
@@ -287,6 +291,7 @@ MonoBehaviour:
     name: Salmon
     difficulty: 19
     price: 31
+>>>>>>> refs/remotes/origin/main
   text: {fileID: 0}
   slider: {fileID: 0}
   isFishing: 0

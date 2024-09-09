@@ -7,8 +7,6 @@ using UnityEngine.UI;
 public class FishingMachanic : MonoBehaviour
 {
     [SerializeField] private List<Fish> fishList;
-    [SerializeField] private TMP_Text text;
-    [SerializeField] private Slider slider;
     private int fishdifficulty;
     private float timer = 3;
     public Dictionary<Fish, int> invantory = new Dictionary<Fish, int>();
@@ -29,12 +27,11 @@ public class FishingMachanic : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer < 0)
         {
-            text.text = "catch";
+            Debug.Log("catch");
             timer = (Random.value + 0.1f) * fishdifficulty;
             if (!invantory.ContainsKey(randomFish))
             {
                 invantory.Add(randomFish, 1);
-                Debug.Log(randomFish.difficulty);
             }
             else
             {
@@ -44,7 +41,7 @@ public class FishingMachanic : MonoBehaviour
         }
         else
         {
-            text.text = "waiting";
+            Debug.Log("waiting");
         }
     }
 }
