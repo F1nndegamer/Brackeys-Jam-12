@@ -5,6 +5,7 @@ using UnityEngine;
 public class StormMeter : MonoBehaviour
 {
     public StormManager stormManager;
+    public Animator animator;
     private float timer;
     void Start()
     {
@@ -17,9 +18,12 @@ public class StormMeter : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer < 0)
         {
-            Debug.LogWarning("Storm coming");
-            if (stormManager.currentStorm) 
+            animator.SetBool("waring", true);
+            if (stormManager.currentStorm)
+            {
                 Debug.Log(Vector2.Distance(stormManager.currentStorm.transform.position, transform.position));
+                animator.speed = 10 / Vector2.Distance(stormManager.currentStorm.transform.position, transform.position);
+            }
         }
     }
 }
