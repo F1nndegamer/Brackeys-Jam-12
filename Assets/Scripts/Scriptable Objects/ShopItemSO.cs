@@ -14,6 +14,7 @@ public class ShopItemSO : ScriptableObject
 public enum ItemType
 {
     FishingRod = 0,
-    SecondItem = 1,
-    ThirdItem = 2,
+    RangeFinder = 1,
+    SecondItem = 2,
+    ThirdItem = 3,
 }

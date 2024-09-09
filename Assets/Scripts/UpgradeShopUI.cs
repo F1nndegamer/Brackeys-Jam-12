@@ -12,20 +12,27 @@ public class UpgradeShopUI : MonoBehaviour
     {
         Instance = this;
     }
+    private void Start()
+    {   
+        UpdateUI();
+    }
     private void UpdateUI()
     {
         moneyText.text = Player.Instance.Money.ToString();
     }
-    public void BuyItem(ItemType itemType)
+    public bool BuyItem(ShopItem shopItem)
     {
-        ShopItem shopItem = itemArray[(int)itemType];
         if (Player.Instance.Money >= shopItem.GetShopItemSO().price)
         {
+            Debug.Log(Player.Instance.Money + " - " + shopItem.GetShopItemSO().price);
             Player.Instance.UpdateMoney(-shopItem.GetShopItemSO().price);
-            ApplyItem(itemType);
+            ApplyItem(shopItem.GetShopItemSO().itemType);
             shopItem.LevelUp();
+            UpdateUI();
+            return true;
         }
         UpdateUI();
+        return false;
     }
     private void ApplyItem(ItemType itemType)
     {
@@ -33,7 +40,8 @@ public class UpgradeShopUI : MonoBehaviour
         {
             case ItemType.FishingRod:
                 break;
-            case ItemType.SecondItem:
+            case ItemType.RangeFinder:
+                GameplayUI.Instance.EnableRangeFinder();
                 break;
             case ItemType.ThirdItem:
                 break;
