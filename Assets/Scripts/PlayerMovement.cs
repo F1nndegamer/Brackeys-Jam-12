@@ -38,4 +38,8 @@ public class PlayerMovement : MonoBehaviour
         if (!fishingMachanic.isFishing)
             rb.MovePosition(rb.position + moveSpeed * Time.fixedDeltaTime * movement.normalized);
     }
+    public void IncreaseSpeed(float amount)
+    {
+        moveSpeed += amount;
+    }
 }

@@ -44,16 +44,4 @@ public class UpgradeShopUI : MonoBehaviour
         UpdateUI();
         return false;
     }
-    private void ApplyItem(ItemType itemType)
-    {
-        switch (itemType)
-        {
-            case ItemType.FishingRod:
-                break;
-            case ItemType.RangeFinder:
-                break;
-            case ItemType.ThirdItem:
-                break;
-        }
-    }
 }

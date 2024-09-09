@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FishingRod : ShopItem
 {
-    public override void ApplyItem()
+    protected override void ApplyItem()
     {
 
     }

@@ -26,7 +26,7 @@ public class ShopItem : MonoBehaviour
     private string itemName;
     private readonly Dictionary<int, string> ROMAN_NUMERALS = new Dictionary<int, string>() { { 1, "I"}, { 2, "II"}, { 3, "III"}, { 4, "IV" }, { 5, "V" } };
     protected bool isBought;
-    private int currentLevel = 1;
+    protected int currentLevel = 1;
     private void Awake()
     {
         itemName = nameText.text;
@@ -77,12 +77,11 @@ public class ShopItem : MonoBehaviour
             priceText.text = buyPrice.ToString();
         }
     }
-    public virtual void ApplyItem()
+    protected virtual void ApplyItem()
     {
     }
-    public void LevelUp()
+    protected virtual void LevelUp()
     {
-        Debug.Log("Level Up called");
         currentLevel++;
         nameText.text = itemName + ROMAN_NUMERALS[currentLevel];
     }
