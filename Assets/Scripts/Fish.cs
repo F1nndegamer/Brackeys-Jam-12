@@ -5,6 +5,7 @@ using UnityEngine;
 public class Fish
 {
     public Sprite sprite;
+    public string name;
     public int difficulty;
     public int price;
 }
