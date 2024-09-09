@@ -6,85 +6,35 @@ using UnityEngine.UIElements;
 
 public class FishingMachanic : MonoBehaviour
 {
-    [Header("Fish")]
-    [SerializeField] private float timer;
-    [SerializeField] private float timerMulti;
-    [SerializeField] private float fishSpeed;
-    [SerializeField] private UnityEngine.UI.Slider fish;
-    private RectTransform sliderHandleRect;
-
-    [Header("Fishrod")]
-    [SerializeField] private float fishrodSpeed;
-    [SerializeField] private Scrollbar fishrode;
-    private RectTransform scrollbarHandleRect;
-
-    public bool isFishing;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private int fishdifficulty;
+    private float timer = 3;
+    public bool isFishing = false;
+    private void Update()
     {
-        sliderHandleRect = fish.handleRect;
-        scrollbarHandleRect = fishrode.handleRect;
+        if (Input.GetMouseButtonDown(0))
+            isFishing = !isFishing;
+        Catching();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (AreHandlesTouching(sliderHandleRect, scrollbarHandleRect))
-        {
-            Debug.Log("aaaa");
-        }
-        BaseFishingMach();
-        FishMachanic();
-        FishrodMachanic();
-    }
-    void BaseFishingMach()
-    {
-        if (Input.GetMouseButtonDown(0) && !isFishing)
-        {
-            isFishing = true;
-        }
-        else if (Input.GetMouseButtonDown(0) && isFishing)
-        {
-            isFishing = false;
-        }
-    }
-    void FishMachanic()
+    void Catching()
     {
         if (!isFishing) return;
-        timer -= Time.deltaTime;
+        timer -=Time.deltaTime;
         if (timer < 0)
         {
-            timer = Random.value * timerMulti;
-            fishSpeed = -fishSpeed;
-        }
-        fish.value += fishSpeed;
-    }
-    void FishrodMachanic()
-    {
-        if(!isFishing) return;
-        if (Input.GetKey(KeyCode.Space) && fishrode.value < 1)
-        {
-            fishrode.value += fishrodSpeed;
+            Debug.Log("catch");
+            timer = (Random.value + 0.1f) * fishdifficulty;
+            isFishing = false;
         }
         else
         {
-            fishrode.value += -fishrodSpeed * 1.5f;
+            Debug.Log("waiting");
         }
     }
-    bool AreHandlesTouching(RectTransform rect1, RectTransform rect2)
+    IEnumerator fishWaiting()
     {
-        Rect rect1Bounds = RectTransformToScreenSpace(rect1);
-        Rect rect2Bounds = RectTransformToScreenSpace(rect2);
-
-        return rect1Bounds.Overlaps(rect2Bounds);
-    }
-    Rect RectTransformToScreenSpace(RectTransform rectTransform)
-    {
-        Vector3[] worldCorners = new Vector3[4];
-        rectTransform.GetWorldCorners(worldCorners);
-
-        return new Rect(worldCorners[0].x, worldCorners[0].y,
-                        worldCorners[2].x - worldCorners[0].x,
-                        worldCorners[2].y - worldCorners[0].y);
+        Debug.Log("waiting");
+        yield return new WaitForSeconds((Random.value + 0.1f) * fishdifficulty);
+        Debug.Log("catch");
+        isFishing = false;
     }
 }

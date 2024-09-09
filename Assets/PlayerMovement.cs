@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         if (rb == null) rb = GetComponent<Rigidbody2D>();
-        //if (fishingMachanic == null) fishingMachanic = GetComponent<FishingMachanic>();
+        if (fishingMachanic == null) fishingMachanic = GetComponent<FishingMachanic>();
     }
 
     void Update()
@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
         movement.y = Input.GetAxisRaw("Vertical");
 
         // Rotate the player based on movement direction
-        if (movement != Vector2.zero /*&& !fishingMachanic.isFishing*/)
+        if (movement != Vector2.zero && !fishingMachanic.isFishing)
         {
             float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, angle), rotateSpeed);
@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         // Apply movement
-        //if (!fishingMachanic.isFishing)
-        rb.MovePosition(rb.position + moveSpeed * Time.fixedDeltaTime * movement.normalized);
+        if (!fishingMachanic.isFishing)
+            rb.MovePosition(rb.position + moveSpeed * Time.fixedDeltaTime * movement.normalized);
     }
 }
