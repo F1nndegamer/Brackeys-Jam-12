@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class FishingMachanic : MonoBehaviour
 {
     [SerializeField] private List<Fish> fishList;
-    private int fishdifficulty;
     private float timer = 3;
-    public Dictionary<Fish, int> invantory = new Dictionary<Fish, int>();
     public bool isFishing = false;
+    public static int fishrode;
+    public static string lastFishCaughtName;
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -23,25 +23,24 @@ public class FishingMachanic : MonoBehaviour
     {
         if (!isFishing) return;
         Fish randomFish = fishList[Random.Range(0, fishList.Count)];
-        fishdifficulty = randomFish.difficulty;
         timer -= Time.deltaTime;
         if (timer < 0)
         {
             Debug.Log("catch");
-            timer = (Random.value + 0.1f) * fishdifficulty;
-            if (!invantory.ContainsKey(randomFish))
-            {
-                invantory.Add(randomFish, 1);
-            }
-            else
-            {
-                invantory[randomFish]++;
-            }
+            timer = (Random.value + 0.1f) * FishingDifficulty(randomFish.difficulty, fishrode); 
+            //Player.Instance.UpdateMoney(randomFish.price);
+            lastFishCaughtName = randomFish.name;
             isFishing = false;
         }
         else
         {
             Debug.Log("waiting");
         }
+    }
+    public int FishingDifficulty(int fishsdif, int fisrodebuff = 0)
+    {
+        int res = 0;
+        res = fishsdif - fisrodebuff;
+        return res;
     }
 }
