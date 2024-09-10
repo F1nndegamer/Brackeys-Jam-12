@@ -7,11 +7,11 @@ public class GameplayUI : MonoBehaviour
 {
     public static GameplayUI Instance;
     [SerializeField] private TextMeshProUGUI numberOfFishText;
-    private Information rangeFinderInformation;
+    private RangeFinderInformation rangeFinderInformation;
     private void Awake()
     {
         Instance = this;
-        rangeFinderInformation = GetComponent<Information>();
+        rangeFinderInformation = GetComponent<RangeFinderInformation>();
     }
     private void Start()
     {
