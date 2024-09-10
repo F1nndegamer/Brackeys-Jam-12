@@ -6,6 +6,7 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private Button playButton;
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button creditsButton;
+    [SerializeField] private GameObject optionsUI;
     private void Start()
     {
         playButton.onClick.AddListener(() =>
@@ -14,7 +15,7 @@ public class MainMenuUI : MonoBehaviour
         });
         optionsButton.onClick.AddListener(() =>
         {
-
+            optionsUI.SetActive(true);
         });
         creditsButton.onClick.AddListener(() =>
         {

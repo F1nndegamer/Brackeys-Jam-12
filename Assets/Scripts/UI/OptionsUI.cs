@@ -1,29 +1,32 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OptionsUI : MonoBehaviour
 {
+    public static OptionsUI Instance;
+    [SerializeField] private Button backButton;
+    private Action onCloseButtonAction;
+    private void Awake()
+    {
+        Instance = this;
+    }
     private void Start()
     {
-        GameManager.Instance.OnGamePaused += GameManager_OnGamePaused;
-        GameManager.Instance.OnGameUnpaused += GameManager_OnGameUnpaused;
+        backButton.onClick.AddListener(() =>
+        {
+            onCloseButtonAction();
+            Hide();
+        });
         Hide();
-    }
-
-    private void GameManager_OnGameUnpaused(object sender, System.EventArgs e)
-    {
-        Hide();
-    }
-
-    private void GameManager_OnGamePaused(object sender, System.EventArgs e)
-    {
-        Show();
     }
     private void Hide()
     {
         gameObject.SetActive(false);
     }
-    private void Show()
+    public void Show(Action onCloseButtonAction)
     {
+        this.onCloseButtonAction = onCloseButtonAction;
         gameObject.SetActive(true);
     }
 }
