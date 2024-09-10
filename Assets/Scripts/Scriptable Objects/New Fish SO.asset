@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   fishName: 
-  difficulty: 0
-  price: 0
+  greenBarLong: 0.35
+  whiteBarSpeed: 1
+  depth: 1
+  price: 1
