@@ -268,30 +268,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fishList:
-  - sprite: {fileID: 0}
-    name: Angelfish
-    difficulty: 20
-    price: 1
-  - sprite: {fileID: 0}
-    name: Clownfish
-    difficulty: 30
-    price: 5
-  - sprite: {fileID: 0}
-    name: Goldfish
-    difficulty: 35
-    price: 14
-  - sprite: {fileID: 0}
-    name: Catfish
-    difficulty: 45
-    price: 17
-  - sprite: {fileID: 0}
-    name: Salmon
-    difficulty: 70
-    price: 31
-  - sprite: {fileID: 0}
-    name: h
-    difficulty: 80
-    price: 92
+  - {fileID: 11400000, guid: 0ba67478f929e0946bbf4d886381f5b6, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   isFishing: 0
   bar: {fileID: 1493883868}
 --- !u!70 &24127669

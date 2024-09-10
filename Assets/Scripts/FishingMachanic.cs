@@ -8,9 +8,9 @@ using UnityEngine.UI;
 public class FishingMachanic : MonoBehaviour
 {
     int y = 1;
-    [SerializeField] private List<Fish> fishList;
-    public bool isFishing = false; 
-    Fish randomFish;
+    [SerializeField] private List<FishSO> fishList;
+    public bool isFishing = false;  
+    FishSO randomFish;
     public GameObject bar;
     public static int fishrode;
     public static string lastFishCaughtName;
@@ -36,18 +36,17 @@ public class FishingMachanic : MonoBehaviour
         if (isFishing)
         {
             bar.SetActive(true);
-            WhiteBarMove(1);
+            WhiteBarMove(Mathf.Log(randomFish.whiteBarSpeed));
         }
         else
         {
             bar.SetActive(false);
         }
     }
-    void Catching(Fish randfish)
+    void Catching(FishSO randfish)
     {
         if (!isFishing) return;
-        float x = Math.Abs(randfish.difficulty - 100f) / 100;
-        greenBar.localScale = new Vector2(x, 1);
+        greenBar.localScale = new Vector2(randfish.greenBarLong, 1);
         if (whiteBar.localPosition.x > -(greenBar.localScale.x / 2 - 0.03f) && whiteBar.localPosition.x < (greenBar.localScale.x / 2 - 0.03f))
         {
             //Player.Instance.UpdateMoney(randfish.price);
@@ -59,10 +58,6 @@ public class FishingMachanic : MonoBehaviour
         int res = 0;
         res = fishsdif - fisrodebuff;
         return res;
-    }
-    void BarMechanic(Fish selectFish)
-    {
-
     }
     void WhiteBarMove(float whiteBarSpeed)
     {
