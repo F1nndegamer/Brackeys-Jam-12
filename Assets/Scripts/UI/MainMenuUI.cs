@@ -6,7 +6,6 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private Button playButton;
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button creditsButton;
-    [SerializeField] private GameObject optionsUI;
     private void Start()
     {
         playButton.onClick.AddListener(() =>

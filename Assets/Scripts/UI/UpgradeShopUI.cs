@@ -14,10 +14,23 @@ public class UpgradeShopUI : MonoBehaviour
         Instance = this;
     }
     private void Start()
-    {   
+    {
+        Player.Instance.OnShopOpened += Player_OnShopOpened;
+        Player.Instance.OnShopClosed += Player_OnShopClosed;
         UpdateUI();
         Hide();
     }
+
+    private void Player_OnShopClosed(object sender, System.EventArgs e)
+    {
+        Hide();
+    }
+
+    private void Player_OnShopOpened(object sender, System.EventArgs e)
+    {
+        Show();
+    }
+
     public void UpdateUI()
     {
         moneyText.text = Player.Instance.Money.ToString();

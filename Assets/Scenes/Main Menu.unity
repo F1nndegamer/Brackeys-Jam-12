@@ -565,7 +565,6 @@ MonoBehaviour:
   playButton: {fileID: 717398995}
   optionsButton: {fileID: 2139001688}
   creditsButton: {fileID: 1918165044}
-  optionsUI: {fileID: 1877276768}
 --- !u!1 &276729103
 GameObject:
   m_ObjectHideFlags: 0
