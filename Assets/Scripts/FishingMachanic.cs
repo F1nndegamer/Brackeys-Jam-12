@@ -28,7 +28,7 @@ public class FishingMachanic : MonoBehaviour
         {
             Debug.Log("catch");
             timer = (Random.value + 0.1f) * FishingDifficulty(randomFish.difficulty, fishrode); 
-            //Player.Instance.UpdateMoney(randomFish.price);
+            Player.Instance.UpdateMoney(randomFish.price);
             lastFishCaughtName = randomFish.name;
             isFishing = false;
         }

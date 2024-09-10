@@ -1972,6 +1972,7 @@ MonoBehaviour:
   Player: {fileID: 1774373237}
   Shore: {fileID: 787986856}
   DistanceText: {fileID: 1507032320}
+  lastFishCaught: {fileID: 0}
 --- !u!1 &1021339379
 GameObject:
   m_ObjectHideFlags: 0
@@ -7473,7 +7474,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb545c23a2ea63469b3dece138a6a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fishList: []
+  fishList:
+  - sprite: {fileID: 0}
+    name: 
+    difficulty: 0
+    price: 0
   isFishing: 0
 --- !u!50 &1774373234
 Rigidbody2D:
