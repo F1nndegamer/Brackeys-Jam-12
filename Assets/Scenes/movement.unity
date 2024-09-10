@@ -270,25 +270,30 @@ MonoBehaviour:
   fishList:
   - sprite: {fileID: 0}
     name: Angelfish
-    difficulty: 2
+    difficulty: 20
     price: 1
   - sprite: {fileID: 0}
     name: Clownfish
-    difficulty: 3
+    difficulty: 30
     price: 5
   - sprite: {fileID: 0}
     name: Goldfish
-    difficulty: 7
+    difficulty: 35
     price: 14
   - sprite: {fileID: 0}
     name: Catfish
-    difficulty: 10
+    difficulty: 45
     price: 17
   - sprite: {fileID: 0}
     name: Salmon
-    difficulty: 19
+    difficulty: 70
     price: 31
+  - sprite: {fileID: 0}
+    name: h
+    difficulty: 80
+    price: 92
   isFishing: 0
+  bar: {fileID: 1493883868}
 --- !u!70 &24127669
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -687,7 +692,7 @@ Transform:
   m_GameObject: {fileID: 709987189}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.3, y: 0, z: 0}
   m_LocalScale: {x: -0.03, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4999,7 +5004,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1493883869}
   - component: {fileID: 1493883871}
-  - component: {fileID: 1493883870}
+  - component: {fileID: 1493883872}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -5024,33 +5029,6 @@ Transform:
   - {fileID: 709987190}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &1493883870
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1493883868}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!212 &1493883871
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5103,6 +5081,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1493883872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493883868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96ce772443680794caefa904b7fe2a55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 24127667}
 --- !u!1 &1563632256
 GameObject:
   m_ObjectHideFlags: 0
