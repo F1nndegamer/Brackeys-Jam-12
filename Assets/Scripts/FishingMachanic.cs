@@ -7,17 +7,21 @@ using UnityEngine.UI;
 
 public class FishingMachanic : MonoBehaviour
 {
-    int y = 1;
-    [SerializeField] private List<FishSO> fishList;
     public bool isFishing = false;  
-    FishSO randomFish;
+    public bool isCatching = false;  
     public GameObject bar;
     public static int fishrode;
     public static string lastFishCaughtName;
+    int y = 1;
+    [SerializeField] private List<FishSO> fishList;
+    [SerializeField] private int randomRange = 3;
+    FishSO randomFish;
     Transform greenBar;
-    Transform whiteBar; 
+    Transform whiteBar;
+    float timer;
     private void Start()
     {
+        timer = UnityEngine.Random.value * 3;
         greenBar = bar.transform.GetChild(0);
         whiteBar = bar.transform.GetChild(1);
     }
@@ -28,19 +32,29 @@ public class FishingMachanic : MonoBehaviour
             randomFish = fishList[UnityEngine.Random.Range(0, fishList.Count)];
             isFishing = true;
         }
-        if (Input.GetMouseButtonDown(1) && isFishing)
+        if (Input.GetMouseButtonDown(1) && isCatching)
         {
             Catching(randomFish);
+            isCatching = false;
             isFishing = false;
         }
-        if (isFishing)
+        if (isCatching)
         {
             bar.SetActive(true);
-            WhiteBarMove(Mathf.Log(randomFish.whiteBarSpeed));
+            WhiteBarMove(randomFish.whiteBarSpeed);
         }
         else
         {
             bar.SetActive(false);
+        }
+        if (isFishing)
+        {
+            timer -= Time.deltaTime;
+            if (timer < 0)
+            {
+                isCatching = true;
+                timer = UnityEngine.Random.value * randomRange; 
+            }
         }
     }
     void Catching(FishSO randfish)
@@ -52,12 +66,6 @@ public class FishingMachanic : MonoBehaviour
             //Player.Instance.UpdateMoney(randfish.price);
             lastFishCaughtName = randfish.name;
         }
-    }
-    public int FishingDifficulty(int fishsdif, int fisrodebuff = 0)
-    {
-        int res = 0;
-        res = fishsdif - fisrodebuff;
-        return res;
     }
     void WhiteBarMove(float whiteBarSpeed)
     {
