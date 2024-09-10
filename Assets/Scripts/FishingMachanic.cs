@@ -30,6 +30,7 @@ public class FishingMachanic : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !isFishing)
         {
             randomFish = fishList[UnityEngine.Random.Range(0, fishList.Count)];
+            ForGreenBar(randomFish);
             isFishing = true;
         }
         if (Input.GetMouseButtonDown(1) && isCatching)
@@ -59,13 +60,16 @@ public class FishingMachanic : MonoBehaviour
     }
     void Catching(FishSO randfish)
     {
-        if (!isFishing) return;
-        greenBar.localScale = new Vector2(randfish.greenBarLong, 1);
         if (whiteBar.localPosition.x > -(greenBar.localScale.x / 2 - 0.03f) && whiteBar.localPosition.x < (greenBar.localScale.x / 2 - 0.03f))
         {
             //Player.Instance.UpdateMoney(randfish.price);
             lastFishCaughtName = randfish.name;
         }
+    }
+    void ForGreenBar(FishSO randfish)
+    {
+        greenBar.localScale = new Vector2(randfish.greenBarLong, 1);
+        greenBar.localPosition = new Vector2(UnityEngine.Random.Range(-(greenBar.localScale.x - 1) / 2, (greenBar.localScale.x - 1) / 2), 0);
     }
     void WhiteBarMove(float whiteBarSpeed)
     {
