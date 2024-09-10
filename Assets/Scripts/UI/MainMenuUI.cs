@@ -15,12 +15,15 @@ public class MainMenuUI : MonoBehaviour
         });
         optionsButton.onClick.AddListener(() =>
         {
-            optionsUI.SetActive(true);
+            OptionsUI.Instance.Show(Show);
         });
         creditsButton.onClick.AddListener(() =>
         {
-
+            CreditsUI.Instance.Show(Show);
         });
-
+    }
+    private void Show()
+    {
+        gameObject.SetActive(true);
     }
 }
