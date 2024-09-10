@@ -12,6 +12,7 @@ public class FishingMachanic : MonoBehaviour
     public GameObject bar;
     public static int fishrode;
     public static string lastFishCaughtName;
+    public static Dictionary<FishSO, int> basket = new Dictionary<FishSO, int>();
     int y = 1;
     [SerializeField] private List<FishSO> fishList;
     [SerializeField] private int randomRange = 3;
@@ -21,7 +22,7 @@ public class FishingMachanic : MonoBehaviour
     float timer;
     private void Start()
     {
-        timer = UnityEngine.Random.value * 3;
+        timer = UnityEngine.Random.Range(1, randomRange);
         greenBar = bar.transform.GetChild(0);
         whiteBar = bar.transform.GetChild(1);
     }
@@ -54,7 +55,7 @@ public class FishingMachanic : MonoBehaviour
             if (timer < 0)
             {
                 isCatching = true;
-                timer = UnityEngine.Random.value * randomRange; 
+                timer = UnityEngine.Random.Range(1, randomRange); 
             }
         }
     }
@@ -62,7 +63,14 @@ public class FishingMachanic : MonoBehaviour
     {
         if (whiteBar.localPosition.x > -(greenBar.localScale.x / 2 - 0.03f) && whiteBar.localPosition.x < (greenBar.localScale.x / 2 - 0.03f))
         {
-            //Player.Instance.UpdateMoney(randfish.price);
+            if (!basket.ContainsKey(randfish))
+            {
+                basket.Add(randfish, 1);
+            }
+            else
+            {
+                basket[randfish]++;
+            }
             lastFishCaughtName = randfish.name;
         }
     }
