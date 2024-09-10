@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
         if (movement != Vector2.zero && !fishingMachanic.isFishing)
         {
             float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, angle), rotateSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, angle), rotateSpeed * Time.deltaTime);
         }
     }
 

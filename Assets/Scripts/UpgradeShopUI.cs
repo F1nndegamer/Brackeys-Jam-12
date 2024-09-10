@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using static UnityEditor.Progress;
 
@@ -15,6 +16,7 @@ public class UpgradeShopUI : MonoBehaviour
     private void Start()
     {   
         UpdateUI();
+        Hide();
     }
     public void UpdateUI()
     {
@@ -43,5 +45,13 @@ public class UpgradeShopUI : MonoBehaviour
         }
         UpdateUI();
         return false;
+    }
+    private void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+    private void Show()
+    {
+        gameObject.SetActive(true);
     }
 }
