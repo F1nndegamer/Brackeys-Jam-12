@@ -7,7 +7,7 @@ public enum ItemType
     FishingRod = 0,
     RangeFinder = 1,
     Propeller = 2,
-    ThirdItem = 3,
+    MultipurposeMeter = 3,
 }
 public class ShopItem : MonoBehaviour
 {
@@ -20,12 +20,11 @@ public class ShopItem : MonoBehaviour
     [SerializeField] private int buyPrice;
     [SerializeField] private int[] upgradePriceArray;
     public int BuyPrice => buyPrice;
-    public int[] UpgradePriceArray => upgradePriceArray;
     public int CurrentUpgradePrice => upgradePriceArray[currentLevel-1];
 
     private string itemName;
     private readonly Dictionary<int, string> ROMAN_NUMERALS = new Dictionary<int, string>() { { 1, "I"}, { 2, "II"}, { 3, "III"}, { 4, "IV" }, { 5, "V" } };
-    protected bool isBought;
+    private bool isBought;
     protected int currentLevel = 1;
     private void Awake()
     {
@@ -34,7 +33,10 @@ public class ShopItem : MonoBehaviour
     private void Start()
     {
         UpdateItem();
-        nameText.text = itemName + ROMAN_NUMERALS[currentLevel];
+        if (upgradePriceArray.Length > 0)
+        {
+            nameText.text = itemName + ROMAN_NUMERALS[currentLevel];
+        }
 
         purchaseButton.onClick.AddListener(() =>
         {
@@ -53,7 +55,6 @@ public class ShopItem : MonoBehaviour
                 UpdateItem();
             }
         });
-
     }
     private void UpdateItem()
     {
