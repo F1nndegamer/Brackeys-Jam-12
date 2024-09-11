@@ -20,8 +20,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (fishingMachanic.isWaitingForFish) return;
-        // Get input for movement
+        if (fishingMachanic.IsFishing) return;
+
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (fishingMachanic.IsFishing) return;
         rb.MovePosition(rb.position + moveSpeed * Time.fixedDeltaTime * movement.normalized);
     }
     public void IncreaseSpeed(float amount)

@@ -9,6 +9,7 @@ public class FishingMachanic : MonoBehaviour
 {
     public bool isWaitingForFish = false;  
     public bool isCatching = false;  
+    public bool IsFishing => isWaitingForFish || isCatching;
     public static int fishrode;
     public static string lastFishCaughtName;
     public static Dictionary<FishSO, int> basket = new Dictionary<FishSO, int>();
@@ -18,7 +19,8 @@ public class FishingMachanic : MonoBehaviour
     [SerializeField] private RectTransform sweetSpot;
     [SerializeField] private RectTransform whitePointer;
     private int pointerDirection = 1;
-    private FishSO randomFish;
+    private int currentCatchProgress = 0;  
+    private FishSO currentFish;
     private float waitingTimer;
     private float barLength;
     private void Start()
@@ -28,22 +30,23 @@ public class FishingMachanic : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isWaitingForFish)
+        if (Input.GetKeyDown(KeyCode.Space) && !isWaitingForFish && !isCatching)
         {
-            randomFish = fishList[UnityEngine.Random.Range(0, fishList.Count)];
-            InitializeGreenBar(randomFish);
+            currentFish = fishList[UnityEngine.Random.Range(0, fishList.Count)];
+            InitializeGreenBar(currentFish);
+            currentCatchProgress = 0;
             isWaitingForFish = true;
         }
         if (Input.GetKeyDown(KeyCode.Space) && isCatching)
         {
-            Catching(randomFish);
+            Catching(currentFish);
             isCatching = false;
             isWaitingForFish = false;
         }
         if (isCatching)
         {
             bar.gameObject.SetActive(true);
-            MovePointer(randomFish.whiteBarSpeed);
+            MovePointer(currentFish.pointerSpeed);
         }
         else
         {
@@ -55,6 +58,7 @@ public class FishingMachanic : MonoBehaviour
             if (waitingTimer < 0)
             {
                 isCatching = true;
+                isWaitingForFish = false;
                 waitingTimer = UnityEngine.Random.Range(1, waitingTimerMax); 
             }
         }
@@ -62,27 +66,40 @@ public class FishingMachanic : MonoBehaviour
     private void Catching(FishSO randfish)
     {
         float halfSweetSpotWidth = sweetSpot.sizeDelta.x / 2;
-
         float sweetSpotCenterX = sweetSpot.anchoredPosition.x;
 
         // Check if the white pointer is within the sweet spot's bounds
         if (whitePointer.localPosition.x > (sweetSpotCenterX - halfSweetSpotWidth)
             && whitePointer.localPosition.x < (sweetSpotCenterX + halfSweetSpotWidth))
         {
-            Debug.Log("Catch Successfully");
+            Debug.Log("Catch attempt successful");
 
-            if (!basket.ContainsKey(randfish))
-            {
-                basket.Add(randfish, 1);
-            }
-            else
-            {
-                basket[randfish]++;
-            }
+            currentCatchProgress++;  // Increment catch progress
 
-            lastFishCaughtName = randfish.name;
+            // Check if player has caught the fish the required number of times
+            if (currentCatchProgress >= randfish.requiredCatches)
+            {
+                Debug.Log("Fish caught successfully!");
+
+                if (!basket.ContainsKey(randfish))
+                {
+                    basket.Add(randfish, 1);
+                }
+                else
+                {
+                    basket[randfish]++;
+                }
+
+                lastFishCaughtName = randfish.name;
+
+                // Reset the progress after catching the fish
+                currentCatchProgress = 0;
+                isCatching = false;  // End the catching phase
+                isWaitingForFish = false;  // Ready for the next fish
+            }
         }
     }
+
 
     private void InitializeGreenBar(FishSO randfish)
     {
