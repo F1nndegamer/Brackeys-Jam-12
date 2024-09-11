@@ -15,7 +15,8 @@ public class FishingMachanic : MonoBehaviour
     public static string lastFishCaughtName;
     public static Dictionary<FishSO, int> basket = new Dictionary<FishSO, int>();
     [SerializeField] private List<FishSO> fishList;
-    [SerializeField] private int waitingTimerMax = 3;
+    [SerializeField] private int waitingTimerMax = 8;
+    [SerializeField] private int waitingTimerMin = 2;
     [SerializeField] private RectTransform bar;
     [SerializeField] private RectTransform sweetSpot;
     [SerializeField] private RectTransform whitePointer;
@@ -29,17 +30,13 @@ public class FishingMachanic : MonoBehaviour
     private void Start()
     {
         barLength = bar.rect.width;
-        waitingTimer = UnityEngine.Random.Range(1, waitingTimerMax);
+        waitingTimer = UnityEngine.Random.Range(waitingTimerMin, waitingTimerMax);
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isWaitingForFish && !isCatching)
         {
-            currentFish = fishList[UnityEngine.Random.Range(0, fishList.Count)];
-            InitializeSweetSpot();
-            currentCatchProgress = 0;
-            isWaitingForFish = true;
-            catchProgressText.text = currentCatchProgress.ToString() + "/" + currentFish.requiredCatches.ToString();
+            WaitForFish();
         }
         if (Input.GetKeyDown(KeyCode.Space) && isCatching && currentCatchProgress <= currentFish.requiredCatches)
         {
@@ -49,20 +46,21 @@ public class FishingMachanic : MonoBehaviour
         {
             MovePointer();
         }
-        else
-        {
-        }
         if (isWaitingForFish)
         {
             waitingTimer -= Time.deltaTime;
             if (waitingTimer < 0)
             {
-                isCatching = true;
-                isWaitingForFish = false;
-                waitingTimer = UnityEngine.Random.Range(1, waitingTimerMax);
-                bar.gameObject.SetActive(true);
+                StartCatchingProcess();
             }
         }
+    }
+    private void WaitForFish()
+    {
+        isWaitingForFish = true;
+        currentFish = fishList[UnityEngine.Random.Range(0, fishList.Count)];
+        InitializeSweetSpot();
+        currentCatchProgress = 0;
     }
     private void AttemptToCatchFish()
     {
@@ -93,8 +91,7 @@ public class FishingMachanic : MonoBehaviour
 
                 lastFishCaughtName = currentFish.name;
                 FishingMinigameUI.Instance.Flash();
-                FishingMinigameUI.Instance.FadeOut();
-                Invoke(nameof(EndCatchingFish), 0.7f);
+                EndCatchingFish();
             }
             else
             {
@@ -103,15 +100,23 @@ public class FishingMachanic : MonoBehaviour
         }
         else
         {
-            FishingMinigameUI.Instance.FadeOut();
-            Invoke(nameof(EndCatchingFish), 0.7f);
+            EndCatchingFish();
         }
+    }
+    private void StartCatchingProcess()
+    {
+        isCatching = true;
+        isWaitingForFish = false;
+        waitingTimer = UnityEngine.Random.Range(1, waitingTimerMax);
+        bar.gameObject.SetActive(true);
+        FishingMinigameUI.Instance.FadeIn();
+        catchProgressText.text = currentCatchProgress.ToString() + "/" + currentFish.requiredCatches.ToString();
     }
     private void EndCatchingFish()
     {
         currentCatchProgress = 0;
         isCatching = false;
-        bar.gameObject.SetActive(false);
+        FishingMinigameUI.Instance.FadeOut();
     }
 
     private void InitializeSweetSpot()

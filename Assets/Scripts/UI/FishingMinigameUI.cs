@@ -28,4 +28,8 @@ public class FishingMinigameUI : MonoBehaviour
     {
         animator.SetTrigger("FadeOut");
     }
+    public void FadeIn()
+    {
+        animator.SetTrigger("FadeIn");
+    }
 }
