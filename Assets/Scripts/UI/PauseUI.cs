@@ -15,14 +15,17 @@ public class PauseUI : MonoBehaviour
         backToGameButton.onClick.AddListener(() =>
         {
             GameManager.Instance.TogglePauseGame();
+            SoundManager.Instance.PlayButtonClickSound();
         });
         optionsButton.onClick.AddListener(() =>
         {
             OptionsUI.Instance.Show(Show);
+            SoundManager.Instance.PlayButtonClickSound();
         });
         backToTitleButton.onClick.AddListener(() =>
         {
             Loader.Load(Loader.Scene.MainMenuScene);
+            SoundManager.Instance.PlayButtonClickSound();
         });
 
         Hide();
