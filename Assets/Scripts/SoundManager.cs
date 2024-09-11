@@ -28,7 +28,11 @@ public class SoundManager : MonoBehaviour
     }
     public void PlayButtonClickSound()
     {
-        PlaySound(audioSO.ButtonClick, Vector3.zero);
+        PlaySound(audioSO.buttonClick, Vector3.zero);
+    }
+    public void PlayFishEngageSound()
+    {
+        PlaySound(audioSO.fishEngage, Player.Instance.transform.position);
     }
     public void ChangeVolume()
     {
