@@ -81,14 +81,7 @@ public class FishingMachanic : MonoBehaviour
             {
                 Debug.Log("Fish caught successfully!");
 
-                if (!basket.ContainsKey(currentFish))
-                {
-                    basket.Add(currentFish, 1);
-                }
-                else
-                {
-                    basket[currentFish]++;
-                }
+                InventoryUI.Instance.AddInventory(currentFish);
 
                 lastFishCaughtName = currentFish.name;
                 FishingMinigameUI.Instance.Flash();

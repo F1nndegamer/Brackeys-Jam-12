@@ -8,10 +8,13 @@ public class Player : MonoBehaviour
     public static Player Instance;
     public event EventHandler OnShopOpened;
     public event EventHandler OnShopClosed;
+    public event EventHandler OnInventoryOpened;
+    public event EventHandler OnInvetoryClosed;
     private int fishCaught;
     public int Money { get; private set; }
     private bool isNearShop = true;
     private bool isShopOpened = false;
+    private bool isInventoryOpened = false;
     private void Awake()
     {
         Instance = this;
@@ -26,6 +29,10 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B))
         {
             ToggleShop();
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            ToggleInventory();
         }
         if (!isNearShop && isShopOpened)
         {
@@ -50,6 +57,18 @@ public class Player : MonoBehaviour
             {
                 OnShopClosed?.Invoke(this, EventArgs.Empty);
             }
+        }
+    }
+    public void ToggleInventory()
+    {
+        isInventoryOpened = !isInventoryOpened;
+        if (isInventoryOpened)
+        {
+            OnInventoryOpened?.Invoke(this, EventArgs.Empty);
+        }
+        else
+        {
+            OnInvetoryClosed?.Invoke(this, EventArgs.Empty);
         }
     }
 }
