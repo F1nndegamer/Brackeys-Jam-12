@@ -25,10 +25,6 @@ public class MusicManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = OptionsUI.MusicVolume;
     }
-    private void Start()
-    {
-
-    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))

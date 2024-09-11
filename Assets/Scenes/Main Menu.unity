@@ -1989,7 +1989,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSO: {fileID: 11400000, guid: bb53cf77da395c1409df1131de10d009, type: 2}
-  volume: 1
   turning: 0
 --- !u!4 &1088940244
 Transform:
@@ -2092,12 +2091,24 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.4
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MusicManager, Assembly-CSharp
+      - m_Target: {fileID: 1877276770}
+        m_TargetAssemblyTypeName: OptionsUI, Assembly-CSharp
+        m_MethodName: SaveSoundVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1088940243}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
         m_MethodName: ChangeVolume
         m_Mode: 1
         m_Arguments:
@@ -4409,6 +4420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backButton: {fileID: 1146668722}
   musicSlider: {fileID: 897131378}
+  soundSlider: {fileID: 1134579417}
 --- !u!1 &1883172746
 GameObject:
   m_ObjectHideFlags: 0

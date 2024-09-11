@@ -7,11 +7,11 @@ using UnityEngine.UI;
 
 public class GameplayUI : MonoBehaviour
 {
-    [SerializeField] private FishingMachanic fishingMechanic;
     public static GameplayUI Instance;
+    [SerializeField] private FishingMachanic fishingMechanic;
     [SerializeField] private TextMeshProUGUI numberOfFishText;
-    private RangeFinderInformation rangeFinderInformation;
     [SerializeField] private RawImage warning;
+    private RangeFinderInformation rangeFinderInformation;
     private void Awake()
     {
         Instance = this;
