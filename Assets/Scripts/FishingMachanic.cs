@@ -12,7 +12,7 @@ public class FishingMachanic : MonoBehaviour
     public bool isWaitingForFish = false;  
     public bool isCatching = false;  
     public bool IsFishing => isWaitingForFish || isCatching;
-    public static int fishrode;
+    public static float fishrode;
     public static string lastFishCaughtName;
     public static Dictionary<FishSO, int> basket = new Dictionary<FishSO, int>();
     [SerializeField] private List<FishSO> fishList;
@@ -35,6 +35,7 @@ public class FishingMachanic : MonoBehaviour
     }
     private void Update()
     {
+        Debug.Log(fishrode);
         if (Input.GetKeyDown(KeyCode.Space) && !isWaitingForFish && !isCatching)
         {
             WaitForFish();
@@ -145,6 +146,6 @@ public class FishingMachanic : MonoBehaviour
         {
             pointerDirection = 1;
         }
-        whitePointer.anchoredPosition = new Vector2(whitePointer.anchoredPosition.x + currentFish.pointerSpeed * pointerDirection * Time.deltaTime, 0);
+        whitePointer.anchoredPosition = new Vector2(whitePointer.anchoredPosition.x + (currentFish.pointerSpeed - fishrode) * pointerDirection * Time.deltaTime, 0);
     }
 }
