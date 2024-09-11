@@ -31,7 +31,7 @@ public class FishingMachanic : MonoBehaviour
     private void Start()
     {
         barLength = bar.rect.width;
-        waitingTimer = UnityEngine.Random.Range(waitingTimerMin, waitingTimerMax);
+        waitingTimer = UnityEngine.Random.Range(waitingTimerMin, waitingTimerMax) - fishrode;
     }
     private void Update()
     {
@@ -109,7 +109,7 @@ public class FishingMachanic : MonoBehaviour
     {
         isCatching = true;
         isWaitingForFish = false;
-        waitingTimer = UnityEngine.Random.Range(1, waitingTimerMax);
+        waitingTimer = UnityEngine.Random.Range(1, waitingTimerMax) - fishrode;
         bar.gameObject.SetActive(true);
         FishingMinigameUI.Instance.FadeIn();
         catchProgressText.text = currentCatchProgress.ToString() + "/" + currentFish.requiredCatches.ToString();
@@ -145,6 +145,6 @@ public class FishingMachanic : MonoBehaviour
         {
             pointerDirection = 1;
         }
-        whitePointer.anchoredPosition = new Vector2(whitePointer.anchoredPosition.x + (currentFish.pointerSpeed - fishrode) * pointerDirection * Time.deltaTime, 0);
+        whitePointer.anchoredPosition = new Vector2(whitePointer.anchoredPosition.x + currentFish.pointerSpeed * pointerDirection * Time.deltaTime, 0);
     }
 }

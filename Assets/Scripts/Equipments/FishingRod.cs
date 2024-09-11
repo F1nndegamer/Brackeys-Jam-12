@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class FishingRod : ShopItem
 {
+    [SerializeField] private float firstApplyItme = 0.2f;
+    [SerializeField] private float multipleLevelUp = 0.1f;
     protected override void ApplyItem()
     {
-        FishingMachanic.fishrode = 0.2f;
+        FishingMachanic.fishrode = firstApplyItme;
     }
     protected override void LevelUp()
     {
         base.LevelUp();
-        FishingMachanic.fishrode += 0.1f;
+        FishingMachanic.fishrode += multipleLevelUp;
     }
 }
