@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class StormManager : MonoBehaviour
@@ -9,6 +10,7 @@ public class StormManager : MonoBehaviour
     public float stormSpeed = 5f; // Speed of the storm
     public float outrunDistance = 20f; // Distance the player needs to be ahead of the storm to survive
     public GameObject currentStorm;
+    public List<AudioClip> Storm;
 
     private void Start()
     {
@@ -30,6 +32,13 @@ public class StormManager : MonoBehaviour
         {
             Vector3 spawnPosition = player.position + new Vector3(outrunDistance, 0, -1);
             currentStorm = Instantiate(stormPrefab, spawnPosition, Quaternion.identity);
+            AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
+
+            foreach (AudioSource audioSource in allAudioSources)
+            {
+                audioSource.Stop();
+            }
+
         }
     }
 

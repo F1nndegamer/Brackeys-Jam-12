@@ -6,8 +6,10 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
     [SerializeField] private AudioSO audioSO;
+    [SerializeField] private AudioSource audioSource;
     private float volume;
     public bool turning;
+    public bool stopRepeatingSound;
 
     private void Awake()
     {
@@ -34,8 +36,28 @@ public class SoundManager : MonoBehaviour
     {
         PlaySound(audioSO.fishEngage, Player.Instance.transform.position);
     }
+    public void PlayStormSound()
+    {
+        StartCoroutine(PlayStormRoutine());
+    }
+    private IEnumerator PlayStormRoutine()
+    {
+        audioSource.clip = audioSO.StormSounds[0];
+        audioSource.Play();
+
+        yield return new WaitWhile(() => audioSource.isPlaying);
+        while (!stopRepeatingSound)
+        {
+            audioSource.clip = audioSO.StormSounds[1];
+            audioSource.Play();
+            yield return new WaitWhile(() => audioSource.isPlaying);
+        }
+        audioSource.clip = audioSO.StormSounds[2];
+        audioSource.Play();
+    }
     public void ChangeVolume()
     {
         volume = OptionsUI.SoundVolume;
+        audioSource.volume = volume;
     }
 }
