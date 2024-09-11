@@ -6,7 +6,7 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
     [SerializeField] private AudioSO audioSO;
-    [SerializeField] private float volume = 1f;
+    private float volume;
     public bool turning;
 
     private void Awake()
@@ -17,7 +17,6 @@ public class SoundManager : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
     private void PlaySound(AudioClip[] audioClipArray, Vector3 position, float volume = 1f)
     {
@@ -27,8 +26,12 @@ public class SoundManager : MonoBehaviour
     {
         AudioSource.PlayClipAtPoint(audioClip, position, volume * volumeMultiplier);
     }
-    public void PlayMenuSFX()
+    public void PlayButtonClickSound()
     {
-        PlaySound(audioSO.MenuSFX, Vector3.zero);
-    } 
+        PlaySound(audioSO.ButtonClick, Vector3.zero);
+    }
+    public void ChangeVolume()
+    {
+        volume = OptionsUI.MusicVolume;
+    }
 }

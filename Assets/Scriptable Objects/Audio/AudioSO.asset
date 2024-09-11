@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2879372770ac7240a17e2dfd6c4e479, type: 3}
   m_Name: AudioSO
   m_EditorClassIdentifier: 
-  MenuSFX: {fileID: 8300000, guid: 3d900c49f861e0f45810f1cfaec77a10, type: 3}
+  ButtonClick:
+  - {fileID: 8300000, guid: b1d481f070285e649bb44bc4d58bab28, type: 3}
+  - {fileID: 8300000, guid: 3ed24beceb1696f4085a0023008db21f, type: 3}
+  - {fileID: 8300000, guid: 5a1dcb15cd214194aba6a81d8305e6dc, type: 3}

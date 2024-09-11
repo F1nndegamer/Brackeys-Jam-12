@@ -18,6 +18,7 @@ public class CreditsUI : MonoBehaviour
         backButton.onClick.AddListener(() =>
         {
             onCloseButtonAction();
+            SoundManager.Instance.PlayButtonClickSound();
             Hide();
         });
         Hide();

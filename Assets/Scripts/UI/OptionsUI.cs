@@ -6,8 +6,10 @@ public class OptionsUI : MonoBehaviour
 {
     public static OptionsUI Instance;
     public static float MusicVolume = 0.4f;
+    public static float SoundVolume = 0.4f;
     [SerializeField] private Button backButton;
     [SerializeField] private Slider musicSlider;
+    [SerializeField] private Slider soundSlider;
     public Slider MusicSlider => musicSlider;
     private Action onCloseButtonAction;
     private void Awake()
@@ -19,14 +21,20 @@ public class OptionsUI : MonoBehaviour
         backButton.onClick.AddListener(() =>
         {
             onCloseButtonAction();
+            SoundManager.Instance.PlayButtonClickSound();
             Hide();
         });
         musicSlider.value = MusicVolume;
+        soundSlider.value = SoundVolume;
         Hide();
     }
     public void SaveMusicVolume()
     {
         MusicVolume = musicSlider.value;
+    }
+    public void SaveSoundVolume()
+    {
+        SoundVolume = soundSlider.value;
     }
     private void Hide()
     {

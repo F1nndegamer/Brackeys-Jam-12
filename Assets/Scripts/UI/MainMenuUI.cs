@@ -11,14 +11,17 @@ public class MainMenuUI : MonoBehaviour
         playButton.onClick.AddListener(() =>
         {
             Loader.Load(Loader.Scene.GameScene);
+            SoundManager.Instance.PlayButtonClickSound();
         });
         optionsButton.onClick.AddListener(() =>
         {
             OptionsUI.Instance.Show(Show);
+            SoundManager.Instance.PlayButtonClickSound();
         });
         creditsButton.onClick.AddListener(() =>
         {
             CreditsUI.Instance.Show(Show);
+            SoundManager.Instance.PlayButtonClickSound();
         });
     }
     private void Show()

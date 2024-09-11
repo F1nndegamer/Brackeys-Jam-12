@@ -4,5 +4,5 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class AudioSO : ScriptableObject
 {
-    public AudioClip MenuSFX;
+    public AudioClip[] ButtonClick;
 }
