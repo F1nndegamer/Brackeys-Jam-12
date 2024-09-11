@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public event EventHandler OnShopClosed;
     private int fishCaught;
     public int Money { get; private set; }
-    private bool isNearShop = true;
+    public bool isNearShop = true;
     private bool isShopOpened = false;
     private void Awake()
     {
