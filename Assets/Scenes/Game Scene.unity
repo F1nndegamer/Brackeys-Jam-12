@@ -152,7 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a5bd65fe8a0a6143accf5b2d4697829, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicSlider: {fileID: 0}
   radioTrackArray:
   - {fileID: 8300000, guid: 2e9371462a4a148419b0c12bbaeab3a1, type: 3}
   - {fileID: 8300000, guid: bf2111b5c75b7334c8bbcf4bf4067f1b, type: 3}
@@ -4600,6 +4599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backButton: {fileID: 936731408}
   musicSlider: {fileID: 906451387}
+  soundSlider: {fileID: 839224664}
 --- !u!1 &906451385
 GameObject:
   m_ObjectHideFlags: 0
