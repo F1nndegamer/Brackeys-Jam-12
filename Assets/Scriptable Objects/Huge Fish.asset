@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Huge Fish
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  fishName: Big Fish
-  sweetSpotLength: 0.3
-  pointerSpeed: 3
+  fishName: Huge Fish
+  sweetSpotLength: 0.4
+  pointerSpeed: 4
   price: 200
-  requiredCatches: 2
+  requiredCatches: 4

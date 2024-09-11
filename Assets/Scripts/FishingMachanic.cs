@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class FishingMachanic : MonoBehaviour
 {
+    public event EventHandler OnFishCaught;
     public bool isWaitingForFish = false;  
     public bool isCatching = false;  
     public bool IsFishing => isWaitingForFish || isCatching;
@@ -91,6 +92,7 @@ public class FishingMachanic : MonoBehaviour
 
                 lastFishCaughtName = currentFish.name;
                 FishingMinigameUI.Instance.Flash();
+                OnFishCaught?.Invoke(this, EventArgs.Empty);
                 EndCatchingFish();
             }
             else

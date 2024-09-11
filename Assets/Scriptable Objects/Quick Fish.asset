@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   fishName: 
-  sweetSpotLength: 0
-  pointerSpeed: 0
-  price: 0
-  requiredCatches: 0
+  sweetSpotLength: 0.2
+  pointerSpeed: 4
+  price: 200
+  requiredCatches: 1
