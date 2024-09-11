@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,8 @@ public class FishingMachanic : MonoBehaviour
     [SerializeField] private RectTransform bar;
     [SerializeField] private RectTransform sweetSpot;
     [SerializeField] private RectTransform whitePointer;
+    [SerializeField] private TextMeshProUGUI catchProgressText;
+    
     private int pointerDirection = 1;
     private int currentCatchProgress = 0;  
     private FishSO currentFish;
@@ -33,24 +36,21 @@ public class FishingMachanic : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !isWaitingForFish && !isCatching)
         {
             currentFish = fishList[UnityEngine.Random.Range(0, fishList.Count)];
-            InitializeGreenBar(currentFish);
+            InitializeSweetSpot();
             currentCatchProgress = 0;
             isWaitingForFish = true;
+            catchProgressText.text = currentCatchProgress.ToString() + "/" + currentFish.requiredCatches.ToString();
         }
-        if (Input.GetKeyDown(KeyCode.Space) && isCatching)
+        if (Input.GetKeyDown(KeyCode.Space) && isCatching && currentCatchProgress <= currentFish.requiredCatches)
         {
-            Catching(currentFish);
-            isCatching = false;
-            isWaitingForFish = false;
+            AttemptToCatchFish();
         }
         if (isCatching)
         {
-            bar.gameObject.SetActive(true);
-            MovePointer(currentFish.pointerSpeed);
+            MovePointer();
         }
         else
         {
-            bar.gameObject.SetActive(false);
         }
         if (isWaitingForFish)
         {
@@ -59,11 +59,12 @@ public class FishingMachanic : MonoBehaviour
             {
                 isCatching = true;
                 isWaitingForFish = false;
-                waitingTimer = UnityEngine.Random.Range(1, waitingTimerMax); 
+                waitingTimer = UnityEngine.Random.Range(1, waitingTimerMax);
+                bar.gameObject.SetActive(true);
             }
         }
     }
-    private void Catching(FishSO randfish)
+    private void AttemptToCatchFish()
     {
         float halfSweetSpotWidth = sweetSpot.sizeDelta.x / 2;
         float sweetSpotCenterX = sweetSpot.anchoredPosition.x;
@@ -74,36 +75,48 @@ public class FishingMachanic : MonoBehaviour
         {
             Debug.Log("Catch attempt successful");
 
-            currentCatchProgress++;  // Increment catch progress
-
-            // Check if player has caught the fish the required number of times
-            if (currentCatchProgress >= randfish.requiredCatches)
+            currentCatchProgress++;
+            FishingMinigameUI.Instance.Flash();
+            catchProgressText.text = currentCatchProgress.ToString() + "/" + currentFish.requiredCatches.ToString();
+            if (currentCatchProgress >= currentFish.requiredCatches)
             {
                 Debug.Log("Fish caught successfully!");
 
-                if (!basket.ContainsKey(randfish))
+                if (!basket.ContainsKey(currentFish))
                 {
-                    basket.Add(randfish, 1);
+                    basket.Add(currentFish, 1);
                 }
                 else
                 {
-                    basket[randfish]++;
+                    basket[currentFish]++;
                 }
 
-                lastFishCaughtName = randfish.name;
-
-                // Reset the progress after catching the fish
-                currentCatchProgress = 0;
-                isCatching = false;  // End the catching phase
-                isWaitingForFish = false;  // Ready for the next fish
+                lastFishCaughtName = currentFish.name;
+                FishingMinigameUI.Instance.Flash();
+                FishingMinigameUI.Instance.FadeOut();
+                Invoke(nameof(EndCatchingFish), 0.7f);
+            }
+            else
+            {
+                InitializeSweetSpot();
             }
         }
+        else
+        {
+            FishingMinigameUI.Instance.FadeOut();
+            Invoke(nameof(EndCatchingFish), 0.7f);
+        }
+    }
+    private void EndCatchingFish()
+    {
+        currentCatchProgress = 0;
+        isCatching = false;
+        bar.gameObject.SetActive(false);
     }
 
-
-    private void InitializeGreenBar(FishSO randfish)
+    private void InitializeSweetSpot()
     {
-        sweetSpot.sizeDelta = new Vector2(randfish.sweetSpotLength * barLength, sweetSpot.sizeDelta.y);
+        sweetSpot.sizeDelta = new Vector2(currentFish.sweetSpotLength * barLength, sweetSpot.sizeDelta.y);
 
         // Calculate the minimum and maximum positions for the sweet spot to ensure it stays within the bounds of the bar
         float halfBarLength = barLength / 2;
@@ -115,7 +128,7 @@ public class FishingMachanic : MonoBehaviour
 
         sweetSpot.anchoredPosition = new Vector2(UnityEngine.Random.Range(minPosition, maxPosition), 0);
     }
-    private void MovePointer(float whiteBarSpeed)
+    private void MovePointer()
     {
         if (whitePointer.anchoredPosition.x >= barLength/2)
         {
@@ -125,6 +138,6 @@ public class FishingMachanic : MonoBehaviour
         {
             pointerDirection = 1;
         }
-        whitePointer.anchoredPosition = new Vector2(whitePointer.anchoredPosition.x + whiteBarSpeed * pointerDirection * Time.deltaTime, 0);
+        whitePointer.anchoredPosition = new Vector2(whitePointer.anchoredPosition.x + currentFish.pointerSpeed * pointerDirection * Time.deltaTime, 0);
     }
 }

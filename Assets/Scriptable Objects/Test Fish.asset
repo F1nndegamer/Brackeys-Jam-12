@@ -15,6 +15,6 @@ MonoBehaviour:
   icon: {fileID: 0}
   fishName: Test FIsh
   sweetSpotLength: 0.397
-  whiteBarSpeed: 2
-  depth: 1
+  pointerSpeed: 1
   price: 1
+  requiredCatches: 2
