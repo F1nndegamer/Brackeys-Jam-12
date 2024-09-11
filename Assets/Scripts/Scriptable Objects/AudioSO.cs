@@ -4,5 +4,6 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class AudioSO : ScriptableObject
 {
-    public AudioClip[] ButtonClick;
+    public AudioClip[] buttonClick;
+    public AudioClip fishEngage;
 }

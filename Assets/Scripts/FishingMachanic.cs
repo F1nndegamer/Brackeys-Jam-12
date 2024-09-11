@@ -5,24 +5,29 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class FishingMachanic : MonoBehaviour
 {
-    public event EventHandler OnFishCaught;
-    public bool isWaitingForFish = false;  
-    public bool isCatching = false;  
+    public event EventHandler<OnFishCaughtEventArgs> OnFishCaught;
+    public class OnFishCaughtEventArgs : EventArgs
+    {
+        public FishSO fishSO;
+    }
     public bool IsFishing => isWaitingForFish || isCatching;
-    public static float fishrode;
-    public static string lastFishCaughtName;
+    public float FishRodReductionTime;
     public static Dictionary<FishSO, int> basket = new Dictionary<FishSO, int>();
     [SerializeField] private List<FishSO> fishList;
     [SerializeField] private int waitingTimerMax = 8;
-    [SerializeField] private int waitingTimerMin = 2;
+    [SerializeField] private int waitingTimerMin = 4;
     [SerializeField] private RectTransform bar;
     [SerializeField] private RectTransform sweetSpot;
     [SerializeField] private RectTransform whitePointer;
     [SerializeField] private TextMeshProUGUI catchProgressText;
     
+    private string lastFishCaughtName;
+    private bool isCatching = false;  
+    private bool isWaitingForFish = false;  
     private int pointerDirection = 1;
     private int currentCatchProgress = 0;  
     private FishSO currentFish;
@@ -31,7 +36,7 @@ public class FishingMachanic : MonoBehaviour
     private void Start()
     {
         barLength = bar.rect.width;
-        waitingTimer = UnityEngine.Random.Range(waitingTimerMin, waitingTimerMax) - fishrode;
+        GenerateWaitingTimer();
     }
     private void Update()
     {
@@ -53,13 +58,15 @@ public class FishingMachanic : MonoBehaviour
             if (waitingTimer < 0)
             {
                 StartCatchingProcess();
+                SoundManager.Instance.PlayFishEngageSound();
+                GenerateWaitingTimer();
             }
         }
     }
     private void WaitForFish()
     {
         isWaitingForFish = true;
-        currentFish = fishList[UnityEngine.Random.Range(0, fishList.Count)];
+        currentFish = fishList[Random.Range(0, fishList.Count)];
         InitializeSweetSpot();
         currentCatchProgress = 0;
     }
@@ -92,7 +99,10 @@ public class FishingMachanic : MonoBehaviour
 
                 lastFishCaughtName = currentFish.name;
                 FishingMinigameUI.Instance.Flash();
-                OnFishCaught?.Invoke(this, EventArgs.Empty);
+                OnFishCaught?.Invoke(this, new OnFishCaughtEventArgs
+                {
+                    fishSO = currentFish
+                });
                 EndCatchingFish();
             }
             else
@@ -109,7 +119,6 @@ public class FishingMachanic : MonoBehaviour
     {
         isCatching = true;
         isWaitingForFish = false;
-        waitingTimer = UnityEngine.Random.Range(1, waitingTimerMax) - fishrode;
         bar.gameObject.SetActive(true);
         FishingMinigameUI.Instance.FadeIn();
         catchProgressText.text = currentCatchProgress.ToString() + "/" + currentFish.requiredCatches.ToString();
@@ -146,5 +155,13 @@ public class FishingMachanic : MonoBehaviour
             pointerDirection = 1;
         }
         whitePointer.anchoredPosition = new Vector2(whitePointer.anchoredPosition.x + currentFish.pointerSpeed * pointerDirection * Time.deltaTime, 0);
+    }
+    private void GenerateWaitingTimer()
+    {
+        waitingTimer = Random.Range(waitingTimerMin, waitingTimerMax) - FishRodReductionTime;
+        if (waitingTimer < 0)
+        {
+            waitingTimer = 0f;
+        }
     }
 }
