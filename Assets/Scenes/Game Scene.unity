@@ -2565,6 +2565,100 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &749618529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 749618530}
+  - component: {fileID: 749618533}
+  - component: {fileID: 749618532}
+  - component: {fileID: 749618531}
+  m_Layer: 5
+  m_Name: Warning Signal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &749618530
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749618529}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 953271146}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -50, y: -50}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &749618531
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749618529}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0e02d4553b3e8f546b22702eaf39686d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &749618532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749618529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: 2d757a3296e216849a3afab81fe0b11d, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!222 &749618533
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749618529}
+  m_CullTransparentMesh: 1
 --- !u!1 &757409772
 GameObject:
   m_ObjectHideFlags: 0
@@ -4286,6 +4380,7 @@ RectTransform:
   - {fileID: 1507032322}
   - {fileID: 842359504}
   - {fileID: 924922271}
+  - {fileID: 749618530}
   m_Father: {fileID: 648394775}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4307,6 +4402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishingMechanic: {fileID: 1774373233}
   numberOfFishText: {fileID: 842359505}
+  warning: {fileID: 749618532}
 --- !u!114 &953271148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10105,6 +10201,8 @@ MonoBehaviour:
   nameText: {fileID: 505399741}
   buyPrice: 0
   upgradePriceArray: 64000000c80000002c010000
+  firstApplyItme: 0.2
+  multipleLevelUp: 0.1
 --- !u!114 &1531795778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11724,6 +11822,7 @@ GameObject:
   - component: {fileID: 1774373235}
   - component: {fileID: 1774373233}
   - component: {fileID: 1774373238}
+  - component: {fileID: 1774373239}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -11880,6 +11979,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7b381b0ef19399449152689850a5c23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1774373239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774373232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ba91e6450d74b243a8026f834802572, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stormManager: {fileID: 1025862677104649104}
+  animator: {fileID: 749618531}
 --- !u!1 &1841554013
 GameObject:
   m_ObjectHideFlags: 0
@@ -12478,6 +12591,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1954045319}
   m_CullTransparentMesh: 1
+--- !u!1 &7357499488138817
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 34790274121576619}
+  - component: {fileID: 1025862677104649104}
+  m_Layer: 0
+  m_Name: StormManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &34790274121576619
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7357499488138817}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.0906816, y: 1.3735414, z: -4.773426}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1025862677104649104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7357499488138817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f158a7fb26f3d154a9a32d5e36c44cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stormPrefab: {fileID: 2486701580138375598, guid: 79f0c4d5e09c1c64c98efb832055af8b, type: 3}
+  player: {fileID: 1774373237}
+  spawnInterval: 20
+  stormSpeed: 7
+  outrunDistance: 15
+  currentStorm: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -12492,3 +12655,4 @@ SceneRoots:
   - {fileID: 895055642}
   - {fileID: 1774373237}
   - {fileID: 46086403}
+  - {fileID: 34790274121576619}
