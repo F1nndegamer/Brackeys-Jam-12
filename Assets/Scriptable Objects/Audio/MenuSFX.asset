@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2879372770ac7240a17e2dfd6c4e479, type: 3}
   m_Name: MenuSFX
   m_EditorClassIdentifier: 
-  MenuSFX: {fileID: 0}
+  MenuSFX: {fileID: 8300000, guid: 3d900c49f861e0f45810f1cfaec77a10, type: 3}

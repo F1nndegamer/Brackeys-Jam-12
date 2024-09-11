@@ -7,5 +7,6 @@ public class MultiPurposeMeter : ShopItem
     protected override void ApplyItem()
     {
         base.ApplyItem();
+        GameplayUI.Instance.MultiPurposeMeter();
     }
 }
