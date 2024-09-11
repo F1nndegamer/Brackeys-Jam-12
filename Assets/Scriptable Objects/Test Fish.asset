@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   fishName: Test FIsh
-  difficulty: 1
+  sweetSpotLength: 0.397
+  whiteBarSpeed: 2
+  depth: 1
   price: 1

@@ -6,7 +6,7 @@ public class FishSO : ScriptableObject
 {
     public Sprite icon;
     public string fishName;
-    [Range(0f, 1f)] public float greenBarLong;
+    [Range(0f, 1f)] public float sweetSpotLength;
     public float whiteBarSpeed;
     public float depth;
     public int price;

@@ -7,62 +7,70 @@ using UnityEngine.UI;
 
 public class FishingMachanic : MonoBehaviour
 {
-    public bool isFishing = false;  
+    public bool isWaitingForFish = false;  
     public bool isCatching = false;  
-    public GameObject bar;
     public static int fishrode;
     public static string lastFishCaughtName;
     public static Dictionary<FishSO, int> basket = new Dictionary<FishSO, int>();
-    int y = 1;
     [SerializeField] private List<FishSO> fishList;
-    [SerializeField] private int randomRange = 3;
-    FishSO randomFish;
-    Transform greenBar;
-    Transform whiteBar;
-    float timer;
+    [SerializeField] private int waitingTimerMax = 3;
+    [SerializeField] private RectTransform bar;
+    [SerializeField] private RectTransform sweetSpot;
+    [SerializeField] private RectTransform whitePointer;
+    private int pointerDirection = 1;
+    private FishSO randomFish;
+    private float waitingTimer;
+    private float barLength;
     private void Start()
     {
-        timer = UnityEngine.Random.Range(1, randomRange);
-        greenBar = bar.transform.GetChild(0);
-        whiteBar = bar.transform.GetChild(1);
+        barLength = bar.rect.width;
+        waitingTimer = UnityEngine.Random.Range(1, waitingTimerMax);
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !isFishing)
+        if (Input.GetKeyDown(KeyCode.Space) && !isWaitingForFish)
         {
             randomFish = fishList[UnityEngine.Random.Range(0, fishList.Count)];
-            ForGreenBar(randomFish);
-            isFishing = true;
+            InitializeGreenBar(randomFish);
+            isWaitingForFish = true;
         }
-        if (Input.GetMouseButtonDown(1) && isCatching)
+        if (Input.GetKeyDown(KeyCode.Space) && isCatching)
         {
             Catching(randomFish);
             isCatching = false;
-            isFishing = false;
+            isWaitingForFish = false;
         }
         if (isCatching)
         {
-            bar.SetActive(true);
-            WhiteBarMove(randomFish.whiteBarSpeed);
+            bar.gameObject.SetActive(true);
+            MovePointer(randomFish.whiteBarSpeed);
         }
         else
         {
-            bar.SetActive(false);
+            bar.gameObject.SetActive(false);
         }
-        if (isFishing)
+        if (isWaitingForFish)
         {
-            timer -= Time.deltaTime;
-            if (timer < 0)
+            waitingTimer -= Time.deltaTime;
+            if (waitingTimer < 0)
             {
                 isCatching = true;
-                timer = UnityEngine.Random.Range(1, randomRange); 
+                waitingTimer = UnityEngine.Random.Range(1, waitingTimerMax); 
             }
         }
     }
-    void Catching(FishSO randfish)
+    private void Catching(FishSO randfish)
     {
-        if (whiteBar.localPosition.x > -(greenBar.localScale.x / 2 - 0.03f) && whiteBar.localPosition.x < (greenBar.localScale.x / 2 - 0.03f))
+        float halfSweetSpotWidth = sweetSpot.sizeDelta.x / 2;
+
+        float sweetSpotCenterX = sweetSpot.anchoredPosition.x;
+
+        // Check if the white pointer is within the sweet spot's bounds
+        if (whitePointer.localPosition.x > (sweetSpotCenterX - halfSweetSpotWidth)
+            && whitePointer.localPosition.x < (sweetSpotCenterX + halfSweetSpotWidth))
         {
+            Debug.Log("Catch Successfully");
+
             if (!basket.ContainsKey(randfish))
             {
                 basket.Add(randfish, 1);
@@ -71,20 +79,35 @@ public class FishingMachanic : MonoBehaviour
             {
                 basket[randfish]++;
             }
+
             lastFishCaughtName = randfish.name;
         }
     }
-    void ForGreenBar(FishSO randfish)
+
+    private void InitializeGreenBar(FishSO randfish)
     {
-        greenBar.localScale = new Vector2(randfish.greenBarLong, 1);
-        greenBar.localPosition = new Vector2(UnityEngine.Random.Range(-(greenBar.localScale.x - 1) / 2, (greenBar.localScale.x - 1) / 2), 0);
+        sweetSpot.sizeDelta = new Vector2(randfish.sweetSpotLength * barLength, sweetSpot.sizeDelta.y);
+
+        // Calculate the minimum and maximum positions for the sweet spot to ensure it stays within the bounds of the bar
+        float halfBarLength = barLength / 2;
+        float halfSweetSpotWidth = sweetSpot.sizeDelta.x / 2;
+
+        // Adjust the range so the green bar doesn't go outside
+        float minPosition = -halfBarLength + halfSweetSpotWidth;
+        float maxPosition = halfBarLength - halfSweetSpotWidth;
+
+        sweetSpot.anchoredPosition = new Vector2(UnityEngine.Random.Range(minPosition, maxPosition), 0);
     }
-    void WhiteBarMove(float whiteBarSpeed)
+    private void MovePointer(float whiteBarSpeed)
     {
-        if (whiteBar.localPosition.x >= 0.5f || whiteBar.localPosition.x <= -0.5f)
+        if (whitePointer.anchoredPosition.x >= barLength/2)
         {
-            y *= -1;
+            pointerDirection = -1;
         }
-        whiteBar.localPosition = new Vector2(whiteBar.localPosition.x + whiteBarSpeed * y * Time.deltaTime, 0);
+        else if (whitePointer.anchoredPosition.x <= -barLength / 2)
+        {
+            pointerDirection = 1;
+        }
+        whitePointer.anchoredPosition = new Vector2(whitePointer.anchoredPosition.x + whiteBarSpeed * pointerDirection * Time.deltaTime, 0);
     }
 }

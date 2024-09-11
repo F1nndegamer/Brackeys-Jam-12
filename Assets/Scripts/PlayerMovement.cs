@@ -20,12 +20,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (fishingMachanic.isWaitingForFish) return;
         // Get input for movement
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
         // Rotate the player based on movement direction
-        if (movement != Vector2.zero && !fishingMachanic.isFishing)
+        if (movement != Vector2.zero)
         {
             float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, angle), rotateSpeed * Time.deltaTime);
@@ -34,9 +35,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Apply movement
-        if (!fishingMachanic.isFishing)
-            rb.MovePosition(rb.position + moveSpeed * Time.fixedDeltaTime * movement.normalized);
+        rb.MovePosition(rb.position + moveSpeed * Time.fixedDeltaTime * movement.normalized);
     }
     public void IncreaseSpeed(float amount)
     {
