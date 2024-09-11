@@ -29,6 +29,11 @@ public class ShopItem : MonoBehaviour
     private void Awake()
     {
         itemName = nameText.text;
+        if (buyPrice == 0)
+        {
+            isBought = true;
+            ApplyItem();
+        }
     }
     private void Start()
     {
@@ -70,7 +75,7 @@ public class ShopItem : MonoBehaviour
         }
         if (isBought)
         {
-            priceText.text = "Purchased";
+            priceText.text = "Owned";
             purchaseButton.interactable = false;
         }
         else

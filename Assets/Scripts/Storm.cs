@@ -26,8 +26,11 @@ public class StormManager : MonoBehaviour
 
     void SpawnStorm()
     {
-        Vector3 spawnPosition = player.position + new Vector3(outrunDistance, 0, -1);
-        currentStorm = Instantiate(stormPrefab, spawnPosition, Quaternion.identity);
+        if (currentStorm == null)
+        {
+            Vector3 spawnPosition = player.position + new Vector3(outrunDistance, 0, -1);
+            currentStorm = Instantiate(stormPrefab, spawnPosition, Quaternion.identity);
+        }
     }
 
     private void Update()
@@ -36,15 +39,15 @@ public class StormManager : MonoBehaviour
         {
             // Move storm towards the player
             currentStorm.transform.position = Vector3.MoveTowards(currentStorm.transform.position, player.position, stormSpeed * Time.deltaTime);
-
+            
             // Check if the storm has caught up with the player
             if (Vector3.Distance(currentStorm.transform.position, player.position) < 1f)
             {
                 PlayerDeath();
             }
+
         }
     }
-
     void PlayerDeath()
     {
         Debug.Log("Player has been caught by the storm! Game over.");

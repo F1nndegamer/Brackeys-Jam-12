@@ -62,9 +62,11 @@ public class UpgradeShopUI : MonoBehaviour
     private void Hide()
     {
         gameObject.SetActive(false);
+        Time.timeScale = 1;
     }
     private void Show()
     {
         gameObject.SetActive(true);
+        Time.timeScale = 0;
     }
 }
