@@ -19,14 +19,13 @@ public class SoundManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
+    private void PlaySound(AudioClip[] audioClipArray, Vector3 position, float volume = 1f)
+    {
+        PlaySound(audioClipArray[Random.Range(0, audioClipArray.Length)], position, volume);
+    }
     private void PlaySound(AudioClip audioClip, Vector3 position, float volumeMultiplier = 1f)
     {
-        AudioSource audioSource = new GameObject("Sound").AddComponent<AudioSource>();
-        audioSource.transform.position = position;
-        audioSource.clip = audioClip;
-        audioSource.volume = volume * volumeMultiplier;
-        audioSource.Play();
-        Destroy(audioSource.gameObject, audioClip.length);
+        AudioSource.PlayClipAtPoint(audioClip, position, volume * volumeMultiplier);
     }
     public void PlayMenuSFX()
     {

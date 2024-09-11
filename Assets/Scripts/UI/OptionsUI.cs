@@ -5,7 +5,10 @@ using UnityEngine.UI;
 public class OptionsUI : MonoBehaviour
 {
     public static OptionsUI Instance;
+    public static float MusicVolume = 0.4f;
     [SerializeField] private Button backButton;
+    [SerializeField] private Slider musicSlider;
+    public Slider MusicSlider => musicSlider;
     private Action onCloseButtonAction;
     private void Awake()
     {
@@ -18,7 +21,12 @@ public class OptionsUI : MonoBehaviour
             onCloseButtonAction();
             Hide();
         });
+        musicSlider.value = MusicVolume;
         Hide();
+    }
+    public void SaveMusicVolume()
+    {
+        MusicVolume = musicSlider.value;
     }
     private void Hide()
     {
