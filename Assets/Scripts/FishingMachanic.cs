@@ -35,7 +35,6 @@ public class FishingMachanic : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log(fishrode);
         if (Input.GetKeyDown(KeyCode.Space) && !isWaitingForFish && !isCatching)
         {
             WaitForFish();
