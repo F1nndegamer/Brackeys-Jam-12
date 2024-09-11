@@ -8,6 +8,7 @@ public class PauseUI : MonoBehaviour
     [SerializeField] private Button backToGameButton;
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button backToTitleButton;
+    [SerializeField] private List<FISHDESTROYER> destroyer;
     private void Start()
     {
         GameManager.Instance.OnGamePaused += GameManager_OnGamePaused;
@@ -39,6 +40,10 @@ public class PauseUI : MonoBehaviour
     }
     private void Hide()
     {
+        foreach (var destroyer in destroyer)
+        {
+        destroyer.Go();
+        }
         gameObject.SetActive(false);
     }
     private void Show()

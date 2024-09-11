@@ -21,7 +21,6 @@ public class StormMeter : MonoBehaviour
             animator.SetBool("waring", true);
             if (stormManager.currentStorm)
             {
-                Debug.Log(Vector2.Distance(stormManager.currentStorm.transform.position, transform.position));
                 animator.speed = 10 / Vector2.Distance(stormManager.currentStorm.transform.position, transform.position);
             }
         }
