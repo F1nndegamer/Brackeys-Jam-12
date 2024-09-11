@@ -32,6 +32,6 @@ public class SoundManager : MonoBehaviour
     }
     public void ChangeVolume()
     {
-        volume = OptionsUI.MusicVolume;
+        volume = OptionsUI.SoundVolume;
     }
 }
