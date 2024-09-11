@@ -38,7 +38,6 @@ public class FishingMachanic : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !isWaitingForFish && !isCatching)
         {
             WaitForFish();
-            FishQualityCalculation();
         }
         if (Input.GetKeyDown(KeyCode.Space) && isCatching && currentCatchProgress <= currentFish.requiredCatches)
         {
@@ -147,9 +146,5 @@ public class FishingMachanic : MonoBehaviour
             pointerDirection = 1;
         }
         whitePointer.anchoredPosition = new Vector2(whitePointer.anchoredPosition.x + currentFish.pointerSpeed * pointerDirection * Time.deltaTime, 0);
-    }
-    private void FishQualityCalculation()
-    {
-        currentFish.price += UnityEngine.Random.Range(0, ((int)MathF.Log10(RangeFinderInformation.distance)) * 10);
     }
 }
