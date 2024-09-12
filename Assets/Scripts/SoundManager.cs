@@ -19,9 +19,6 @@ public class SoundManager : MonoBehaviour
             return;
         }
         Instance = this;
-    }
-    private void Start()
-    {
         volume = OptionsUI.SoundVolume;
     }
     private void PlaySound(AudioClip[] audioClipArray, Vector3 position, float volume = 1f)
@@ -36,7 +33,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayButtonClickSound()
     {
-        PlaySound(audioSO.buttonClick, Vector3.zero);
+        PlaySound(audioSO.buttonClick, Camera.main.transform.position);
     }
 
     public void PlayFishEngageSound()
@@ -50,15 +47,19 @@ public class SoundManager : MonoBehaviour
     }
     public void PlayFishEscapeSound()
     {
-        PlaySound(audioSO.fishEscape, Player.Instance.transform.position, 6f);
+        PlaySound(audioSO.fishEscape, Player.Instance.transform.position, 8f);
     }
     public void PlayThrowRodSound()
     {
-        PlaySound(audioSO.castRod, Player.Instance.transform.position, 6f);
+        PlaySound(audioSO.castRod, Player.Instance.transform.position, 8f);
     }
     public void PlayCatchFishSound(int index)
     {
-        PlaySound(audioSO.catchFish[index], Player.Instance.transform.position, 6f);
+        PlaySound(audioSO.catchFish[index], Player.Instance.transform.position, 8f);
+    }
+    public void PlaySpendMoneySound()
+    {
+        PlaySound(audioSO.spendMoney, Vector3.zero, 8f);
     }
     private IEnumerator PlayStormRoutine()
     {

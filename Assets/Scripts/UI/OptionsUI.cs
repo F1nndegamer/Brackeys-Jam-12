@@ -10,7 +10,6 @@ public class OptionsUI : MonoBehaviour
     [SerializeField] private Button backButton;
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider soundSlider;
-    public Slider MusicSlider => musicSlider;
     private Action onCloseButtonAction;
     private void Awake()
     {

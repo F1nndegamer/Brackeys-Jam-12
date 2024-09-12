@@ -10,4 +10,5 @@ public class AudioSO : ScriptableObject
     public List<AudioClip> StormSounds;
     public AudioClip castRod;
     public AudioClip[] catchFish;
+    public AudioClip[] spendMoney;
 }

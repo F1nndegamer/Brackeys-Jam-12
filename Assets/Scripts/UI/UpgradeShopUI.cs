@@ -43,7 +43,8 @@ public class UpgradeShopUI : MonoBehaviour
         if (Player.Instance.Money >= item.BuyPrice)
         {
             Player.Instance.UpdateMoney(-item.BuyPrice);
-            
+            SoundManager.Instance.PlaySpendMoneySound();
+
             UpdateUI();
             return true;
         }
@@ -55,6 +56,7 @@ public class UpgradeShopUI : MonoBehaviour
         if (Player.Instance.Money >= item.CurrentUpgradePrice)
         {
             Player.Instance.UpdateMoney(-item.CurrentUpgradePrice);
+            SoundManager.Instance.PlaySpendMoneySound();
 
             UpdateUI();
             return true;
