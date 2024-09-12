@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class StormManager : MonoBehaviour
@@ -9,12 +10,13 @@ public class StormManager : MonoBehaviour
     public float stormSpeed = 5f; // Speed of the storm
     public float outrunDistance = 20f; // Distance the player needs to be ahead of the storm to survive
     public GameObject currentStorm;
-    public ParticleSystem particleSystem;
-    private float alpha = 0.11f;
-    private int x;
+    public ParticleSystem particleSystem; // Particle system for storm visual
+    private bool countdownStarted = false; // To prevent multiple countdowns
+    private float alpha = 0.11f; // Alpha for particle system color
+    private int x = 0; // Counter to track interval
+
     private void Start()
     {
-        ;
         StartCoroutine(StormRoutine());
     }
 
@@ -23,21 +25,25 @@ public class StormManager : MonoBehaviour
         var mainModule = particleSystem.main;
         while (true)
         {
-            Color color1 = new Color(1f , 1f , 1f, alpha);
-            Color color2 = new Color(0.82f , 0.82f , 0.82f, alpha);
-            mainModule.startColor = new ParticleSystem.MinMaxGradient(color1,color2);
+            // Gradually increase particle alpha to simulate the storm growing
+            Color color1 = new Color(1f, 1f, 1f, alpha);
+            Color color2 = new Color(0.82f, 0.82f, 0.82f, alpha);
+            mainModule.startColor = new ParticleSystem.MinMaxGradient(color1, color2);
             alpha += 0.01f;
             yield return new WaitForSeconds(1);
+
             SpawnStorm();
         }
     }
 
     void SpawnStorm()
     {
-        x++;
-        if (x != spawnInterval) return;
+        x++; // Increment the counter each second
+        if (x != spawnInterval) return; // Only spawn storm after reaching the interval
+
         if (currentStorm == null)
         {
+            SoundManager.Instance.PlayStormSound();
             Vector3 spawnPosition = player.position + new Vector3(outrunDistance, 0, -1);
             currentStorm = Instantiate(stormPrefab, spawnPosition, Quaternion.identity);
         }
@@ -47,21 +53,42 @@ public class StormManager : MonoBehaviour
     {
         if (currentStorm != null)
         {
+            SoundManager.Instance.stopRepeatingSound = false;
+
             // Move storm towards the player
             currentStorm.transform.position = Vector3.MoveTowards(currentStorm.transform.position, player.position, stormSpeed * Time.deltaTime);
-            
+
             // Check if the storm has caught up with the player
             if (Vector3.Distance(currentStorm.transform.position, player.position) < 1f)
             {
                 PlayerDeath();
             }
+        }
+        else
+        {
+            SoundManager.Instance.stopRepeatingSound = true;
 
+            // Start the countdown if the sound is not playing
+            if (!SoundManager.Instance.audioSource.isPlaying && !countdownStarted)
+            {
+                StartCoroutine(CountdownRoutine());
+                countdownStarted = true;
+            }
         }
     }
+
+    private IEnumerator CountdownRoutine()
+    {
+        yield return new WaitForSeconds(5f); // Countdown time of 5 seconds
+        Debug.Log("Countdown finished, perform the next action.");
+        countdownStarted = false; // Reset flag for future countdowns
+    }
+
     void PlayerDeath()
     {
         Debug.Log("Player has been caught by the storm! Game over.");
         Destroy(currentStorm);
-        alpha = 0.11f;
+        alpha = 0.11f; // Reset alpha for the next storm
+        x = 0; // Reset the spawn interval counter
     }
 }

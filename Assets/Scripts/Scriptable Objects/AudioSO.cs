@@ -6,4 +6,5 @@ public class AudioSO : ScriptableObject
 {
     public AudioClip[] buttonClick;
     public AudioClip fishEngage;
+    public List<AudioClip> StormSounds;
 }
