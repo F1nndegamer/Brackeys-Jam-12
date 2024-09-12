@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class StormManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class StormManager : MonoBehaviour
     private float alpha = 0.11f; // Alpha for particle system color
     private int x = 0; // Counter to track interval
     private bool Colliding;
+    public Transform LinePos;
+
     private void Start()
     {
         StartCoroutine(StormRoutine());
@@ -63,7 +66,7 @@ public class StormManager : MonoBehaviour
             // Move storm to the left
             currentStorm.transform.position += Vector3.left * stormSpeed * Time.deltaTime;
 
-            if (currentStorm.transform.position.x < 10) { Destroy(currentStorm); }
+            if (currentStorm.transform.position.x < LinePos.position.x + LinePos.localScale.x) { Destroy(currentStorm); }
 
             if (Colliding)
             {
