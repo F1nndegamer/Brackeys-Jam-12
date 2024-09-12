@@ -23,8 +23,9 @@ public class FishingMachanic : MonoBehaviour
     [SerializeField] private RectTransform sweetSpot;
     [SerializeField] private RectTransform whitePointer;
     [SerializeField] private TextMeshProUGUI catchProgressText;
-    
-    private string lastFishCaughtName;
+    [SerializeField] private int safeZoneBoundary = 4;
+
+    private bool isInSafeZone = true;
     private bool isCatching = false;  
     private bool isWaitingForFish = false;  
     private int pointerDirection = 1;
@@ -39,9 +40,17 @@ public class FishingMachanic : MonoBehaviour
     }
     private void Update()
     {
+        CheckZone();
         if (Input.GetKeyDown(KeyCode.Space) && !isWaitingForFish && !isCatching)
         {
-            WaitForFish();
+            if (!isInSafeZone)
+            {
+                WaitForFish();
+            }
+            else
+            {
+                Debug.Log("Cannot Fish In The Safe Zone");
+            }
         }
         if (Input.GetKeyDown(KeyCode.Space) && isCatching && currentCatchProgress <= currentFish.requiredCatches)
         {
@@ -89,7 +98,6 @@ public class FishingMachanic : MonoBehaviour
 
                 InventoryUI.Instance.UpdateUI(currentFish);
 
-                lastFishCaughtName = currentFish.name;
                 FishingMinigameUI.Instance.Flash();
                 OnFishCaught?.Invoke(this, new OnFishCaughtEventArgs
                 {
@@ -106,6 +114,28 @@ public class FishingMachanic : MonoBehaviour
         {
             EndCatchingFish();
         }
+    }
+
+    private void CheckZone()
+    {
+        if (!isInSafeZone && transform.position.x <= safeZoneBoundary)
+        {
+            // Player crossed into the safe zone
+            isInSafeZone = true;
+            SellAllFish();
+        }
+        else if (isInSafeZone && transform.position.x > safeZoneBoundary)
+        {
+            // Player crossed back into the danger zone
+            isInSafeZone = false;
+        }
+    }
+
+    private void SellAllFish()
+    {
+        Debug.Log("All Fish Sold");
+        // Call the inventory UI to sell all fish
+        //InventoryUI.Instance.SellAllFish();
     }
     private void StartCatchingProcess()
     {
