@@ -37,6 +37,7 @@ public class GameplayUI : MonoBehaviour
         fishCaughtNotificationText.text = $"Sold {totalFishSold} fish for {totalEarnings} currency!";
         fishCaughtNotificationText.gameObject.SetActive(true);
         notificationAnimator.SetTrigger("SlideIn");
+        CancelInvoke(nameof(NotificationSlideOut));
         Invoke(nameof(NotificationSlideOut), 3f);
     }
 
@@ -46,6 +47,7 @@ public class GameplayUI : MonoBehaviour
         fishCaughtNotificationText.text = "Caught " + e.fishSO.fishName + "!";
         fishCaughtNotificationText.gameObject.SetActive(true);
         notificationAnimator.SetTrigger("SlideIn");
+        CancelInvoke(nameof(NotificationSlideOut));
         Invoke(nameof(NotificationSlideOut), 3f);
     }
     private void NotificationSlideOut()

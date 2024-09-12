@@ -15,7 +15,6 @@ public class UpgradeShopUI : MonoBehaviour
     {
         Player.Instance.OnShopOpened += Player_OnShopOpened;
         Player.Instance.OnShopClosed += Player_OnShopClosed;
-        UpdateUI();
         Hide();
     }
     private void OnEnable()
