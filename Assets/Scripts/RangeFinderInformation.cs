@@ -15,7 +15,14 @@ public class RangeFinderInformation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float distance = Mathf.Abs(player.position.x - shore.position.x);
-        distanceText.text = $"Distance to shore = {distance:F0}M";
+        float distance = player.position.x - shore.position.x;
+        if (distance < 0)
+        {
+            distanceText.text = "At The Shore";
+        }
+        else
+        {
+            distanceText.text = $"Distance to shore = {distance:F0}M";
+        }
     }
 }

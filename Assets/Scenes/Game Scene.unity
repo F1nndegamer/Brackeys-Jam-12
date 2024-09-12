@@ -6203,7 +6203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1774373237}
-  shore: {fileID: 787986856}
+  shore: {fileID: 1811648555}
   distanceText: {fileID: 1507032320}
 --- !u!1 &972431673
 GameObject:
@@ -17192,6 +17192,7 @@ MonoBehaviour:
   outrunDistance: 15
   currentStorm: {fileID: 0}
   particleSystem: {fileID: 1074704246}
+  LinePos: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
