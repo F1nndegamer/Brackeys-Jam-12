@@ -34,17 +34,16 @@ public class GameplayUI : MonoBehaviour
         if (totalFishSold == 0) return;
         numberOfFishText.text = "0";
         int totalEarnings = InventoryUI.basket.Sum(x => x.Key.price * x.Value);
-        fishCaughtNotificationText.text = $"Sold {totalFishSold} fish for {totalEarnings} currency!";
-        fishCaughtNotificationText.gameObject.SetActive(true);
-        notificationAnimator.SetTrigger("SlideIn");
-        CancelInvoke(nameof(NotificationSlideOut));
-        Invoke(nameof(NotificationSlideOut), 3f);
+        ShowNotification($"Sold {totalFishSold} fish for {totalEarnings} currency!");
     }
-
     private void FishingMechanic_OnFishCaught(object sender, FishingMachanic.OnFishCaughtEventArgs e)
     {
         numberOfFishText.text = InventoryUI.basket.Sum(x => x.Value).ToString();
-        fishCaughtNotificationText.text = "Caught " + e.fishSO.fishName + "!";
+        ShowNotification("Caught " + e.fishSO.fishName + "!");
+    }
+    public void ShowNotification(string message)
+    {
+        fishCaughtNotificationText.text = message;
         fishCaughtNotificationText.gameObject.SetActive(true);
         notificationAnimator.SetTrigger("SlideIn");
         CancelInvoke(nameof(NotificationSlideOut));

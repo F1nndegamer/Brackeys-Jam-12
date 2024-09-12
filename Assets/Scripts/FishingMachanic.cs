@@ -50,11 +50,12 @@ public class FishingMachanic : MonoBehaviour
         {
             if (!isInSafeZone)
             {
+                SoundManager.Instance.PlayThrowRodSound();
                 WaitForFish();
             }
             else
             {
-                Debug.Log("Cannot Fish In The Safe Zone");
+                GameplayUI.Instance.ShowNotification("Cannot Fish In The Safe Zone");
             }
         }
         if (Input.GetKeyDown(KeyCode.Space) && isCatching && currentCatchProgress <= currentFish.requiredCatches)
@@ -96,7 +97,7 @@ public class FishingMachanic : MonoBehaviour
             && whitePointer.localPosition.x < (sweetSpotCenterX + halfSweetSpotWidth))
         {
             Debug.Log("Catch attempt successful");
-
+            SoundManager.Instance.PlayCatchFishSound(currentCatchProgress);
             currentCatchProgress++;
             FishingMinigameUI.Instance.Flash();
             catchProgressText.text = currentCatchProgress.ToString() + "/" + currentFish.requiredCatches.ToString();
@@ -120,6 +121,7 @@ public class FishingMachanic : MonoBehaviour
         }
         else
         {
+            SoundManager.Instance.PlayFishEscapeSound();
             EndCatchingFish();
         }
     }

@@ -41,14 +41,25 @@ public class SoundManager : MonoBehaviour
 
     public void PlayFishEngageSound()
     {
-        PlaySound(audioSO.fishEngage, Player.Instance.transform.position, 4f);
+        PlaySound(audioSO.fishEngage, Player.Instance.transform.position, 6f);
     }
 
     public void PlayStormSound()
     {
         StartCoroutine(PlayStormRoutine());
     }
-
+    public void PlayFishEscapeSound()
+    {
+        PlaySound(audioSO.fishEscape, Player.Instance.transform.position, 6f);
+    }
+    public void PlayThrowRodSound()
+    {
+        PlaySound(audioSO.castRod, Player.Instance.transform.position, 6f);
+    }
+    public void PlayCatchFishSound(int index)
+    {
+        PlaySound(audioSO.catchFish[index], Player.Instance.transform.position, 6f);
+    }
     private IEnumerator PlayStormRoutine()
     {
         AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
