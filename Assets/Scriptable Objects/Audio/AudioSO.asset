@@ -21,5 +21,5 @@ MonoBehaviour:
   fishEngage: {fileID: 8300000, guid: b8803700f6a091041bebf9f865b6146e, type: 3}
   StormSounds:
   - {fileID: 8300000, guid: 981fb68a4c78f014e9e77032ea617527, type: 3}
-  - {fileID: 8300000, guid: 1e12cff1e358fe44cb887c4edf2ebf4b, type: 3}
+  - {fileID: 8300000, guid: 84a57829bbc0c554f8cb279f73e263c3, type: 3}
   - {fileID: 8300000, guid: 6c0977ceaf289154bb61b74f074d0bfd, type: 3}
