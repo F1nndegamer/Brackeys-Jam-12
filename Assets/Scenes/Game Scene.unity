@@ -6189,7 +6189,7 @@ MonoBehaviour:
   numberOfFishText: {fileID: 842359505}
   fishCaughtNotificationText: {fileID: 1611269194}
   notificationAnimator: {fileID: 1611269193}
-  multiPurposeMeter: {fileID: 0}
+  multiPurposeMeter: {fileID: 1850489118}
 --- !u!114 &953271148
 MonoBehaviour:
   m_ObjectHideFlags: 0
