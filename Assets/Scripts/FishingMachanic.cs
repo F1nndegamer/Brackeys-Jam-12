@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -14,8 +13,12 @@ public class FishingMachanic : MonoBehaviour
     {
         public FishSO fishSO;
     }
+
+    public event EventHandler OnFishSold;
+
     public bool IsFishing => isWaitingForFish || isCatching;
     public float FishRodReductionTime;
+
     [SerializeField] private List<FishSO> fishList;
     [SerializeField] private int waitingTimerMax = 8;
     [SerializeField] private int waitingTimerMin = 4;
@@ -23,8 +26,9 @@ public class FishingMachanic : MonoBehaviour
     [SerializeField] private RectTransform sweetSpot;
     [SerializeField] private RectTransform whitePointer;
     [SerializeField] private TextMeshProUGUI catchProgressText;
-    
-    private string lastFishCaughtName;
+    [SerializeField] private GameObject zoneBoundary;
+
+    private bool isInSafeZone = true;
     private bool isCatching = false;  
     private bool isWaitingForFish = false;  
     private int pointerDirection = 1;
@@ -32,11 +36,13 @@ public class FishingMachanic : MonoBehaviour
     private FishSO currentFish;
     private float waitingTimer;
     private float barLength;
+
     private void Start()
     {
         barLength = bar.rect.width;
         GenerateWaitingTimer();
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isWaitingForFish && !isCatching)
@@ -61,7 +67,9 @@ public class FishingMachanic : MonoBehaviour
                 GenerateWaitingTimer();
             }
         }
+        CheckZone(); // Check the player's zone status
     }
+
     private void WaitForFish()
     {
         isWaitingForFish = true;
@@ -69,6 +77,7 @@ public class FishingMachanic : MonoBehaviour
         InitializeSweetSpot();
         currentCatchProgress = 0;
     }
+
     private void AttemptToCatchFish()
     {
         float halfSweetSpotWidth = sweetSpot.sizeDelta.x / 2;
@@ -107,6 +116,30 @@ public class FishingMachanic : MonoBehaviour
             EndCatchingFish();
         }
     }
+
+    private void CheckZone()
+    {
+        if (!isInSafeZone && transform.position.x <= zoneBoundary.transform.position.x)
+        {
+            // Player crossed into the safe zone
+            isInSafeZone = true;
+            SellAllFish();
+        }
+        else if (isInSafeZone && transform.position.x > zoneBoundary.transform.position.x)
+        {
+            // Player crossed back into the danger zone
+            isInSafeZone = false;
+        }
+    }
+
+    private void SellAllFish()
+    {
+        Debug.Log("All Fish Sold");
+        // Call the inventory UI to sell all fish
+        OnFishSold?.Invoke(this, EventArgs.Empty);
+        InventoryUI.Instance.SellAllFish();
+    }
+
     private void StartCatchingProcess()
     {
         isCatching = true;
@@ -115,6 +148,7 @@ public class FishingMachanic : MonoBehaviour
         FishingMinigameUI.Instance.FadeIn();
         catchProgressText.text = currentCatchProgress.ToString() + "/" + currentFish.requiredCatches.ToString();
     }
+
     private void EndCatchingFish()
     {
         currentCatchProgress = 0;
@@ -130,15 +164,16 @@ public class FishingMachanic : MonoBehaviour
         float halfBarLength = barLength / 2;
         float halfSweetSpotWidth = sweetSpot.sizeDelta.x / 2;
 
-        // Adjust the range so the green bar doesn't go outside
+        // Adjust the range so the sweet spot doesn't go outside
         float minPosition = -halfBarLength + halfSweetSpotWidth;
         float maxPosition = halfBarLength - halfSweetSpotWidth;
 
         sweetSpot.anchoredPosition = new Vector2(UnityEngine.Random.Range(minPosition, maxPosition), 0);
     }
+
     private void MovePointer()
     {
-        if (whitePointer.anchoredPosition.x >= barLength/2)
+        if (whitePointer.anchoredPosition.x >= barLength / 2)
         {
             pointerDirection = -1;
         }
@@ -148,6 +183,7 @@ public class FishingMachanic : MonoBehaviour
         }
         whitePointer.anchoredPosition = new Vector2(whitePointer.anchoredPosition.x + currentFish.pointerSpeed * pointerDirection * Time.deltaTime, 0);
     }
+
     private void GenerateWaitingTimer()
     {
         waitingTimer = Random.Range(waitingTimerMin, waitingTimerMax) - FishRodReductionTime;
