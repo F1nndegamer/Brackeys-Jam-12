@@ -6,7 +6,7 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance;
 
     [SerializeField] private AudioSO audioSO;
-    [SerializeField] private AudioSource audioSource; // Dedicated AudioSource for storm sounds
+    public AudioSource audioSource;
     private float volume;
     public bool turning;
     public bool stopRepeatingSound;
@@ -48,7 +48,6 @@ public class SoundManager : MonoBehaviour
 
     private IEnumerator PlayStormRoutine()
     {
-        // Pause all other audio sources in the scene
         AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
         foreach (AudioSource source in allAudioSources)
         {
@@ -58,33 +57,18 @@ public class SoundManager : MonoBehaviour
             }
         }
 
-        // Play the first storm sound (e.g., thunder)
         audioSource.clip = audioSO.StormSounds[0];
         audioSource.Play();
         yield return new WaitWhile(() => audioSource.isPlaying);
-
-        // Repeat the second storm sound (e.g., wind) until stopRepeatingSound is true
         while (!stopRepeatingSound)
         {
             audioSource.clip = audioSO.StormSounds[1];
             audioSource.Play();
             yield return new WaitWhile(() => audioSource.isPlaying);
-
-            // Break out immediately if stopRepeatingSound becomes true
-            if (stopRepeatingSound)
-            {
-                break;
-            }
         }
-
-        // Play the final storm sound immediately after the loop is broken
-        audioSource.clip = audioSO.StormSounds[2]; // Final storm sound (e.g., storm fading away)
+        audioSource.clip = audioSO.StormSounds[2];
         audioSource.Play();
-
-        // Wait until the final sound finishes playing
         yield return new WaitWhile(() => audioSource.isPlaying);
-
-        // Resume all paused audio sources after the storm ends
         foreach (AudioSource source in allAudioSources)
         {
             if (source != audioSource)
@@ -96,11 +80,9 @@ public class SoundManager : MonoBehaviour
 
     private void Update()
     {
-        // Trigger immediate outro if stopRepeatingSound becomes true
         if (stopRepeatingSound)
         {
-            // Stop the repeating sound and transition to the outro
-            stopRepeatingSound = false; // Reset to prevent retriggering
+            stopRepeatingSound = false;
         }
     }
 

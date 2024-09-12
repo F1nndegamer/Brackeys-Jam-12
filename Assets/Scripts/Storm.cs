@@ -10,6 +10,7 @@ public class StormManager : MonoBehaviour
     public float stormSpeed = 5f; // Speed of the storm
     public float outrunDistance = 20f; // Distance the player needs to be ahead of the storm to survive
     public GameObject currentStorm;
+    private bool countdownStarted = false; // To prevent multiple countdowns
 
     private void Start()
     {
@@ -40,21 +41,36 @@ public class StormManager : MonoBehaviour
         if (currentStorm != null)
         {
             SoundManager.Instance.stopRepeatingSound = false;
+
             // Move storm towards the player
             currentStorm.transform.position = Vector3.MoveTowards(currentStorm.transform.position, player.position, stormSpeed * Time.deltaTime);
-            
+
             // Check if the storm has caught up with the player
             if (Vector3.Distance(currentStorm.transform.position, player.position) < 1f)
             {
                 PlayerDeath();
             }
-
         }
         else
         {
             SoundManager.Instance.stopRepeatingSound = true;
+
+            // Start the countdown if the sound is not playing
+            if (!SoundManager.Instance.audioSource.isPlaying && !countdownStarted)
+            {
+                StartCoroutine(CountdownRoutine());
+                countdownStarted = true;
+            }
         }
     }
+
+    private IEnumerator CountdownRoutine()
+    {
+        yield return new WaitForSeconds(5f); // Example countdown time of 5 seconds
+        Debug.Log("Countdown finished, perform the next action.");
+        countdownStarted = false; // Reset the flag to allow future countdowns if necessary
+    }
+
     void PlayerDeath()
     {
         Debug.Log("Player has been caught by the storm! Game over.");
