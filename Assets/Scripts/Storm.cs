@@ -32,15 +32,20 @@ public class StormManager : MonoBehaviour
             alpha += 0.01f;
             yield return new WaitForSeconds(1);
 
-            SpawnStorm();
+            if (currentStorm == null && !SoundManager.Instance.audioSource.isPlaying)
+            {
+                x++;
+                if (x >= spawnInterval)
+                {
+                    SpawnStorm();
+                    x = 0;
+                }
+            }
         }
     }
 
     void SpawnStorm()
     {
-        x++; // Increment the counter each second
-        if (x != spawnInterval) return; // Only spawn storm after reaching the interval
-
         if (currentStorm == null)
         {
             SoundManager.Instance.PlayStormSound();
@@ -89,6 +94,5 @@ public class StormManager : MonoBehaviour
         Debug.Log("Player has been caught by the storm! Game over.");
         Destroy(currentStorm);
         alpha = 0.11f; // Reset alpha for the next storm
-        x = 0; // Reset the spawn interval counter
     }
 }
