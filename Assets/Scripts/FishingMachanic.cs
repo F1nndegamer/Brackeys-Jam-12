@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -14,8 +13,12 @@ public class FishingMachanic : MonoBehaviour
     {
         public FishSO fishSO;
     }
+
+    public event EventHandler OnFishSold;
+
     public bool IsFishing => isWaitingForFish || isCatching;
     public float FishRodReductionTime;
+
     [SerializeField] private List<FishSO> fishList;
     [SerializeField] private int waitingTimerMax = 8;
     [SerializeField] private int waitingTimerMin = 4;
@@ -23,7 +26,7 @@ public class FishingMachanic : MonoBehaviour
     [SerializeField] private RectTransform sweetSpot;
     [SerializeField] private RectTransform whitePointer;
     [SerializeField] private TextMeshProUGUI catchProgressText;
-    [SerializeField] private int safeZoneBoundary = 4;
+    [SerializeField] private GameObject zoneBoundary;
 
     private bool isInSafeZone = true;
     private bool isCatching = false;  
@@ -33,24 +36,18 @@ public class FishingMachanic : MonoBehaviour
     private FishSO currentFish;
     private float waitingTimer;
     private float barLength;
+
     private void Start()
     {
         barLength = bar.rect.width;
         GenerateWaitingTimer();
     }
+
     private void Update()
     {
-        CheckZone();
         if (Input.GetKeyDown(KeyCode.Space) && !isWaitingForFish && !isCatching)
         {
-            if (!isInSafeZone)
-            {
-                WaitForFish();
-            }
-            else
-            {
-                Debug.Log("Cannot Fish In The Safe Zone");
-            }
+            WaitForFish();
         }
         if (Input.GetKeyDown(KeyCode.Space) && isCatching && currentCatchProgress <= currentFish.requiredCatches)
         {
@@ -70,7 +67,9 @@ public class FishingMachanic : MonoBehaviour
                 GenerateWaitingTimer();
             }
         }
+        CheckZone(); // Check the player's zone status
     }
+
     private void WaitForFish()
     {
         isWaitingForFish = true;
@@ -78,6 +77,7 @@ public class FishingMachanic : MonoBehaviour
         InitializeSweetSpot();
         currentCatchProgress = 0;
     }
+
     private void AttemptToCatchFish()
     {
         float halfSweetSpotWidth = sweetSpot.sizeDelta.x / 2;
@@ -98,6 +98,7 @@ public class FishingMachanic : MonoBehaviour
 
                 InventoryUI.Instance.UpdateUI(currentFish);
 
+                lastFishCaughtName = currentFish.name;
                 FishingMinigameUI.Instance.Flash();
                 OnFishCaught?.Invoke(this, new OnFishCaughtEventArgs
                 {
@@ -118,13 +119,13 @@ public class FishingMachanic : MonoBehaviour
 
     private void CheckZone()
     {
-        if (!isInSafeZone && transform.position.x <= safeZoneBoundary)
+        if (!isInSafeZone && transform.position.x <= zoneBoundary.transform.position.x)
         {
             // Player crossed into the safe zone
             isInSafeZone = true;
             SellAllFish();
         }
-        else if (isInSafeZone && transform.position.x > safeZoneBoundary)
+        else if (isInSafeZone && transform.position.x > zoneBoundary.transform.position.x)
         {
             // Player crossed back into the danger zone
             isInSafeZone = false;
@@ -135,8 +136,10 @@ public class FishingMachanic : MonoBehaviour
     {
         Debug.Log("All Fish Sold");
         // Call the inventory UI to sell all fish
-        //InventoryUI.Instance.SellAllFish();
+        OnFishSold?.Invoke(this, EventArgs.Empty);
+        InventoryUI.Instance.SellAllFish();
     }
+
     private void StartCatchingProcess()
     {
         isCatching = true;
@@ -145,6 +148,7 @@ public class FishingMachanic : MonoBehaviour
         FishingMinigameUI.Instance.FadeIn();
         catchProgressText.text = currentCatchProgress.ToString() + "/" + currentFish.requiredCatches.ToString();
     }
+
     private void EndCatchingFish()
     {
         currentCatchProgress = 0;
@@ -160,15 +164,16 @@ public class FishingMachanic : MonoBehaviour
         float halfBarLength = barLength / 2;
         float halfSweetSpotWidth = sweetSpot.sizeDelta.x / 2;
 
-        // Adjust the range so the green bar doesn't go outside
+        // Adjust the range so the sweet spot doesn't go outside
         float minPosition = -halfBarLength + halfSweetSpotWidth;
         float maxPosition = halfBarLength - halfSweetSpotWidth;
 
         sweetSpot.anchoredPosition = new Vector2(UnityEngine.Random.Range(minPosition, maxPosition), 0);
     }
+
     private void MovePointer()
     {
-        if (whitePointer.anchoredPosition.x >= barLength/2)
+        if (whitePointer.anchoredPosition.x >= barLength / 2)
         {
             pointerDirection = -1;
         }
@@ -178,6 +183,7 @@ public class FishingMachanic : MonoBehaviour
         }
         whitePointer.anchoredPosition = new Vector2(whitePointer.anchoredPosition.x + currentFish.pointerSpeed * pointerDirection * Time.deltaTime, 0);
     }
+
     private void GenerateWaitingTimer()
     {
         waitingTimer = Random.Range(waitingTimerMin, waitingTimerMax) - FishRodReductionTime;
