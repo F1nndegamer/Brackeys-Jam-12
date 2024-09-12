@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Button multiPurposeMeterItem;
     private readonly Dictionary<int, string> ROMAN_NUMERALS = new Dictionary<int, string>() { { 1, "I" }, { 2, "II" }, { 3, "III" }, { 4, "IV" }, { 5, "V" } };
 
+    private List<GameObject> fishItemList = new List<GameObject>();
     private List<Button> inventoryButtons = new List<Button>();
     private void Awake()
     {
@@ -62,6 +64,7 @@ public class InventoryUI : MonoBehaviour
             var itemIcon = item.transform.GetChild(0).GetComponent<Image>();
             var itemName = item.transform.GetChild(1).GetComponent<TMP_Text>();
             var itemQuantity = item.transform.GetChild(2).GetComponent<TMP_Text>();
+            fishItemList.Add(item);
 
             item.name = fish.name;
             itemIcon.sprite = fish.icon;
@@ -87,7 +90,7 @@ public class InventoryUI : MonoBehaviour
         ImageSelectedItem.sprite = x.image.sprite;
         TextSelectedItemDescription.text = des;
     }
-    private void FishsNumber()
+    private void UpdateFishQuantity()
     {
         fishsNumber.text = basket.Sum(x => x.Value).ToString();
     }
@@ -118,7 +121,7 @@ public class InventoryUI : MonoBehaviour
     public void UpdateUI(FishSO fish)
     {
         AddInventory(fish);
-        FishsNumber();
+        UpdateFishQuantity();
     }
     public void RemoveInventory(FishSO fish)
     {
@@ -134,10 +137,12 @@ public class InventoryUI : MonoBehaviour
         Debug.Log($"Sold {totalFishSold} fish for {totalEarnings} currency!");
 
         basket = basket.ToDictionary(p => p.Key, p => 0);
-        foreach (Transform child in fishContent)
-        {
-            Destroy(child.gameObject); // Remove all fish UI elements
-        }
+
         fishsNumber.text = "0"; // Reset fish number
+        foreach (GameObject fishItem in fishItemList)
+        {
+            var fishQuantityText = fishItem.transform.GetChild(2).GetComponent<TMP_Text>();
+            fishQuantityText.text = "0";
+        }
     }
 }
