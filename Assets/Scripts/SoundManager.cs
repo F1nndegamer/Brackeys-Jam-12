@@ -20,7 +20,10 @@ public class SoundManager : MonoBehaviour
         }
         Instance = this;
     }
-
+    private void Start()
+    {
+        volume = OptionsUI.SoundVolume;
+    }
     private void PlaySound(AudioClip[] audioClipArray, Vector3 position, float volume = 1f)
     {
         PlaySound(audioClipArray[Random.Range(0, audioClipArray.Length)], position, volume);
@@ -38,7 +41,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayFishEngageSound()
     {
-        PlaySound(audioSO.fishEngage, Player.Instance.transform.position);
+        PlaySound(audioSO.fishEngage, Player.Instance.transform.position, 4f);
     }
 
     public void PlayStormSound()
