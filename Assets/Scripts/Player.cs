@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
         {
             ToggleShop();
         }
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             ToggleInventory();
         }

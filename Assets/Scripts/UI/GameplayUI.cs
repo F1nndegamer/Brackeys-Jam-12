@@ -28,7 +28,7 @@ public class GameplayUI : MonoBehaviour
 
     private void FishingMechanic_OnFishCaught(object sender, FishingMachanic.OnFishCaughtEventArgs e)
     {
-        numberOfFishText.text = FishingMachanic.basket.Sum(x => x.Value).ToString();
+        numberOfFishText.text = InventoryUI.basket.Sum(x => x.Value).ToString();
         fishCaughtNotificationText.text = "Caught " + e.fishSO.fishName + "!";
         fishCaughtNotificationText.gameObject.SetActive(true);
         notificationAnimator.SetTrigger("SlideIn");

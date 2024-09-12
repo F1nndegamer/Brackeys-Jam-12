@@ -10,10 +10,12 @@ public class FishingRod : ShopItem
     protected override void ApplyItem()
     {
         fishingMechanic.FishRodReductionTime = firstApplyTime;
+        InventoryUI.Instance.FishrodeItem(true, "increases the fishing speed", currentLevel);
     }
     protected override void LevelUp()
     {
         base.LevelUp();
         fishingMechanic.FishRodReductionTime += levelUpIncrement;
+        InventoryUI.Instance.FishrodeItem(true, "increases the fishing speed", currentLevel);
     }
 }

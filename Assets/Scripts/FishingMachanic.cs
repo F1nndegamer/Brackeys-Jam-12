@@ -16,7 +16,6 @@ public class FishingMachanic : MonoBehaviour
     }
     public bool IsFishing => isWaitingForFish || isCatching;
     public float FishRodReductionTime;
-    public static Dictionary<FishSO, int> basket = new Dictionary<FishSO, int>();
     [SerializeField] private List<FishSO> fishList;
     [SerializeField] private int waitingTimerMax = 8;
     [SerializeField] private int waitingTimerMin = 4;
@@ -88,7 +87,7 @@ public class FishingMachanic : MonoBehaviour
             {
                 Debug.Log("Fish caught successfully!");
 
-                InventoryUI.Instance.AddInventory(currentFish);
+                InventoryUI.Instance.UpdateUI(currentFish);
 
                 lastFishCaughtName = currentFish.name;
                 FishingMinigameUI.Instance.Flash();

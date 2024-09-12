@@ -8,5 +8,6 @@ public class MultiPurposeMeter : ShopItem
     {
         base.ApplyItem();
         GameplayUI.Instance.MultiPurposeMeter();
+        InventoryUI.Instance.MultiPurposeMeterItem(true, "foretells the storm", currentLevel);
     }
 }
