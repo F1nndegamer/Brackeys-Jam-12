@@ -10,7 +10,7 @@ public class StormManager : MonoBehaviour
     public float stormSpeed = 5f; // Speed of the storm
     public float outrunDistance = 20f; // Distance the player needs to be ahead of the storm to survive
     public GameObject currentStorm;
-    public ParticleSystem particleSystem; // Particle system for storm visual
+    new public ParticleSystem particleSystem; // Particle system for storm visual
     private bool countdownStarted = false; // To prevent multiple countdowns
     private float alpha = 0.11f; // Alpha for particle system color
     private int x = 0; // Counter to track interval
