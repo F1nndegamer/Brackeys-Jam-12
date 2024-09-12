@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class InventoryUI : MonoBehaviour
 {
     public static InventoryUI Instance;
     [SerializeField] private Transform fishContent;
     [SerializeField] private GameObject inventoryFish;
+    [SerializeField] private TMP_Text fishsNumber;
+    private Dictionary<FishSO, TMP_Text> inventoryFishList = new Dictionary<FishSO, TMP_Text>();
     private void Awake()
     {
         Instance = this;
@@ -35,12 +39,37 @@ public class InventoryUI : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+    public void UpdateUI(FishSO fish)
+    {
+        AddInventory(fish);
+        FishsNumber();
+    }
     public void AddInventory(FishSO fish)
     {
-        GameObject item = Instantiate(inventoryFish, fishContent);
-        var itemName = item.transform.GetChild(0).GetComponent<TMP_Text>();
+        if (!FishingMachanic.basket.ContainsKey(fish))
+        {
+            FishingMachanic.basket.Add(fish, 1);
+            var item = Instantiate(inventoryFish, fishContent);
+            var itemIcon = item.transform.GetChild(0).GetComponent<Image>();
+            var itemName = item.transform.GetChild(1).GetComponent<TMP_Text>();
+            var itemQuantity = item.transform.GetChild(2).GetComponent<TMP_Text>();
 
-        itemName.text = fish.fishName;
+            item.name = fish.name;
+            itemIcon.sprite = fish.icon;
+            itemName.text = fish.fishName;
+            itemQuantity.text = FishingMachanic.basket[fish].ToString();
+            inventoryFishList.Add(fish, itemQuantity);
+        }
+        else
+        {
+            FishingMachanic.basket[fish]++;
+            var itemQuantity = inventoryFishList[fish].GetComponent<TMP_Text>();
+            itemQuantity.text = FishingMachanic.basket[fish].ToString();
+        }
+    }
+    public void FishsNumber()
+    {
+        fishsNumber.text = FishingMachanic.basket.Sum(x => x.Value).ToString();
     }
     public void RemoveInventory(FishSO fish)
     {

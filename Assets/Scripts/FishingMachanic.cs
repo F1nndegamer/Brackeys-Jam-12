@@ -88,7 +88,7 @@ public class FishingMachanic : MonoBehaviour
             {
                 Debug.Log("Fish caught successfully!");
 
-                InventoryUI.Instance.AddInventory(currentFish);
+                InventoryUI.Instance.UpdateUI(currentFish);
 
                 lastFishCaughtName = currentFish.name;
                 FishingMinigameUI.Instance.Flash();

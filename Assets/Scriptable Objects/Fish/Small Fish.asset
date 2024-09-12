@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ade845ee158c4c4e9cd61046e3aa426, type: 3}
   m_Name: Small Fish
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 0ab9e426609bd684885bbe0dc3b0ffc3, type: 3}
   fishName: Small Fish
   sweetSpotLength: 0.8
   pointerSpeed: 2
