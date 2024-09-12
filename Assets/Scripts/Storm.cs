@@ -14,7 +14,7 @@ public class StormManager : MonoBehaviour
     private bool countdownStarted = false; // To prevent multiple countdowns
     private float alpha = 0.11f; // Alpha for particle system color
     private int x = 0; // Counter to track interval
-
+    private bool Colliding;
     private void Start()
     {
         StartCoroutine(StormRoutine());
@@ -60,11 +60,12 @@ public class StormManager : MonoBehaviour
         {
             SoundManager.Instance.stopRepeatingSound = false;
 
-            // Move storm towards the player
-            currentStorm.transform.position = Vector3.MoveTowards(currentStorm.transform.position, player.position, stormSpeed * Time.deltaTime);
+            // Move storm to the left
+            currentStorm.transform.position += Vector3.left * stormSpeed * Time.deltaTime;
 
-            // Check if the storm has caught up with the player
-            if (Vector3.Distance(currentStorm.transform.position, player.position) < 1f)
+            if (currentStorm.transform.position.x < 10) { Destroy(currentStorm); }
+
+            if (Colliding)
             {
                 PlayerDeath();
             }
@@ -91,8 +92,22 @@ public class StormManager : MonoBehaviour
 
     void PlayerDeath()
     {
-        Debug.Log("Player has been caught by the storm! Game over.");
+        //implement losing fish
         Destroy(currentStorm);
         alpha = 0.11f; // Reset alpha for the next storm
+    }
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.name == "player")
+        {
+            Colliding = true;
+        }
+    }
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.name == "player")
+        {
+            Colliding = false;
+        }
     }
 }
