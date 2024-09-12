@@ -21,7 +21,7 @@ public class ShopItem : MonoBehaviour
     [SerializeField] private int[] upgradePriceArray;
     public int BuyPrice => buyPrice;
     public int CurrentUpgradePrice => upgradePriceArray[currentLevel-1];
-
+    private string description;
     private string itemName;
     private readonly Dictionary<int, string> ROMAN_NUMERALS = new Dictionary<int, string>() { { 1, "I"}, { 2, "II"}, { 3, "III"}, { 4, "IV" }, { 5, "V" } };
     private bool isBought;
@@ -29,11 +29,11 @@ public class ShopItem : MonoBehaviour
     private void Awake()
     {
         itemName = nameText.text;
-        if (buyPrice == 0)
-        {
-            isBought = true;
-            ApplyItem();
-        }
+        //if (buyPrice == 0)
+        //{
+        //    isBought = true;
+        //    ApplyItem();
+        //}
     }
     private void Start()
     {
