@@ -21,7 +21,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Button propellerItem;
     [SerializeField] private Button multiPurposeMeterItem;
     private readonly Dictionary<int, string> ROMAN_NUMERALS = new Dictionary<int, string>() { { 1, "I" }, { 2, "II" }, { 3, "III" }, { 4, "IV" }, { 5, "V" } };
-    private Dictionary<FishSO, TMP_Text> inventoryFishList = new Dictionary<FishSO, TMP_Text>();
+
     private List<Button> inventoryButtons = new List<Button>();
     private void Awake()
     {
@@ -67,14 +67,11 @@ public class InventoryUI : MonoBehaviour
             itemIcon.sprite = fish.icon;
             itemName.text = fish.fishName;
             itemQuantity.text = basket[fish].ToString();
-            inventoryFishList.Add(fish, itemQuantity);
             item.GetComponent<Button>().onClick.AddListener(() => ShowInformation(item, fish));
         }
         else
         {
             basket[fish]++;
-            var itemQuantity = inventoryFishList[fish].GetComponent<TMP_Text>();
-            itemQuantity.text = basket[fish].ToString();
         }
     }
     private void ShowInformation(GameObject x, FishSO fish)
@@ -126,5 +123,21 @@ public class InventoryUI : MonoBehaviour
     public void RemoveInventory(FishSO fish)
     {
         //remove but idk how remove
+    }
+    public void SellAllFish()
+    {
+        int totalFishSold = basket.Sum(x => x.Value);
+        int totalEarnings = basket.Sum(x => x.Key.price * x.Value);
+
+        Player.Instance.UpdateMoney(totalEarnings);
+
+        Debug.Log($"Sold {totalFishSold} fish for {totalEarnings} currency!");
+
+        basket = basket.ToDictionary(p => p.Key, p => 0);
+        foreach (Transform child in fishContent)
+        {
+            Destroy(child.gameObject); // Remove all fish UI elements
+        }
+        fishsNumber.text = "0"; // Reset fish number
     }
 }

@@ -29,10 +29,10 @@ public class FishingMachanic : MonoBehaviour
     [SerializeField] private GameObject zoneBoundary;
 
     private bool isInSafeZone = true;
-    private bool isCatching = false;  
-    private bool isWaitingForFish = false;  
+    private bool isCatching = false;
+    private bool isWaitingForFish = false;
     private int pointerDirection = 1;
-    private int currentCatchProgress = 0;  
+    private int currentCatchProgress = 0;
     private FishSO currentFish;
     private float waitingTimer;
     private float barLength;
@@ -45,9 +45,17 @@ public class FishingMachanic : MonoBehaviour
 
     private void Update()
     {
+        CheckZone();
         if (Input.GetKeyDown(KeyCode.Space) && !isWaitingForFish && !isCatching)
         {
-            WaitForFish();
+            if (!isInSafeZone)
+            {
+                WaitForFish();
+            }
+            else
+            {
+                Debug.Log("Cannot Fish In The Safe Zone");
+            }
         }
         if (Input.GetKeyDown(KeyCode.Space) && isCatching && currentCatchProgress <= currentFish.requiredCatches)
         {
@@ -98,7 +106,6 @@ public class FishingMachanic : MonoBehaviour
 
                 InventoryUI.Instance.UpdateUI(currentFish);
 
-                lastFishCaughtName = currentFish.name;
                 FishingMinigameUI.Instance.Flash();
                 OnFishCaught?.Invoke(this, new OnFishCaughtEventArgs
                 {
@@ -135,11 +142,9 @@ public class FishingMachanic : MonoBehaviour
     private void SellAllFish()
     {
         Debug.Log("All Fish Sold");
-        // Call the inventory UI to sell all fish
         OnFishSold?.Invoke(this, EventArgs.Empty);
         InventoryUI.Instance.SellAllFish();
     }
-
     private void StartCatchingProcess()
     {
         isCatching = true;
