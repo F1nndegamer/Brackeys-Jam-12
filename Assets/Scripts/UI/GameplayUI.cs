@@ -12,7 +12,7 @@ public class GameplayUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI numberOfFishText;
     [SerializeField] private TextMeshProUGUI fishCaughtNotificationText;
     [SerializeField] private Animator notificationAnimator;
-    [SerializeField] private GameObject multiPurposeMeter;
+    [SerializeField] private RawImage warning;
     private RangeFinderInformation rangeFinderInformation;
     private void Awake()
     {
@@ -23,7 +23,7 @@ public class GameplayUI : MonoBehaviour
     {
         fishingMechanic.OnFishCaught += FishingMechanic_OnFishCaught;
         rangeFinderInformation.enabled = false;
-        multiPurposeMeter.SetActive(false);
+        warning.enabled = false;
     }
 
     private void FishingMechanic_OnFishCaught(object sender, FishingMachanic.OnFishCaughtEventArgs e)
@@ -44,6 +44,6 @@ public class GameplayUI : MonoBehaviour
     }
     public void MultiPurposeMeter()
     {
-        multiPurposeMeter.SetActive(true);
+        warning.enabled = true;
     }
 }

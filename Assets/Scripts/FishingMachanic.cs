@@ -26,7 +26,11 @@ public class FishingMachanic : MonoBehaviour
     [SerializeField] private RectTransform sweetSpot;
     [SerializeField] private RectTransform whitePointer;
     [SerializeField] private TextMeshProUGUI catchProgressText;
+<<<<<<< HEAD
     [SerializeField] private GameObject zoneBoundary;
+=======
+    [SerializeField] private int safeZoneBoundary = 4;
+>>>>>>> parent of 19eeb8a (multi purpose meter update)
 
     private bool isInSafeZone = true;
     private bool isCatching = false;  
@@ -45,9 +49,17 @@ public class FishingMachanic : MonoBehaviour
 
     private void Update()
     {
+        CheckZone();
         if (Input.GetKeyDown(KeyCode.Space) && !isWaitingForFish && !isCatching)
         {
-            WaitForFish();
+            if (!isInSafeZone)
+            {
+                WaitForFish();
+            }
+            else
+            {
+                Debug.Log("Cannot Fish In The Safe Zone");
+            }
         }
         if (Input.GetKeyDown(KeyCode.Space) && isCatching && currentCatchProgress <= currentFish.requiredCatches)
         {
@@ -98,7 +110,6 @@ public class FishingMachanic : MonoBehaviour
 
                 InventoryUI.Instance.UpdateUI(currentFish);
 
-                lastFishCaughtName = currentFish.name;
                 FishingMinigameUI.Instance.Flash();
                 OnFishCaught?.Invoke(this, new OnFishCaughtEventArgs
                 {
@@ -119,13 +130,21 @@ public class FishingMachanic : MonoBehaviour
 
     private void CheckZone()
     {
+<<<<<<< HEAD
         if (!isInSafeZone && transform.position.x <= zoneBoundary.transform.position.x)
+=======
+        if (!isInSafeZone && transform.position.x <= safeZoneBoundary)
+>>>>>>> parent of 19eeb8a (multi purpose meter update)
         {
             // Player crossed into the safe zone
             isInSafeZone = true;
             SellAllFish();
         }
+<<<<<<< HEAD
         else if (isInSafeZone && transform.position.x > zoneBoundary.transform.position.x)
+=======
+        else if (isInSafeZone && transform.position.x > safeZoneBoundary)
+>>>>>>> parent of 19eeb8a (multi purpose meter update)
         {
             // Player crossed back into the danger zone
             isInSafeZone = false;
@@ -136,10 +155,15 @@ public class FishingMachanic : MonoBehaviour
     {
         Debug.Log("All Fish Sold");
         // Call the inventory UI to sell all fish
+<<<<<<< HEAD
         OnFishSold?.Invoke(this, EventArgs.Empty);
         InventoryUI.Instance.SellAllFish();
     }
 
+=======
+        //InventoryUI.Instance.SellAllFish();
+    }
+>>>>>>> parent of 19eeb8a (multi purpose meter update)
     private void StartCatchingProcess()
     {
         isCatching = true;
