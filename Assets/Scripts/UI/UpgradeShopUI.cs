@@ -33,7 +33,10 @@ public class UpgradeShopUI : MonoBehaviour
 
     public void UpdateUI()
     {
-        moneyText.text = Player.Instance.Money.ToString();
+        if (Player.Instance != null)
+        {
+            moneyText.text = Player.Instance.Money.ToString();
+        }
     }
     public bool BuyItem(ShopItem item)
     {

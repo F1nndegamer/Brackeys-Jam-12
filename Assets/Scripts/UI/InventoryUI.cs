@@ -5,7 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
+using Image = UnityEngine.UI.Image;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -22,6 +22,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Button propellerItem;
     [SerializeField] private Button multiPurposeMeterItem;
     private readonly Dictionary<int, string> ROMAN_NUMERALS = new Dictionary<int, string>() { { 1, "I" }, { 2, "II" }, { 3, "III" }, { 4, "IV" }, { 5, "V" } };
+    private Dictionary<FishSO, TMP_Text> fishQuantityList = new Dictionary<FishSO, TMP_Text>();
 
     private List<GameObject> fishItemList = new List<GameObject>();
     private List<Button> inventoryButtons = new List<Button>();
@@ -65,7 +66,7 @@ public class InventoryUI : MonoBehaviour
             var itemName = item.transform.GetChild(1).GetComponent<TMP_Text>();
             var itemQuantity = item.transform.GetChild(2).GetComponent<TMP_Text>();
             fishItemList.Add(item);
-
+            fishQuantityList.Add(fish, itemQuantity);
             item.name = fish.name;
             itemIcon.sprite = fish.icon;
             itemName.text = fish.fishName;
@@ -75,6 +76,8 @@ public class InventoryUI : MonoBehaviour
         else
         {
             basket[fish]++;
+            var itemQuantity = fishQuantityList[fish].GetComponent<TMP_Text>();
+            itemQuantity.text = basket[fish].ToString();
         }
     }
     private void ShowInformation(GameObject x, FishSO fish)
