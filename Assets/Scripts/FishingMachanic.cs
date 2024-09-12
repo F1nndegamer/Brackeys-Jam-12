@@ -26,17 +26,13 @@ public class FishingMachanic : MonoBehaviour
     [SerializeField] private RectTransform sweetSpot;
     [SerializeField] private RectTransform whitePointer;
     [SerializeField] private TextMeshProUGUI catchProgressText;
-<<<<<<< HEAD
     [SerializeField] private GameObject zoneBoundary;
-=======
-    [SerializeField] private int safeZoneBoundary = 4;
->>>>>>> parent of 19eeb8a (multi purpose meter update)
 
     private bool isInSafeZone = true;
-    private bool isCatching = false;  
-    private bool isWaitingForFish = false;  
+    private bool isCatching = false;
+    private bool isWaitingForFish = false;
     private int pointerDirection = 1;
-    private int currentCatchProgress = 0;  
+    private int currentCatchProgress = 0;
     private FishSO currentFish;
     private float waitingTimer;
     private float barLength;
@@ -130,21 +126,13 @@ public class FishingMachanic : MonoBehaviour
 
     private void CheckZone()
     {
-<<<<<<< HEAD
         if (!isInSafeZone && transform.position.x <= zoneBoundary.transform.position.x)
-=======
-        if (!isInSafeZone && transform.position.x <= safeZoneBoundary)
->>>>>>> parent of 19eeb8a (multi purpose meter update)
         {
             // Player crossed into the safe zone
             isInSafeZone = true;
             SellAllFish();
         }
-<<<<<<< HEAD
         else if (isInSafeZone && transform.position.x > zoneBoundary.transform.position.x)
-=======
-        else if (isInSafeZone && transform.position.x > safeZoneBoundary)
->>>>>>> parent of 19eeb8a (multi purpose meter update)
         {
             // Player crossed back into the danger zone
             isInSafeZone = false;
@@ -154,16 +142,9 @@ public class FishingMachanic : MonoBehaviour
     private void SellAllFish()
     {
         Debug.Log("All Fish Sold");
-        // Call the inventory UI to sell all fish
-<<<<<<< HEAD
         OnFishSold?.Invoke(this, EventArgs.Empty);
         InventoryUI.Instance.SellAllFish();
     }
-
-=======
-        //InventoryUI.Instance.SellAllFish();
-    }
->>>>>>> parent of 19eeb8a (multi purpose meter update)
     private void StartCatchingProcess()
     {
         isCatching = true;

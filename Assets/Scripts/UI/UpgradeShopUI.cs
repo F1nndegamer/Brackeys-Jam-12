@@ -18,7 +18,10 @@ public class UpgradeShopUI : MonoBehaviour
         UpdateUI();
         Hide();
     }
-
+    private void OnEnable()
+    {
+        UpdateUI();
+    }
     private void Player_OnShopClosed(object sender, System.EventArgs e)
     {
         Hide();

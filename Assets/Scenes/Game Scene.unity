@@ -6189,7 +6189,7 @@ MonoBehaviour:
   numberOfFishText: {fileID: 842359505}
   fishCaughtNotificationText: {fileID: 1611269194}
   notificationAnimator: {fileID: 1611269193}
-  warning: {fileID: 749618532}
+  warning: {fileID: 0}
 --- !u!114 &953271148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15492,6 +15492,7 @@ MonoBehaviour:
   sweetSpot: {fileID: 1164616737}
   whitePointer: {fileID: 29464634}
   catchProgressText: {fileID: 1689841019}
+  zoneBoundary: {fileID: 1811648553}
 --- !u!50 &1774373234
 Rigidbody2D:
   serializedVersion: 4
@@ -15629,7 +15630,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stormManager: {fileID: 1025862677104649104}
-  animator: {fileID: 749618531}
+  animator: {fileID: 0}
 --- !u!61 &1774373240
 BoxCollider2D:
   m_ObjectHideFlags: 0
