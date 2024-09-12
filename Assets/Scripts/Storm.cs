@@ -10,7 +10,6 @@ public class StormManager : MonoBehaviour
     public float stormSpeed = 5f; // Speed of the storm
     public float outrunDistance = 20f; // Distance the player needs to be ahead of the storm to survive
     public GameObject currentStorm;
-    public List<AudioClip> Storm;
 
     private void Start()
     {
@@ -30,15 +29,9 @@ public class StormManager : MonoBehaviour
     {
         if (currentStorm == null)
         {
+            SoundManager.Instance.PlayStormSound();
             Vector3 spawnPosition = player.position + new Vector3(outrunDistance, 0, -1);
             currentStorm = Instantiate(stormPrefab, spawnPosition, Quaternion.identity);
-            AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
-
-            foreach (AudioSource audioSource in allAudioSources)
-            {
-                audioSource.Stop();
-            }
-
         }
     }
 
@@ -46,6 +39,7 @@ public class StormManager : MonoBehaviour
     {
         if (currentStorm != null)
         {
+            SoundManager.Instance.stopRepeatingSound = false;
             // Move storm towards the player
             currentStorm.transform.position = Vector3.MoveTowards(currentStorm.transform.position, player.position, stormSpeed * Time.deltaTime);
             
@@ -55,6 +49,10 @@ public class StormManager : MonoBehaviour
                 PlayerDeath();
             }
 
+        }
+        else
+        {
+            SoundManager.Instance.stopRepeatingSound = true;
         }
     }
     void PlayerDeath()
