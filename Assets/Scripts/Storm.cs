@@ -11,6 +11,7 @@ public class StormManager : MonoBehaviour
     public float stormSpeed = 5f; // Speed of the storm
     public float outrunDistance = 20f; // Distance the player needs to be ahead of the storm to survive
     public GameObject currentStorm;
+    public StormSelf stormself;
     new public ParticleSystem particleSystem; // Particle system for storm visual
     private bool countdownStarted = false; // To prevent multiple countdowns
     private float alpha = 0.11f; // Alpha for particle system color
@@ -54,6 +55,8 @@ public class StormManager : MonoBehaviour
             SoundManager.Instance.PlayStormSound();
             Vector3 spawnPosition = player.position + new Vector3(outrunDistance, 0, -1);
             currentStorm = Instantiate(stormPrefab, spawnPosition, Quaternion.identity);
+            stormself = currentStorm.GetComponent<StormSelf>();
+            stormself.manager = this;
         }
     }
 
@@ -66,7 +69,7 @@ public class StormManager : MonoBehaviour
             // Move storm to the left
             currentStorm.transform.position += Vector3.left * stormSpeed * Time.deltaTime;
 
-            if (currentStorm.transform.position.x < LinePos.position.x + LinePos.localScale.x) { Destroy(currentStorm); }
+            if (currentStorm.transform.position.x < LinePos.position.x + 2.5) { Destroy(currentStorm); }
 
             if (Colliding)
             {
@@ -88,7 +91,7 @@ public class StormManager : MonoBehaviour
         }
         if (currentStorm)
         {
-            Colliding = ((int)(currentStorm.transform.position - player.position).sqrMagnitude) <= 1f;
+            Colliding = ((int)(currentStorm.transform.position - player.position).sqrMagnitude) <= 6f;
         }
     }
 
@@ -105,18 +108,4 @@ public class StormManager : MonoBehaviour
         Destroy(currentStorm);
         alpha = 0.11f; // Reset alpha for the next storm
     }
-    //public void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if(collision.gameObject.name == "player")
-    //    {
-    //        Colliding = true;
-    //    }
-    //}
-    //public void OnCollisionExit2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.name == "player")
-    //    {
-    //        Colliding = false;
-    //    }
-    //}
 }
