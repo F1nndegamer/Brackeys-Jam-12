@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
         await UniTask.WaitUntil(() => isDeath);
         animator.enabled = true;
         animator.SetBool("isDeath", true);
-        await UniTask.Delay(900);
+        await UniTask.Delay(900); //after the animation is over
         isDeath = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
