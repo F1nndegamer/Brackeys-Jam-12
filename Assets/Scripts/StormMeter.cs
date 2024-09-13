@@ -24,6 +24,7 @@ public class StormMeter : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
+        ResetMeters();
     }
     private async void HumidityMeter()
     {
@@ -69,5 +70,10 @@ public class StormMeter : MonoBehaviour
             }
             await UniTask.Delay(600);
         }
+    }
+    private async void ResetMeters()
+    {
+        await UniTask.WaitWhile(() => stormManager.Colliding);
+        timer = 0;
     }
 }

@@ -15,7 +15,7 @@ public class StormManager : MonoBehaviour
     private bool countdownStarted = false; // To prevent multiple countdowns
     private float alpha = 0.11f; // Alpha for particle system color
     private int x = 0; // Counter to track interval
-    private bool Colliding;
+    public bool Colliding;
     public Transform LinePos;
 
     private void Start()
@@ -83,6 +83,12 @@ public class StormManager : MonoBehaviour
                 StartCoroutine(CountdownRoutine());
                 countdownStarted = true;
             }
+
+            
+        }
+        if (currentStorm)
+        {
+            Colliding = ((int)(currentStorm.transform.position - player.position).sqrMagnitude) <= 1f;
         }
     }
 
@@ -95,22 +101,22 @@ public class StormManager : MonoBehaviour
 
     void PlayerDeath()
     {
-        //implement losing fish
+        InventoryUI.Instance.RemoveInventory();
         Destroy(currentStorm);
         alpha = 0.11f; // Reset alpha for the next storm
     }
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.name == "player")
-        {
-            Colliding = true;
-        }
-    }
-    public void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.name == "player")
-        {
-            Colliding = false;
-        }
-    }
+    //public void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if(collision.gameObject.name == "player")
+    //    {
+    //        Colliding = true;
+    //    }
+    //}
+    //public void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.name == "player")
+    //    {
+    //        Colliding = false;
+    //    }
+    //}
 }

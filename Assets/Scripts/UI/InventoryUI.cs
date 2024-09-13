@@ -10,7 +10,7 @@ using Image = UnityEngine.UI.Image;
 public class InventoryUI : MonoBehaviour
 {
     public static InventoryUI Instance;
-    public static Dictionary<FishSO, int> basket = new Dictionary<FishSO, int>();
+    public Dictionary<FishSO, int> basket = new Dictionary<FishSO, int>();
     [SerializeField] private Transform fishContent;
     [SerializeField] private GameObject inventoryFish;
     [SerializeField] private TMP_Text fishsNumber;
@@ -75,9 +75,27 @@ public class InventoryUI : MonoBehaviour
         }
         else
         {
-            basket[fish]++;
-            var itemQuantity = fishQuantityList[fish].GetComponent<TMP_Text>();
-            itemQuantity.text = basket[fish].ToString();
+            if (basket[fish] == 0)
+            {
+                basket[fish]++;
+                var item = Instantiate(inventoryFish, fishContent);
+                var itemIcon = item.transform.GetChild(0).GetComponent<Image>();
+                var itemName = item.transform.GetChild(1).GetComponent<TMP_Text>();
+                var itemQuantity = item.transform.GetChild(2).GetComponent<TMP_Text>();
+                fishItemList.Add(item);
+                fishQuantityList.Add(fish, itemQuantity);
+                item.name = fish.name;
+                itemIcon.sprite = fish.icon;
+                itemName.text = fish.fishName;
+                itemQuantity.text = basket[fish].ToString();
+                item.GetComponent<Button>().onClick.AddListener(() => ShowInformation(item, fish));
+            }
+            else
+            {
+                basket[fish]++;
+                var itemQuantity = fishQuantityList[fish].GetComponent<TMP_Text>();
+                itemQuantity.text = basket[fish].ToString();
+            }
         }
     }
     private void ShowInformation(GameObject x, FishSO fish)
@@ -126,9 +144,12 @@ public class InventoryUI : MonoBehaviour
         AddInventory(fish);
         UpdateFishQuantity();
     }
-    public void RemoveInventory(FishSO fish)
+    public void RemoveInventory()
     {
-        //remove but idk how remove
+        foreach (var item in fishItemList)
+        {
+            Destroy(item, 0.1f);
+        }
     }
     public void SellAllFish()
     {
@@ -147,5 +168,6 @@ public class InventoryUI : MonoBehaviour
             var fishQuantityText = fishItem.transform.GetChild(2).GetComponent<TMP_Text>();
             fishQuantityText.text = "0";
         }
+        RemoveInventory();
     }
 }
