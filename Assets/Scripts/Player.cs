@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Triggers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -90,10 +91,9 @@ public class Player : MonoBehaviour
         animator.enabled = false;
         isDeath = false;
         transform.position = new Vector2(0, 0);
-        InventoryUI.Instance.RemoveAllFish();
         GetComponent<FishingMachanic>().isCatching = false;
         GetComponent<FishingMachanic>().isWaitingForFish = false;
-        GetComponent<FishingMachanic>().EndCatchingFish(); 
-        //storm sound change
+        GetComponent<FishingMachanic>().EndCatchingFish();
+        //change sound
     }
 }
