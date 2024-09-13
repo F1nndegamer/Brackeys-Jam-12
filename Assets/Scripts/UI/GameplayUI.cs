@@ -52,6 +52,10 @@ public class GameplayUI : MonoBehaviour
         numberOfFishText.text = InventoryUI.Instance.basket.Sum(x => x.Value.count).ToString();
         ShowNotification("Caught " + e.fishSO.fishName + "!");
     }
+    public void ResetNumberOfFish()
+    {
+        numberOfFishText.text = "0";
+    }
     public void ShowNotification(string message)
     {
         fishCaughtNotificationText.text = message;

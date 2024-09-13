@@ -108,6 +108,7 @@ public class StormManager : MonoBehaviour
 
     void PlayerDeath()
     {
+        GameplayUI.Instance.ResetNumberOfFish();
         InventoryUI.Instance.RemoveAllFish();
         Destroy(currentStorm);
         alpha = 0.11f; // Reset alpha for the next storm
