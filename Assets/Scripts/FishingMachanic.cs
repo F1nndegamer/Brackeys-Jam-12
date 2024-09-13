@@ -105,7 +105,9 @@ public class FishingMachanic : MonoBehaviour
             {
                 Debug.Log("Fish caught successfully!");
 
-                InventoryUI.Instance.UpdateUI(currentFish);
+
+                InventoryUI.Instance.UpdateUI(currentFish, Mathf.Abs(transform.position.x - zoneBoundary.transform.position.x));
+
 
                 FishingMinigameUI.Instance.Flash();
                 OnFishCaught?.Invoke(this, new OnFishCaughtEventArgs

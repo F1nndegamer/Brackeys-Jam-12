@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ public class InventoryUI : MonoBehaviour
     private Dictionary<FishSO, TMP_Text> fishQuantityList = new Dictionary<FishSO, TMP_Text>();
 
     private List<GameObject> fishItemList = new List<GameObject>();
-    private List<Button> inventoryButtons = new List<Button>();
+    private List<int> distances = new List<int>();
     private void Awake()
     {
         Instance = this;
@@ -56,7 +57,7 @@ public class InventoryUI : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-    private void AddInventory(FishSO fish)
+    private void AddInventory(FishSO fish, float x = 0)
     {
         if (!basket.ContainsKey(fish))
         {
@@ -66,6 +67,7 @@ public class InventoryUI : MonoBehaviour
             var itemName = item.transform.GetChild(1).GetComponent<TMP_Text>();
             var itemQuantity = item.transform.GetChild(2).GetComponent<TMP_Text>();
             fishItemList.Add(item);
+            distances.Add(((int)UnityEngine.Random.Range(Mathf.Log(x, 2) * 5, Mathf.Log(x, 2) * 10)));
             fishQuantityList.Add(fish, itemQuantity);
             item.name = fish.name;
             itemIcon.sprite = fish.icon;
@@ -75,34 +77,16 @@ public class InventoryUI : MonoBehaviour
         }
         else
         {
-            if (basket[fish] == 0)
-            {
-                basket[fish]++;
-                var item = Instantiate(inventoryFish, fishContent);
-                var itemIcon = item.transform.GetChild(0).GetComponent<Image>();
-                var itemName = item.transform.GetChild(1).GetComponent<TMP_Text>();
-                var itemQuantity = item.transform.GetChild(2).GetComponent<TMP_Text>();
-                fishItemList.Add(item);
-                fishQuantityList.Add(fish, itemQuantity);
-                item.name = fish.name;
-                itemIcon.sprite = fish.icon;
-                itemName.text = fish.fishName;
-                itemQuantity.text = basket[fish].ToString();
-                item.GetComponent<Button>().onClick.AddListener(() => ShowInformation(item, fish));
-            }
-            else
-            {
-                basket[fish]++;
-                var itemQuantity = fishQuantityList[fish].GetComponent<TMP_Text>();
-                itemQuantity.text = basket[fish].ToString();
-            }
+            basket[fish]++;
+            var itemQuantity = fishQuantityList[fish].GetComponent<TMP_Text>();
+            itemQuantity.text = basket[fish].ToString();   
         }
     }
     private void ShowInformation(GameObject x, FishSO fish)
     {
-        TextSelectedItemName.text = x.name;
+        TextSelectedItemName.text = fish.name;
         ImageSelectedItem.sprite = fish.icon;
-        TextSelectedItemDescription.text = fish.price.ToString();
+        TextSelectedItemDescription.text = fish.price.ToString() + "~" + (fish.price + 100);
     }
     
     private void ShowInformation(Button x, string des)
@@ -139,27 +123,13 @@ public class InventoryUI : MonoBehaviour
         multiPurposeMeterItem.gameObject.transform.GetChild(0).GetComponent<TMP_Text>().text = ROMAN_NUMERALS[level];
         multiPurposeMeterItem.onClick.AddListener(() => ShowInformation(multiPurposeMeterItem, des));  
     }
-    public void UpdateUI(FishSO fish)
+    public void UpdateUI(FishSO fish, float x = 0)
     {
-        AddInventory(fish);
+        AddInventory(fish, x);
         UpdateFishQuantity();
     }
-    public void RemoveInventory()
+    public void RemoveAllFish()
     {
-        foreach (var item in fishItemList)
-        {
-            Destroy(item, 0.1f);
-        }
-    }
-    public void SellAllFish()
-    {
-        int totalFishSold = basket.Sum(x => x.Value);
-        int totalEarnings = basket.Sum(x => x.Key.price * x.Value);
-
-        Player.Instance.UpdateMoney(totalEarnings);
-
-        Debug.Log($"Sold {totalFishSold} fish for {totalEarnings} currency!");
-
         basket = basket.ToDictionary(p => p.Key, p => 0);
 
         fishsNumber.text = "0"; // Reset fish number
@@ -168,6 +138,17 @@ public class InventoryUI : MonoBehaviour
             var fishQuantityText = fishItem.transform.GetChild(2).GetComponent<TMP_Text>();
             fishQuantityText.text = "0";
         }
-        RemoveInventory();
+    }
+    public void SellAllFish()
+    {
+        int totalFishSold = basket.Sum(x => x.Value);
+        int totalEarnings = basket.Sum(x => x.Key.price * x.Value);
+        totalEarnings += distances.Sum();
+
+        Player.Instance.UpdateMoney(totalEarnings);
+
+        Debug.Log($"Sold {totalFishSold} fish for {totalEarnings} currency!");
+
+        RemoveAllFish();
     }
 }
