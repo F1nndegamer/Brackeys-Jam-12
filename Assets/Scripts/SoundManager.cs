@@ -104,6 +104,7 @@ public class SoundManager : MonoBehaviour
     public void ChangeVolume()
     {
         volume = OptionsUI.SoundVolume;
+        if (audioSource == null) return;
         audioSource.volume = volume;
     }
 }

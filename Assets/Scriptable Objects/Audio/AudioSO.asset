@@ -30,3 +30,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9d3f4b659888ef4439550dd6eb6a2db3, type: 3}
   - {fileID: 8300000, guid: c841607a0b1efaf4f9dfb85da4c57172, type: 3}
   - {fileID: 8300000, guid: ea62557567ffb4448b0227a10d317ba7, type: 3}
+  spendMoney:
+  - {fileID: 8300000, guid: 7ccf677aa70dff84babc9d56875a9a5a, type: 3}
+  - {fileID: 8300000, guid: e74384b398c873f49944b13dee59de2e, type: 3}

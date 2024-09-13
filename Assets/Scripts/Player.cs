@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static Player Instance;
+    public event EventHandler OnMoneyChanged;
     public event EventHandler OnShopOpened;
     public event EventHandler OnShopClosed;
     public event EventHandler OnInventoryOpened;
@@ -24,7 +25,6 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
         {
             UpdateMoney(100);
-            UpgradeShopUI.Instance.UpdateUI();
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
     public void UpdateMoney(int money)
     {
         Money += money;
+        OnMoneyChanged?.Invoke(this, EventArgs.Empty);
     }
     private void ToggleShop()
     {   

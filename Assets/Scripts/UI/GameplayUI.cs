@@ -12,6 +12,7 @@ public class GameplayUI : MonoBehaviour
     [SerializeField] private FishingMachanic fishingMechanic;
     [SerializeField] private TextMeshProUGUI numberOfFishText;
     [SerializeField] private TextMeshProUGUI fishCaughtNotificationText;
+    [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private Animator notificationAnimator;
     [SerializeField] private GameObject multiPurposeMeter;
     private RangeFinderInformation rangeFinderInformation;
@@ -22,12 +23,22 @@ public class GameplayUI : MonoBehaviour
     }
     private void Start()
     {
+        Player.Instance.OnMoneyChanged += Player_OnMoneyChanged;
         fishingMechanic.OnFishCaught += FishingMechanic_OnFishCaught;
         fishingMechanic.OnFishSold += FishingMechanic_OnFishSold;
         rangeFinderInformation.enabled = false;
         multiPurposeMeter.SetActive(false);
     }
 
+    private void Player_OnMoneyChanged(object sender, System.EventArgs e)
+    {
+        UpdatePlayerMoney();
+    }
+
+    public void UpdatePlayerMoney()
+    {
+        moneyText.text = Player.Instance.Money.ToString();   
+    }
     private void FishingMechanic_OnFishSold(object sender, System.EventArgs e)
     {
         int totalFishSold = InventoryUI.basket.Sum(x => x.Value);
