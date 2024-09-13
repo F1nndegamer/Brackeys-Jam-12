@@ -16,6 +16,8 @@ public class FishingMachanic : MonoBehaviour
 
     public event EventHandler OnFishSold;
 
+    public bool isWaitingForFish = false;
+    public bool isCatching = false;
     public bool IsFishing => isWaitingForFish || isCatching;
     public float FishRodReductionTime;
 
@@ -29,8 +31,6 @@ public class FishingMachanic : MonoBehaviour
     [SerializeField] private GameObject zoneBoundary;
 
     private bool isInSafeZone = true;
-    private bool isCatching = false;
-    private bool isWaitingForFish = false;
     private int pointerDirection = 1;
     private int currentCatchProgress = 0;
     private FishSO currentFish;
@@ -158,7 +158,7 @@ public class FishingMachanic : MonoBehaviour
         catchProgressText.text = currentCatchProgress.ToString() + "/" + currentFish.requiredCatches.ToString();
     }
 
-    private void EndCatchingFish()
+    public void EndCatchingFish()
     {
         currentCatchProgress = 0;
         isCatching = false;

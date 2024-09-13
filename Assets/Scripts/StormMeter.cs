@@ -23,8 +23,7 @@ public class StormMeter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-        ResetMeters();
+        Meters();
     }
     private async void HumidityMeter()
     {
@@ -71,8 +70,9 @@ public class StormMeter : MonoBehaviour
             await UniTask.Delay(600);
         }
     }
-    private async void ResetMeters()
+    private async void Meters()
     {
+        timer += Time.deltaTime;
         await UniTask.WaitWhile(() => stormManager.Colliding);
         timer = 0;
     }

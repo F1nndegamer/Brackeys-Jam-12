@@ -131,6 +131,7 @@ public class InventoryUI : MonoBehaviour
     public void RemoveAllFish()
     {
         basket = basket.ToDictionary(p => p.Key, p => 0);
+        distances.Clear();
 
         fishsNumber.text = "0"; // Reset fish number
         foreach (GameObject fishItem in fishItemList)

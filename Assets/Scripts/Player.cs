@@ -84,8 +84,16 @@ public class Player : MonoBehaviour
         await UniTask.WaitUntil(() => isDeath);
         animator.enabled = true;
         animator.SetBool("isDeath", true);
-        await UniTask.Delay(900); //after the animation is over
+        await UniTask.Delay(1000); //after the animation is over
+        animator.SetBool("isDeath", false);
+        await UniTask.Delay(10);
+        animator.enabled = false;
         isDeath = false;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        transform.position = new Vector2(0, 0);
+        InventoryUI.Instance.RemoveAllFish();
+        GetComponent<FishingMachanic>().isCatching = false;
+        GetComponent<FishingMachanic>().isWaitingForFish = false;
+        GetComponent<FishingMachanic>().EndCatchingFish(); 
+        //storm sound change
     }
 }
