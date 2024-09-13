@@ -11,7 +11,6 @@ public class StormManager : MonoBehaviour
     public float stormSpeed = 5f; // Speed of the storm
     public float outrunDistance = 20f; // Distance the player needs to be ahead of the storm to survive
     public GameObject currentStorm;
-    public StormSelf stormself;
     new public ParticleSystem particleSystem; // Particle system for storm visual
     private bool countdownStarted = false; // To prevent multiple countdowns
     private float alpha = 0.11f; // Alpha for particle system color
@@ -55,8 +54,6 @@ public class StormManager : MonoBehaviour
             SoundManager.Instance.PlayStormSound();
             Vector3 spawnPosition = player.position + new Vector3(outrunDistance, 0, -1);
             currentStorm = Instantiate(stormPrefab, spawnPosition, Quaternion.identity);
-            stormself = currentStorm.GetComponent<StormSelf>();
-            stormself.manager = this;
         }
     }
 
