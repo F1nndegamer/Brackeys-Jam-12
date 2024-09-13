@@ -4152,26 +4152,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7923944801923611061, guid: 5437ba63ae14eba40905c11f95a4746b, type: 3}
-      propertyPath: InitialModule.startColor.minColor.a
-      value: 0.10980392
-      objectReference: {fileID: 0}
-    - target: {fileID: 7923944801923611061, guid: 5437ba63ae14eba40905c11f95a4746b, type: 3}
-      propertyPath: InitialModule.startColor.minColor.b
-      value: 0.82
-      objectReference: {fileID: 0}
-    - target: {fileID: 7923944801923611061, guid: 5437ba63ae14eba40905c11f95a4746b, type: 3}
-      propertyPath: InitialModule.startColor.minColor.g
-      value: 0.82
-      objectReference: {fileID: 0}
-    - target: {fileID: 7923944801923611061, guid: 5437ba63ae14eba40905c11f95a4746b, type: 3}
-      propertyPath: InitialModule.startColor.minColor.r
-      value: 0.82
-      objectReference: {fileID: 0}
-    - target: {fileID: 7923944801923611061, guid: 5437ba63ae14eba40905c11f95a4746b, type: 3}
-      propertyPath: InitialModule.startColor.minMaxState
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16233,7 +16213,7 @@ GameObject:
   - component: {fileID: 1774373239}
   m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16264,6 +16244,7 @@ MonoBehaviour:
   whitePointer: {fileID: 29464634}
   catchProgressText: {fileID: 1689841019}
   zoneBoundary: {fileID: 1811648553}
+  shore: {fileID: 1811648555}
 --- !u!50 &1774373234
 Rigidbody2D:
   serializedVersion: 4
@@ -16528,7 +16509,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 10, z: 1}
+  m_LocalScale: {x: 0.1, y: 25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -18267,6 +18248,7 @@ MonoBehaviour:
   outrunDistance: 15
   currentStorm: {fileID: 0}
   particleSystem: {fileID: 1074704246}
+  Colliding: 0
   LinePos: {fileID: 1811648555}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
