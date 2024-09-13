@@ -16,5 +16,6 @@ MonoBehaviour:
   fishName: Quick Fish
   sweetSpotLength: 0.2
   pointerSpeed: 4
-  price: 200
   requiredCatches: 1
+  minPrice: 80
+  maxPrice: 400

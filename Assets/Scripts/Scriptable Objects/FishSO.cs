@@ -8,6 +8,7 @@ public class FishSO : ScriptableObject
     public string fishName;
     [Range(0f, 1f)] public float sweetSpotLength;
     public float pointerSpeed;
-    public int price;
     public int requiredCatches;
+    public int minPrice;
+    public int maxPrice;
 }

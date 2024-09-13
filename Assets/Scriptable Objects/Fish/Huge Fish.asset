@@ -16,5 +16,6 @@ MonoBehaviour:
   fishName: Huge Fish
   sweetSpotLength: 0.4
   pointerSpeed: 4
-  price: 200
   requiredCatches: 4
+  minPrice: 80
+  maxPrice: 400

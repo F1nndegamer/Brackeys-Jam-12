@@ -16,5 +16,6 @@ MonoBehaviour:
   fishName: Medium Fish
   sweetSpotLength: 0.5
   pointerSpeed: 2
-  price: 100
   requiredCatches: 2
+  minPrice: 30
+  maxPrice: 250

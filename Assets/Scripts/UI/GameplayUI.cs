@@ -41,15 +41,15 @@ public class GameplayUI : MonoBehaviour
     }
     private void FishingMechanic_OnFishSold(object sender, System.EventArgs e)
     {
-        int totalFishSold = InventoryUI.Instance.basket.Sum(x => x.Value);
+        int totalFishSold = InventoryUI.Instance.basket.Sum(x => x.Value.count);
         if (totalFishSold == 0) return;
         numberOfFishText.text = "0";
-        int totalEarnings = InventoryUI.Instance.basket.Sum(x => x.Key.price * x.Value);
+        int totalEarnings = InventoryUI.Instance.basket.Sum(x => x.Value.scaledPriceList.Sum() * x.Value.count);
         ShowNotification($"Sold {totalFishSold} fish for {totalEarnings} currency!");
     }
     private void FishingMechanic_OnFishCaught(object sender, FishingMachanic.OnFishCaughtEventArgs e)
     {
-        numberOfFishText.text = InventoryUI.Instance.basket.Sum(x => x.Value).ToString();
+        numberOfFishText.text = InventoryUI.Instance.basket.Sum(x => x.Value.count).ToString();
         ShowNotification("Caught " + e.fishSO.fishName + "!");
     }
     public void ShowNotification(string message)

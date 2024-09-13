@@ -29,6 +29,7 @@ public class FishingMachanic : MonoBehaviour
     [SerializeField] private RectTransform whitePointer;
     [SerializeField] private TextMeshProUGUI catchProgressText;
     [SerializeField] private GameObject zoneBoundary;
+    [SerializeField] private int maxFishingDistance;
 
     private bool isInSafeZone = true;
     private int pointerDirection = 1;
@@ -105,9 +106,8 @@ public class FishingMachanic : MonoBehaviour
             {
                 Debug.Log("Fish caught successfully!");
 
-
-                InventoryUI.Instance.UpdateUI(currentFish, Mathf.Abs(transform.position.x - zoneBoundary.transform.position.x));
-
+                float normalizedDistance = (transform.position.x - zoneBoundary.transform.position.x)/(maxFishingDistance - zoneBoundary.transform.position.x);
+                InventoryUI.Instance.AddFish(currentFish, normalizedDistance);
 
                 FishingMinigameUI.Instance.Flash();
                 OnFishCaught?.Invoke(this, new OnFishCaughtEventArgs

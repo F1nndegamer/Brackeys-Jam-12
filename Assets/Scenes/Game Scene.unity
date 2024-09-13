@@ -3124,6 +3124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSO: {fileID: 11400000, guid: bb53cf77da395c1409df1131de10d009, type: 2}
+  MusicVolume: 5
   audioSource: {fileID: 679677631}
   turning: 0
   stopRepeatingSound: 0
@@ -16245,6 +16246,7 @@ MonoBehaviour:
   whitePointer: {fileID: 29464634}
   catchProgressText: {fileID: 1689841019}
   zoneBoundary: {fileID: 1811648553}
+  maxFishingDistance: 40
 --- !u!50 &1774373234
 Rigidbody2D:
   serializedVersion: 4

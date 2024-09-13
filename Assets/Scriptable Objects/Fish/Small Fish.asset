@@ -16,5 +16,6 @@ MonoBehaviour:
   fishName: Small Fish
   sweetSpotLength: 0.8
   pointerSpeed: 2
-  price: 50
   requiredCatches: 1
+  minPrice: 10
+  maxPrice: 100

@@ -11,7 +11,7 @@ using Image = UnityEngine.UI.Image;
 public class InventoryUI : MonoBehaviour
 {
     public static InventoryUI Instance;
-    public Dictionary<FishSO, int> basket = new Dictionary<FishSO, int>();
+    public Dictionary<FishSO, FishInfo> basket = new Dictionary<FishSO, FishInfo>();
     [SerializeField] private Transform fishContent;
     [SerializeField] private GameObject inventoryFish;
     [SerializeField] private TMP_Text fishsNumber;
@@ -26,6 +26,7 @@ public class InventoryUI : MonoBehaviour
     private Dictionary<FishSO, TMP_Text> fishQuantityList = new Dictionary<FishSO, TMP_Text>();
 
     private List<GameObject> fishItemList = new List<GameObject>();
+    private List<float> scaledPriceList = new();
     private List<int> distances = new List<int>();
     private void Awake()
     {
@@ -57,39 +58,43 @@ public class InventoryUI : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-    private void AddInventory(FishSO fish, float x = 0)
+    private void AddFishToInventory(FishSO fish, float normalizedDistance)
     {
         if (!basket.ContainsKey(fish))
         {
-            basket.Add(fish, 1);
+            basket.Add(fish, new FishInfo());
+            basket[fish].AddFish(Mathf.CeilToInt(fish.minPrice + (fish.maxPrice - fish.minPrice) * normalizedDistance)); //Calculate scaled price 
+
             var item = Instantiate(inventoryFish, fishContent);
             var itemIcon = item.transform.GetChild(0).GetComponent<Image>();
             var itemName = item.transform.GetChild(1).GetComponent<TMP_Text>();
             var itemQuantity = item.transform.GetChild(2).GetComponent<TMP_Text>();
-            fishItemList.Add(item);
-            distances.Add(((int)UnityEngine.Random.Range(Mathf.Log(x, 2) * 5, Mathf.Log(x, 2) * 10)));
-            fishQuantityList.Add(fish, itemQuantity);
             item.name = fish.name;
             itemIcon.sprite = fish.icon;
             itemName.text = fish.fishName;
-            itemQuantity.text = basket[fish].ToString();
-            item.GetComponent<Button>().onClick.AddListener(() => ShowInformation(item, fish));
+            itemQuantity.text = basket[fish].count.ToString();
+
+            fishItemList.Add(item);
+            //distances.Add(((int)UnityEngine.Random.Range(Mathf.Log(x, 2) * 5, Mathf.Log(x, 2) * 10)));
+            fishQuantityList.Add(fish, itemQuantity);
+
+            item.GetComponent<Button>().onClick.AddListener(() => ShowFishInformation(item, fish));
         }
         else
         {
-            basket[fish]++;
+            basket[fish].AddFish(Mathf.CeilToInt(fish.minPrice + (fish.maxPrice - fish.minPrice) * normalizedDistance)); //Calculate scaled price 
             var itemQuantity = fishQuantityList[fish].GetComponent<TMP_Text>();
             itemQuantity.text = basket[fish].ToString();   
         }
     }
-    private void ShowInformation(GameObject x, FishSO fish)
+    private void ShowFishInformation(GameObject x, FishSO fish)
     {
         TextSelectedItemName.text = fish.name;
         ImageSelectedItem.sprite = fish.icon;
-        TextSelectedItemDescription.text = fish.price.ToString() + "~" + (fish.price + 100);
+        TextSelectedItemDescription.text = "Price Range: " + fish.minPrice.ToString() + " - " + fish.maxPrice.ToString();
     }
     
-    private void ShowInformation(Button x, string des)
+    private void ShowItemInformation(Button x, string des)
     {
         TextSelectedItemName.text = x.gameObject.name;
         ImageSelectedItem.sprite = x.image.sprite;
@@ -97,41 +102,42 @@ public class InventoryUI : MonoBehaviour
     }
     private void UpdateFishQuantity()
     {
-        fishsNumber.text = basket.Sum(x => x.Value).ToString();
+        fishsNumber.text = basket.Sum(x => x.Value.count).ToString();
     }
+    #region Item
     public void FishrodeItem(bool isBought, string des = null, int level = 1)
     {
         fishrodeItem.gameObject.GetComponent<Image>().enabled = true;
         fishrodeItem.gameObject.transform.GetChild(0).GetComponent<TMP_Text>().text = ROMAN_NUMERALS[level];
-        fishrodeItem.onClick.AddListener(() => ShowInformation(fishrodeItem, des));  
+        fishrodeItem.onClick.AddListener(() => ShowItemInformation(fishrodeItem, des));  
     }
     public void RangeFidnerItem(bool isBought, string des = null, int level = 1)
     {
         rangeFinderItem.gameObject.GetComponent<Image>().enabled = true;
         rangeFinderItem.gameObject.transform.GetChild(0).GetComponent<TMP_Text>().text = ROMAN_NUMERALS[level];
-        rangeFinderItem.onClick.AddListener(() => ShowInformation(rangeFinderItem, des));  
+        rangeFinderItem.onClick.AddListener(() => ShowItemInformation(rangeFinderItem, des));  
     }
     public void PropellerItem(bool isBought, string des = null, int level = 1)
     {
         propellerItem.gameObject.GetComponent<Image>().enabled = true;
         propellerItem.gameObject.transform.GetChild(0).GetComponent<TMP_Text>().text = ROMAN_NUMERALS[level];
-        propellerItem.onClick.AddListener(() => ShowInformation(propellerItem, des));  
+        propellerItem.onClick.AddListener(() => ShowItemInformation(propellerItem, des));  
     } 
     public void MultiPurposeMeterItem(bool isBought, string des = null, int level = 1)
     {
         multiPurposeMeterItem.gameObject.GetComponent<Image>().enabled = true;
         multiPurposeMeterItem.gameObject.transform.GetChild(0).GetComponent<TMP_Text>().text = ROMAN_NUMERALS[level];
-        multiPurposeMeterItem.onClick.AddListener(() => ShowInformation(multiPurposeMeterItem, des));  
+        multiPurposeMeterItem.onClick.AddListener(() => ShowItemInformation(multiPurposeMeterItem, des));  
     }
-    public void UpdateUI(FishSO fish, float x = 0)
+    #endregion
+    public void AddFish(FishSO fish, float normalizedDistance)
     {
-        AddInventory(fish, x);
+        AddFishToInventory(fish, normalizedDistance);
         UpdateFishQuantity();
     }
     public void RemoveAllFish()
     {
-        basket = basket.ToDictionary(p => p.Key, p => 0);
-        distances.Clear();
+        basket = basket.ToDictionary(p => p.Key, p => new FishInfo());
 
         fishsNumber.text = "0"; // Reset fish number
         foreach (GameObject fishItem in fishItemList)
@@ -142,9 +148,9 @@ public class InventoryUI : MonoBehaviour
     }
     public void SellAllFish()
     {
-        int totalFishSold = basket.Sum(x => x.Value);
-        int totalEarnings = basket.Sum(x => x.Key.price * x.Value);
-        totalEarnings += distances.Sum();
+        int totalFishSold = basket.Sum(x => x.Value.count);
+        int totalEarnings = basket.Sum(x => x.Value.scaledPriceList.Sum() * x.Value.count);
+        //totalEarnings += distances.Sum();
 
         Player.Instance.UpdateMoney(totalEarnings);
 
