@@ -1,8 +1,9 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     public static Player Instance;
@@ -16,9 +17,15 @@ public class Player : MonoBehaviour
     public bool isNearShop = true;
     private bool isShopOpened = false;
     private bool isInventoryOpened = false;
+    private Animator animator;
     private void Awake()
     {
         Instance = this;
+    }
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+        animator.enabled = false;
     }
     void Update()
     {
@@ -71,5 +78,14 @@ public class Player : MonoBehaviour
         {
             OnInvetoryClosed?.Invoke(this, EventArgs.Empty);
         }
+    }
+    public async void Death(bool isDeath)
+    {
+        await UniTask.WaitUntil(() => isDeath);
+        animator.enabled = true;
+        animator.SetBool("isDeath", true);
+        await UniTask.Delay(900);
+        isDeath = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

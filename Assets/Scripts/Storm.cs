@@ -104,5 +104,6 @@ public class StormManager : MonoBehaviour
         InventoryUI.Instance.RemoveAllFish();
         Destroy(currentStorm);
         alpha = 0.11f; // Reset alpha for the next storm
+        Player.Instance.Death(true);
     }
 }
