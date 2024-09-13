@@ -82,7 +82,7 @@ public class InventoryUI : MonoBehaviour
         {
             basket[fish].AddFish(Mathf.CeilToInt(fish.minPrice + (fish.maxPrice - fish.minPrice) * normalizedDistance)); //Calculate scaled price 
             var itemQuantity = fishQuantityList[fish].GetComponent<TMP_Text>();
-            itemQuantity.text = basket[fish].ToString();   
+            itemQuantity.text = basket[fish].count.ToString();   
         }
     }
     private void ShowFishInformation(GameObject x, FishSO fish)
@@ -151,8 +151,6 @@ public class InventoryUI : MonoBehaviour
         //totalEarnings += distances.Sum();
 
         Player.Instance.UpdateMoney(totalEarnings);
-
-        Debug.Log($"Sold {totalFishSold} fish for {totalEarnings} currency!");
 
         RemoveAllFish();
     }
