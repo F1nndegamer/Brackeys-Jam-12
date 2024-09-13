@@ -75,27 +75,9 @@ public class InventoryUI : MonoBehaviour
         }
         else
         {
-            if (basket[fish] == 0)
-            {
-                basket[fish]++;
-                var item = Instantiate(inventoryFish, fishContent);
-                var itemIcon = item.transform.GetChild(0).GetComponent<Image>();
-                var itemName = item.transform.GetChild(1).GetComponent<TMP_Text>();
-                var itemQuantity = item.transform.GetChild(2).GetComponent<TMP_Text>();
-                fishItemList.Add(item);
-                fishQuantityList.Add(fish, itemQuantity);
-                item.name = fish.name;
-                itemIcon.sprite = fish.icon;
-                itemName.text = fish.fishName;
-                itemQuantity.text = basket[fish].ToString();
-                item.GetComponent<Button>().onClick.AddListener(() => ShowInformation(item, fish));
-            }
-            else
-            {
-                basket[fish]++;
-                var itemQuantity = fishQuantityList[fish].GetComponent<TMP_Text>();
-                itemQuantity.text = basket[fish].ToString();
-            }
+            basket[fish]++;
+            var itemQuantity = fishQuantityList[fish].GetComponent<TMP_Text>();
+            itemQuantity.text = basket[fish].ToString();   
         }
     }
     private void ShowInformation(GameObject x, FishSO fish)
@@ -144,11 +126,15 @@ public class InventoryUI : MonoBehaviour
         AddInventory(fish);
         UpdateFishQuantity();
     }
-    public void RemoveInventory()
+    public void RemoveAllFish()
     {
-        foreach (var item in fishItemList)
+        basket = basket.ToDictionary(p => p.Key, p => 0);
+
+        fishsNumber.text = "0"; // Reset fish number
+        foreach (GameObject fishItem in fishItemList)
         {
-            Destroy(item, 0.1f);
+            var fishQuantityText = fishItem.transform.GetChild(2).GetComponent<TMP_Text>();
+            fishQuantityText.text = "0";
         }
     }
     public void SellAllFish()
@@ -160,14 +146,6 @@ public class InventoryUI : MonoBehaviour
 
         Debug.Log($"Sold {totalFishSold} fish for {totalEarnings} currency!");
 
-        basket = basket.ToDictionary(p => p.Key, p => 0);
-
-        fishsNumber.text = "0"; // Reset fish number
-        foreach (GameObject fishItem in fishItemList)
-        {
-            var fishQuantityText = fishItem.transform.GetChild(2).GetComponent<TMP_Text>();
-            fishQuantityText.text = "0";
-        }
-        RemoveInventory();
+        RemoveAllFish();
     }
 }
