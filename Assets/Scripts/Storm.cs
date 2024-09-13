@@ -66,7 +66,7 @@ public class StormManager : MonoBehaviour
             // Move storm to the left
             currentStorm.transform.position += Vector3.left * stormSpeed * Time.deltaTime;
 
-            if (currentStorm.transform.position.x < LinePos.position.x + 2.5) { Destroy(currentStorm); }
+            if (currentStorm.transform.position.x < LinePos.position.x + 10) { Destroy(currentStorm); }
 
             if (Colliding)
             {
@@ -87,8 +87,15 @@ public class StormManager : MonoBehaviour
             
         }
         if (currentStorm)
-        {
-            Colliding = ((int)(currentStorm.transform.position - player.position).sqrMagnitude) <= 6f;
+        { 
+            if(Vector2.Distance(currentStorm.transform.position, player.position) < currentStorm.transform.localScale.x - 10)
+            {
+                Colliding = true;
+            }
+            else
+            {
+                
+            }
         }
     }
 

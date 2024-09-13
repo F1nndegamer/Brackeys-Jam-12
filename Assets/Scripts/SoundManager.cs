@@ -6,6 +6,7 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance;
 
     [SerializeField] private AudioSO audioSO;
+    public float MusicVolume = 5f;
     public AudioSource audioSource;
     private float volume;
     public bool turning;
@@ -99,12 +100,13 @@ public class SoundManager : MonoBehaviour
         {
             stopRepeatingSound = false;
         }
+
+        if (audioSource == null) return;
+        audioSource.volume = MusicVolume;
     }
 
     public void ChangeVolume()
     {
         volume = OptionsUI.SoundVolume;
-        if (audioSource == null) return;
-        audioSource.volume = volume;
     }
 }

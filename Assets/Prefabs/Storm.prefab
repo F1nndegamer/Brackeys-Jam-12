@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1016142584884551697}
   - component: {fileID: 2579417579308692177}
-  - component: {fileID: 3641336760219259331}
   m_Layer: 0
   m_Name: Storm
   m_TagString: Untagged
@@ -85,16 +84,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3641336760219259331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2486701580138375598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b7e617474928942a6d70bd7235e052, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manager: {fileID: 0}

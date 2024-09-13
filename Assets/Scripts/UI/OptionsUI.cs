@@ -30,6 +30,8 @@ public class OptionsUI : MonoBehaviour
     public void SaveMusicVolume()
     {
         MusicVolume = musicSlider.value;
+        SoundManager.Instance.MusicVolume = MusicVolume;
+
     }
     public void SaveSoundVolume()
     {
