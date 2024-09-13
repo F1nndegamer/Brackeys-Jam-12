@@ -126,8 +126,8 @@ Material:
     - _CausticColor: {r: 1, g: 1, b: 1, a: 0}
     - _Color: {r: 0, g: 0.9388056, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OceanColor: {r: 0.5887772, g: 0.840651, b: 0.9528302, a: 0}
+    - _OceanColor: {r: 1, g: 1, b: 1, a: 0}
     - _TileAmount: {r: 1, g: 1, b: 0, a: 0}
-    - _WaterColor: {r: 0, g: 0.5943395, b: 0.990566, a: 0}
+    - _WaterColor: {r: 0.2028302, g: 0.79621416, b: 1, a: 0}
     - _WaveColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
