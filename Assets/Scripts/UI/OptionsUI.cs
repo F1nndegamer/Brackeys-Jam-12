@@ -19,8 +19,8 @@ public class OptionsUI : MonoBehaviour
     {
         backButton.onClick.AddListener(() =>
         {
-            onCloseButtonAction();
             SoundManager.Instance.PlayButtonClickSound();
+            onCloseButtonAction();
             Hide();
         });
         musicSlider.value = MusicVolume;
