@@ -8565,7 +8565,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '*insert game title'
+  m_text: Fisherman's Storm
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 270725a87fd685c449c3bb271f832e85, type: 2}
   m_sharedMaterial: {fileID: -6030850186161054296, guid: 270725a87fd685c449c3bb271f832e85, type: 2}
@@ -8941,7 +8941,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Finn\n\nFinn\nColby\nMuzant9\nKhoa\n\t\nRAMI\n\nAnri\n\nKookie\n\nFloriano"
+  m_text: "Finn\n\nFinn\nColby\nMuzant9\nKhoa\n\t\nRAMI\n\nAnri\n\nFloriano\n\nKookie"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 431312e3479a2f74f958e359081ab26d, type: 2}
   m_sharedMaterial: {fileID: 2968180681230010152, guid: 431312e3479a2f74f958e359081ab26d, type: 2}
