@@ -9,6 +9,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSO audioSO;
     public float MusicVolume = 5f;
     public AudioSource audioSource;
+    public AudioSource Buttonaudio;
     private float volume;
     public bool turning;
     public bool stopRepeatingSound;
@@ -35,7 +36,8 @@ public class SoundManager : MonoBehaviour
 
     public void PlayButtonClickSound()
     {
-        PlaySound(audioSO.buttonClick, Camera.main.transform.position);
+        audioSource.clip = audioSO.buttonClick[Random.Range(0, audioSO.buttonClick.Length)];
+        audioSource.Play();
     }
 
     public void PlayFishEngageSound()
