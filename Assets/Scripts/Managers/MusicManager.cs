@@ -8,7 +8,7 @@ public class MusicManager : MonoBehaviour
 {
     public static MusicManager Instance;
     [SerializeField] private AudioClip[] radioTrackArray;
-    private AudioSource audioSource;
+    public AudioSource audioSource;
     private int currentTrack = 0;
     //private const string PLAYER_PREFS_MUSIC_VOLUME = "MusicVolume";
     private void Awake()

@@ -63,7 +63,7 @@ public class SoundManager : MonoBehaviour
     {
         PlaySound(audioSO.spendMoney, Vector3.zero, 8f);
     }
-    private IEnumerator PlayStormRoutine()
+    public IEnumerator PlayStormRoutine()
     {
         AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
         foreach (AudioSource source in allAudioSources)
