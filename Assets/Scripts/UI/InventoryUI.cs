@@ -26,8 +26,6 @@ public class InventoryUI : MonoBehaviour
     private Dictionary<FishSO, TMP_Text> fishQuantityList = new Dictionary<FishSO, TMP_Text>();
 
     private List<GameObject> fishItemList = new List<GameObject>();
-    private List<float> scaledPriceList = new();
-    private List<int> distances = new List<int>();
     private void Awake()
     {
         Instance = this;
@@ -91,7 +89,7 @@ public class InventoryUI : MonoBehaviour
     {
         TextSelectedItemName.text = fish.name;
         ImageSelectedItem.sprite = fish.icon;
-        TextSelectedItemDescription.text = "Price Range: " + fish.minPrice.ToString() + " - " + fish.maxPrice.ToString();
+        TextSelectedItemDescription.text = $"Price Range: {fish.minPrice} - {fish.maxPrice} \nSize: {fish.length} cm - {fish.weight} kg \n{fish.description}";
     }
     
     private void ShowItemInformation(Button x, string des)

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ade845ee158c4c4e9cd61046e3aa426, type: 3}
-  m_Name: Medium Fish
+  m_Name: Tiny Fish
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 0ab9e426609bd684885bbe0dc3b0ffc3, type: 3}
-  fishName: Medium Fish
-  description: Your average fish.
-  weight: 9
-  length: 16
-  sweetSpotLength: 0.5
-  pointerSpeed: 2
-  requiredCatches: 2
-  minPrice: 40
-  maxPrice: 250
+  fishName: Tiny Fish
+  description: 'Tiniest fish to ever swim the ocean. '
+  weight: 0.12
+  length: 2
+  sweetSpotLength: 1
+  pointerSpeed: 1
+  requiredCatches: 1
+  minPrice: 10
+  maxPrice: 80

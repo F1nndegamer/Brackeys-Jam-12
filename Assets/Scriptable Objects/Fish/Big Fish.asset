@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 0ab9e426609bd684885bbe0dc3b0ffc3, type: 3}
   fishName: Big Fish
+  description: Big boi fish.
+  weight: 30.6
+  length: 31.4
   sweetSpotLength: 0.3
   pointerSpeed: 3
   requiredCatches: 2

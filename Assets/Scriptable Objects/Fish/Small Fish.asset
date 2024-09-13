@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 0ab9e426609bd684885bbe0dc3b0ffc3, type: 3}
   fishName: Small Fish
+  description: You wouldn't hurt a smol fish. Would you?
+  weight: 7
+  length: 14
   sweetSpotLength: 0.8
   pointerSpeed: 2
   requiredCatches: 1
-  minPrice: 10
+  minPrice: 20
   maxPrice: 100
