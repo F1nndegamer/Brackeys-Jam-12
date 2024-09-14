@@ -92,10 +92,10 @@ public class StormManager : MonoBehaviour
             {
                 Colliding = true;
             }
-            else
-            {
-                
-            }
+        }
+        else
+        {
+            Colliding = false;
         }
     }
 
@@ -108,10 +108,10 @@ public class StormManager : MonoBehaviour
 
     void InitiatePlayDeath()
     {
+        Destroy(currentStorm);
         GameplayUI.Instance.ResetNumberOfFish();
         GameplayUI.Instance.ShowDeathSequence();
         InventoryUI.Instance.RemoveAllFish();
-        Destroy(currentStorm);
         alpha = 0.11f; // Reset alpha for the next storm
         Player.Instance.Die();
     }
