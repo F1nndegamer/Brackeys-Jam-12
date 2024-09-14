@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Shore Lower Right
   m_EditorClassIdentifier: 
   m_AnimatedSprites:
-  - {fileID: -678675352, guid: 4f8572887b59d884aa3b27fe7c6c5539, type: 3}
-  - {fileID: 79906970, guid: 4f8572887b59d884aa3b27fe7c6c5539, type: 3}
-  - {fileID: -1635629802, guid: 4f8572887b59d884aa3b27fe7c6c5539, type: 3}
-  - {fileID: -1229742628, guid: 4f8572887b59d884aa3b27fe7c6c5539, type: 3}
+  - {fileID: -1192527690, guid: 70808577208145d49b8000c8268fd3d5, type: 3}
+  - {fileID: 1372089730, guid: 70808577208145d49b8000c8268fd3d5, type: 3}
+  - {fileID: -1059155240, guid: 70808577208145d49b8000c8268fd3d5, type: 3}
+  - {fileID: 2097897552, guid: 70808577208145d49b8000c8268fd3d5, type: 3}
   m_MinSpeed: 1
   m_MaxSpeed: 1
   m_AnimationStartTime: 0
