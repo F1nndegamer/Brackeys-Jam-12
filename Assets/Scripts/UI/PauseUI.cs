@@ -7,7 +7,9 @@ public class PauseUI : MonoBehaviour
 {
     [SerializeField] private Button backToGameButton;
     [SerializeField] private Button optionsButton;
+    [SerializeField] private Button howToPlayButton;
     [SerializeField] private Button backToTitleButton;
+    [SerializeField] private GameObject howToPlayUI;
     [SerializeField] private List<FISHDESTROYER> destroyer;
     private void Start()
     {
@@ -21,6 +23,11 @@ public class PauseUI : MonoBehaviour
         optionsButton.onClick.AddListener(() =>
         {
             OptionsUI.Instance.Show(Show);
+            SoundManager.Instance.PlayButtonClickSound();
+        });
+        howToPlayButton.onClick.AddListener(() =>
+        {
+            howToPlayUI.SetActive(true);
             SoundManager.Instance.PlayButtonClickSound();
         });
         backToTitleButton.onClick.AddListener(() =>
