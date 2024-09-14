@@ -52,6 +52,7 @@ public class StormManager : MonoBehaviour
         if (currentStorm == null)
         {
             SoundManager.Instance.PlayStormSound();
+            Camera.main.GetComponent<CameraFollow>().ZoomOut();
             Vector3 spawnPosition = player.position + new Vector3(outrunDistance, 0, -1);
             currentStorm = Instantiate(stormPrefab, spawnPosition, Quaternion.identity);
         }
@@ -66,7 +67,11 @@ public class StormManager : MonoBehaviour
             // Move storm to the left
             currentStorm.transform.position += Vector3.left * stormSpeed * Time.deltaTime;
 
-            if (currentStorm.transform.position.x < LinePos.position.x + 10) { Destroy(currentStorm); }
+            if (currentStorm.transform.position.x < LinePos.position.x + 10) 
+            { 
+                Destroy(currentStorm); 
+                Camera.main.GetComponent<CameraFollow>().ZoomIn();
+            }
 
             if (Colliding)
             {
@@ -105,9 +110,9 @@ public class StormManager : MonoBehaviour
         Debug.Log("Countdown finished, perform the next action.");
         countdownStarted = false; // Reset flag for future countdowns
     }
-
     void InitiatePlayDeath()
     {
+        Camera.main.GetComponent<CameraFollow>().ZoomIn();
         Destroy(currentStorm);
         GameplayUI.Instance.ResetNumberOfFish();
         GameplayUI.Instance.ShowDeathSequence();

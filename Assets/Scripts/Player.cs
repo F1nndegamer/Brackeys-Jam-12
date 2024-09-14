@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public event EventHandler OnInventoryOpened;
     public event EventHandler OnInvetoryClosed;
     [SerializeField] private FishingMachanic fishingMechanic;
+    [SerializeField] private PlayerMovement playerMovement;
     private int fishCaught;
     public int Money { get; private set; }
     public bool isNearShop = true;
@@ -84,11 +85,13 @@ public class Player : MonoBehaviour
         fishingMechanic.isCatching = false;
         fishingMechanic.isWaitingForFish = false;
         fishingMechanic.EndCatchingFish();
-        Invoke(nameof(ResetPosition), 3f);
+        playerMovement.enabled = false;
+        Invoke(nameof(Respawn), 3f);
         //change sound
     }
-    private void ResetPosition()
+    private void Respawn()
     {
+        playerMovement.enabled = true;
         transform.position = new Vector2(0, 0);
     }
 }

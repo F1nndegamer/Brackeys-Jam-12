@@ -14203,6 +14203,8 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: -10}
   limitPosX: 6
   limitPosY: 4
+  targetZoomSize: 8
+  zoomSpeed: 3
 --- !u!81 &1563030936
 AudioListener:
   m_ObjectHideFlags: 0
@@ -22166,6 +22168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fishingMechanic: {fileID: 1774373233}
+  playerMovement: {fileID: 1774373235}
   isNearShop: 1
 --- !u!114 &1774373239
 MonoBehaviour:
@@ -25101,8 +25104,8 @@ MonoBehaviour:
   stormPrefab: {fileID: 2486701580138375598, guid: 79f0c4d5e09c1c64c98efb832055af8b, type: 3}
   player: {fileID: 1774373237}
   spawnInterval: 60
-  stormSpeed: 7
-  outrunDistance: 15
+  stormSpeed: 12
+  outrunDistance: 40
   currentStorm: {fileID: 0}
   particleSystem: {fileID: 1074704246}
   Colliding: 0
