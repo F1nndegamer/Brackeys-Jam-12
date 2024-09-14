@@ -19,6 +19,7 @@ MonoBehaviour:
   length: 16
   sweetSpotLength: 0.5
   pointerSpeed: 2
+  meanDistance: 50
   requiredCatches: 2
   minPrice: 40
   maxPrice: 250
