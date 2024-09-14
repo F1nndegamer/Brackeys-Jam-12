@@ -36,8 +36,8 @@ public class SoundManager : MonoBehaviour
 
     public void PlayButtonClickSound()
     {
-        audioSource.clip = audioSO.buttonClick[Random.Range(0, audioSO.buttonClick.Length)];
-        audioSource.Play();
+        Buttonaudio.clip = audioSO.buttonClick[Random.Range(0, audioSO.buttonClick.Length)];
+        Buttonaudio.Play();
     }
 
     public void PlayFishEngageSound()
