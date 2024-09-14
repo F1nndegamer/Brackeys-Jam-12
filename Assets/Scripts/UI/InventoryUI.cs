@@ -90,7 +90,7 @@ public class InventoryUI : MonoBehaviour
     {
         TextSelectedItemName.text = fish.name;
         ImageSelectedItem.sprite = fish.icon;
-        TextSelectedItemDescription.text = $"Price Range: {fish.minPrice} - {fish.maxPrice} \nSize: {fish.length} cm - {fish.weight} kg \n{fish.description} \n How far they live from the average shore:{fish.meanDistance}";
+        TextSelectedItemDescription.text = $"Price Range: {fish.minPrice} - {fish.maxPrice}\nSize: {fish.length} cm - {fish.weight} kg\nAverage Distance From Shore: {fish.meanDistance}\n{fish.description} ";
     }
     
     private void ShowItemInformation(Button x, string des)
