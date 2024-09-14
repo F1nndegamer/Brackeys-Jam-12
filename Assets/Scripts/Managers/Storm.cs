@@ -71,6 +71,7 @@ public class StormManager : MonoBehaviour
             { 
                 Destroy(currentStorm); 
                 Camera.main.GetComponent<CameraFollow>().ZoomIn();
+                SoundManager.Instance.StopStormSound();
             }
 
             if (Colliding)
@@ -117,6 +118,7 @@ public class StormManager : MonoBehaviour
         GameplayUI.Instance.ResetNumberOfFish();
         GameplayUI.Instance.ShowDeathSequence();
         InventoryUI.Instance.RemoveAllFish();
+        SoundManager.Instance.StopStormSound();
         alpha = 0.11f; // Reset alpha for the next storm
         Player.Instance.Die();
     }

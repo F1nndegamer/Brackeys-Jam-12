@@ -49,6 +49,11 @@ public class SoundManager : MonoBehaviour
     {
         StartCoroutine(PlayStormRoutine());
     }
+    public void StopStormSound()
+    {
+        StartCoroutine(FadeOut(audioSource, 2f));
+        StopCoroutine(PlayStormRoutine());
+    }
     public void PlayFishEscapeSound()
     {
         PlaySound(audioSO.fishEscape, Player.Instance.transform.position, 8f);
@@ -79,10 +84,11 @@ public class SoundManager : MonoBehaviour
         // Play the initial storm sound
         audioSource.clip = audioSO.StormSounds[0];
         audioSource.Play();
-        if(stopRepeatingSound)
-        {
-        yield return StartCoroutine(FadeOut(audioSource, 2f));
-        }
+        //if(stopRepeatingSound)
+        //{
+        //    yield return StartCoroutine(FadeOut(audioSource, 2f));
+        //    audioSource.volume = 1;
+        //}
         yield return new WaitWhile(() => audioSource.isPlaying);
 
         // Loop the repeating storm sound until `stopRepeatingSound` becomes true
@@ -118,7 +124,7 @@ public class SoundManager : MonoBehaviour
 
         // Ensure the volume is set to 0 and stop the audio
         source.volume = 0;
-        source.Stop();
+        source.Stop(); MusicManager.Instance.audioSource.Play();
     }
     private void Update()
     {
