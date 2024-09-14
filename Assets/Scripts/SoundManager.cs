@@ -76,18 +76,21 @@ public class SoundManager : MonoBehaviour
             }
         }
 
+        // Play the initial storm sound
         audioSource.clip = audioSO.StormSounds[0];
         audioSource.Play();
         yield return new WaitWhile(() => audioSource.isPlaying);
+
+        // Loop the repeating storm sound until `stopRepeatingSound` becomes true
         while (!stopRepeatingSound)
         {
             audioSource.clip = audioSO.StormSounds[1];
             audioSource.Play();
             yield return new WaitWhile(() => audioSource.isPlaying);
         }
-        audioSource.clip = audioSO.StormSounds[2];
-        audioSource.Play();
-        yield return new WaitWhile(() => audioSource.isPlaying);
+
+        // Start fading out the sound
+        yield return StartCoroutine(FadeOut(audioSource, 4f)); // Fades out over 2 seconds
         foreach (AudioSource source in allAudioSources)
         {
             if (source != audioSource)
@@ -96,7 +99,21 @@ public class SoundManager : MonoBehaviour
             }
         }
     }
+    private IEnumerator FadeOut(AudioSource source, float fadeDuration)
+    {
+        float startVolume = source.volume;
 
+        // Gradually reduce volume over the fadeDuration
+        while (source.volume > 0)
+        {
+            source.volume -= startVolume * Time.deltaTime / fadeDuration;
+            yield return null;
+        }
+
+        // Ensure the volume is set to 0 and stop the audio
+        source.volume = 0;
+        source.Stop();
+    }
     private void Update()
     {
         if (stopRepeatingSound)
