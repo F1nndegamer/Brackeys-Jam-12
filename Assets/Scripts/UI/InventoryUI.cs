@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,6 +25,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Button multiPurposeMeterItem;
     private readonly Dictionary<int, string> ROMAN_NUMERALS = new Dictionary<int, string>() { { 1, "I" }, { 2, "II" }, { 3, "III" }, { 4, "IV" }, { 5, "V" } };
     private Dictionary<FishSO, TMP_Text> fishQuantityList = new Dictionary<FishSO, TMP_Text>();
+    private System.Random rand = new System.Random();
 
     private List<GameObject> fishItemList = new List<GameObject>();
     private void Awake()
@@ -61,7 +63,7 @@ public class InventoryUI : MonoBehaviour
         if (!basket.ContainsKey(fish))
         {
             basket.Add(fish, new FishInfo());
-            basket[fish].AddFish(Mathf.CeilToInt(fish.minPrice + (fish.maxPrice - fish.minPrice) * normalizedDistance)); //Calculate scaled price 
+            basket[fish].AddFish(NormalDistributionCalculation(fish.meanDistance, fish.maxPrice, fish.minPrice, normalizedDistance)); //Calculate scaled price 
 
             var item = Instantiate(inventoryFish, fishContent);
             var itemIcon = item.transform.GetChild(0).GetComponent<Image>();
@@ -73,14 +75,13 @@ public class InventoryUI : MonoBehaviour
             itemQuantity.text = basket[fish].count.ToString();
 
             fishItemList.Add(item);
-            //distances.Add(((int)UnityEngine.Random.Range(Mathf.Log(x, 2) * 5, Mathf.Log(x, 2) * 10)));
             fishQuantityList.Add(fish, itemQuantity);
 
             item.GetComponent<Button>().onClick.AddListener(() => ShowFishInformation(item, fish));
         }
         else
         {
-            basket[fish].AddFish(Mathf.CeilToInt(fish.minPrice + (fish.maxPrice - fish.minPrice) * normalizedDistance)); //Calculate scaled price 
+            basket[fish].AddFish(NormalDistributionCalculation(fish.meanDistance, fish.maxPrice, fish.minPrice, normalizedDistance)); //Calculate scaled price 
             var itemQuantity = fishQuantityList[fish].GetComponent<TMP_Text>();
             itemQuantity.text = basket[fish].count.ToString();   
         }
@@ -89,7 +90,7 @@ public class InventoryUI : MonoBehaviour
     {
         TextSelectedItemName.text = fish.name;
         ImageSelectedItem.sprite = fish.icon;
-        TextSelectedItemDescription.text = $"Price Range: {fish.minPrice} - {fish.maxPrice} \nSize: {fish.length} cm - {fish.weight} kg \n{fish.description}";
+        TextSelectedItemDescription.text = $"Price Range: {fish.minPrice} - {fish.maxPrice} \nSize: {fish.length} cm - {fish.weight} kg \n{fish.description} \n How far they live from the average shore:{fish.meanDistance}";
     }
     
     private void ShowItemInformation(Button x, string des)
@@ -101,6 +102,20 @@ public class InventoryUI : MonoBehaviour
     private void UpdateFishQuantity()
     {
         fishsNumber.text = basket.Sum(x => x.Value.count).ToString();
+    }
+    private int NormalDistributionCalculation(float meanDistance, int max, int min, float distance, float stdDevDistance = 10f)
+    {
+        int result = 0;
+
+        double u1 = 1.0 - rand.NextDouble();
+        double u2 = 1.0 - rand.NextDouble();
+
+        double randStdNormal = Mathf.Sqrt(-2.0f * Mathf.Log((float)u1)) * Mathf.Sin(2.0f * Mathf.PI * (float)u2);
+
+        double adjustedDistance = meanDistance + stdDevDistance * randStdNormal;
+
+        result = Mathf.Clamp((int)(max - Mathf.Abs(distance - (float)adjustedDistance)), min, max);
+        return result;
     }
     #region Item
     public void FishrodeItem(bool isBought, string des = null, int level = 1)
@@ -148,7 +163,6 @@ public class InventoryUI : MonoBehaviour
     {
         int totalFishSold = basket.Sum(x => x.Value.count);
         int totalEarnings = basket.Sum(x => x.Value.scaledPriceList.Sum() * x.Value.count);
-        //totalEarnings += distances.Sum();
 
         Player.Instance.UpdateMoney(totalEarnings);
 
