@@ -1005,7 +1005,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &86575357
 Transform:
   m_ObjectHideFlags: 0
@@ -5637,6 +5637,10 @@ PrefabInstance:
     - target: {fileID: 3028679775908085891, guid: 5437ba63ae14eba40905c11f95a4746b, type: 3}
       propertyPath: m_Name
       value: Particle System
+      objectReference: {fileID: 0}
+    - target: {fileID: 3028679775908085891, guid: 5437ba63ae14eba40905c11f95a4746b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5760155379385530543, guid: 5437ba63ae14eba40905c11f95a4746b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21964,8 +21968,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b77f7d1859658554f942bbbe30e18268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fishingMachanic: {fileID: 0}
-  rb: {fileID: 0}
+  fishingMachanic: {fileID: 1774373233}
+  rb: {fileID: 1774373234}
   moveSpeed: 5
   rotateSpeed: 10
 --- !u!212 &1774373236
@@ -22009,8 +22013,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -2413806693520163455, guid: 3642494f1efb06242ae3fa097e6cf2a2, type: 3}
+  m_Color: {r: 0, g: 1, b: 0.14373732, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -22100,7 +22104,7 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
     newSize: {x: 5.12, y: 5.12}
