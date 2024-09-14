@@ -1,5 +1,3 @@
-using Cysharp.Threading.Tasks;
-using Cysharp.Threading.Tasks.Triggers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -80,20 +78,20 @@ public class Player : MonoBehaviour
             OnInvetoryClosed?.Invoke(this, EventArgs.Empty);
         }
     }
-    public async void Death(bool isDeath)
-    {
-        await UniTask.WaitUntil(() => isDeath);
-        animator.enabled = true;
-        animator.SetBool("isDeath", true);
-        await UniTask.Delay(1000); //after the animation is over
-        animator.SetBool("isDeath", false);
-        await UniTask.Delay(10);
-        animator.enabled = false;
-        isDeath = false;
-        transform.position = new Vector2(0, 0);
-        GetComponent<FishingMachanic>().isCatching = false;
-        GetComponent<FishingMachanic>().isWaitingForFish = false;
-        GetComponent<FishingMachanic>().EndCatchingFish();
-        //change sound
-    }
+    //public async void Death(bool isDeath)
+    //{
+    //    await UniTask.WaitUntil(() => isDeath);
+    //    animator.enabled = true;
+    //    animator.SetBool("isDeath", true);
+    //    await UniTask.Delay(1000); //after the animation is over
+    //    animator.SetBool("isDeath", false);
+    //    await UniTask.Delay(10);
+    //    animator.enabled = false;
+    //    isDeath = false;
+    //    transform.position = new Vector2(0, 0);
+    //    GetComponent<FishingMachanic>().isCatching = false;
+    //    GetComponent<FishingMachanic>().isWaitingForFish = false;
+    //    GetComponent<FishingMachanic>().EndCatchingFish();
+    //    //change sound
+    //}
 }

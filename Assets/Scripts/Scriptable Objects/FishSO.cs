@@ -11,7 +11,6 @@ public class FishSO : ScriptableObject
     public float length;
     [Range(0f, 1f)] public float sweetSpotLength;
     public float pointerSpeed;
-    public float meanDistance;
     public int requiredCatches;
     public int minPrice;
     public int maxPrice;

@@ -1,4 +1,3 @@
-using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
@@ -15,17 +14,12 @@ public class StormMeter : MonoBehaviour
     void Start()
     {
         timer = 0;
-        HumidityMeter();
-        WindMeter();
-        Temperature();
+        StartCoroutine(MetersCoroutine());
+        StartCoroutine(HumidityMeter());
+        StartCoroutine(WindMeter());
+        StartCoroutine(Temperature());
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Meters();
-    }
-    private async void HumidityMeter()
+    private IEnumerator HumidityMeter()
     {
         while (true)
         {
@@ -37,10 +31,10 @@ public class StormMeter : MonoBehaviour
             {
                 humidityMeter.text = "%" + ((int)Random.Range(timer + 10, timer + 40)).ToString();
             }
-            await UniTask.Delay(700);
+            yield return new WaitForSeconds(0.8f);
         }
     }
-    private async void WindMeter()
+    private IEnumerator WindMeter()
     {
         while (true)
         {
@@ -52,10 +46,10 @@ public class StormMeter : MonoBehaviour
             {
                 windMeter.text = Random.Range(timer +  10, timer + 30).ToString("F1");
             }
-            await UniTask.Delay(800);
+            yield return new WaitForSeconds(0.8f);
         }
     }
-    private async void Temperature()
+    private IEnumerator Temperature()
     {
         while (true)
         {
@@ -67,13 +61,19 @@ public class StormMeter : MonoBehaviour
             {
                 temperature.text = Random.Range(25, 35).ToString("F1") + "C°";
             }
-            await UniTask.Delay(600);
+            yield return new WaitForSeconds(0.6f);
         }
     }
-    private async void Meters()
+    private IEnumerator MetersCoroutine()
     {
-        timer += Time.deltaTime;
-        await UniTask.WaitWhile(() => stormManager.Colliding);
-        timer = 0;
+        while (true)
+        {
+            timer += Time.deltaTime;
+
+            // Wait until the storm manager is not colliding
+            yield return new WaitWhile(() => stormManager.Colliding);
+
+            timer = 0f;
+        }
     }
 }

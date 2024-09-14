@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -107,7 +106,7 @@ public class FishingMachanic : MonoBehaviour
             {
                 Debug.Log("Fish caught successfully!");
 
-                float normalizedDistance = (transform.position.x - zoneBoundary.transform.position.x);
+                float normalizedDistance = (transform.position.x - zoneBoundary.transform.position.x)/(maxFishingDistance - zoneBoundary.transform.position.x);
                 InventoryUI.Instance.AddFish(currentFish, normalizedDistance);
 
                 FishingMinigameUI.Instance.Flash();

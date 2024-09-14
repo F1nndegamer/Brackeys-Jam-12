@@ -14864,10 +14864,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b77f7d1859658554f942bbbe30e18268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fishingMachanic: {fileID: 1774373233}
-  rb: {fileID: 1774373234}
+  fishingMachanic: {fileID: 0}
+  rb: {fileID: 0}
   moveSpeed: 5
-  rotateSpeed: 10
+  rotateSpeed: 0.2
 --- !u!212 &1774373236
 SpriteRenderer:
   m_ObjectHideFlags: 0
