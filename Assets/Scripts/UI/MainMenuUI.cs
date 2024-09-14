@@ -12,23 +12,23 @@ public class MainMenuUI : MonoBehaviour
     {
         playButton.onClick.AddListener(() =>
         {
-            Loader.Load(Loader.Scene.GameScene);
             SoundManager.Instance.PlayButtonClickSound();
+            Loader.Load(Loader.Scene.GameScene);
         });
         optionsButton.onClick.AddListener(() =>
         {
-            OptionsUI.Instance.Show(Show);
             SoundManager.Instance.PlayButtonClickSound();
+            OptionsUI.Instance.Show(Show);
         });
         howToPlayButton.onClick.AddListener(() =>
         {
-            tutorialUI.SetActive(true);
             SoundManager.Instance.PlayButtonClickSound();
+            tutorialUI.SetActive(true);
         });
         creditsButton.onClick.AddListener(() =>
         {
-            CreditsUI.Instance.Show(Show);
             SoundManager.Instance.PlayButtonClickSound();
+            CreditsUI.Instance.Show(Show);
         });
     }
     private void Show()
