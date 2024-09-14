@@ -70,7 +70,7 @@ public class StormManager : MonoBehaviour
 
             if (Colliding)
             {
-                PlayerDeath();
+                InitiatePlayDeath();
             }
         }
         else
@@ -106,12 +106,13 @@ public class StormManager : MonoBehaviour
         countdownStarted = false; // Reset flag for future countdowns
     }
 
-    void PlayerDeath()
+    void InitiatePlayDeath()
     {
         GameplayUI.Instance.ResetNumberOfFish();
+        GameplayUI.Instance.ShowDeathSequence();
         InventoryUI.Instance.RemoveAllFish();
         Destroy(currentStorm);
         alpha = 0.11f; // Reset alpha for the next storm
-        //Player.Instance.Death(true);
+        Player.Instance.Die();
     }
 }

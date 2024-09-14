@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -25,7 +26,6 @@ public class InventoryUI : MonoBehaviour
     private readonly Dictionary<int, string> ROMAN_NUMERALS = new Dictionary<int, string>() { { 1, "I" }, { 2, "II" }, { 3, "III" }, { 4, "IV" }, { 5, "V" } };
     private Dictionary<FishSO, TMP_Text> fishQuantityList = new Dictionary<FishSO, TMP_Text>();
 
-    private List<GameObject> fishItemList = new List<GameObject>();
     private void Awake()
     {
         Instance = this;
@@ -72,7 +72,6 @@ public class InventoryUI : MonoBehaviour
             itemName.text = fish.fishName;
             itemQuantity.text = basket[fish].count.ToString();
 
-            fishItemList.Add(item);
             //distances.Add(((int)UnityEngine.Random.Range(Mathf.Log(x, 2) * 5, Mathf.Log(x, 2) * 10)));
             fishQuantityList.Add(fish, itemQuantity);
 
@@ -138,11 +137,7 @@ public class InventoryUI : MonoBehaviour
         basket = basket.ToDictionary(p => p.Key, p => new FishInfo());
 
         fishsNumber.text = "0"; // Reset fish number
-        foreach (GameObject fishItem in fishItemList)
-        {
-            var fishQuantityText = fishItem.transform.GetChild(2).GetComponent<TMP_Text>();
-            fishQuantityText.text = "0";
-        }
+        fishQuantityList.Keys.ToList().ForEach(key => fishQuantityList[key].text = "0");
     }
     public void SellAllFish()
     {

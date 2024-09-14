@@ -14,6 +14,7 @@ public class GameplayUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI fishCaughtNotificationText;
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private Animator notificationAnimator;
+    [SerializeField] private Animator resetSequenceAnimator;
     [SerializeField] private GameObject multiPurposeMeter;
     private RangeFinderInformation rangeFinderInformation;
     private void Awake()
@@ -63,6 +64,16 @@ public class GameplayUI : MonoBehaviour
         notificationAnimator.SetTrigger("SlideIn");
         CancelInvoke(nameof(NotificationSlideOut));
         Invoke(nameof(NotificationSlideOut), 3f);
+    }
+    public void ShowDeathSequence()
+    {
+        resetSequenceAnimator.gameObject.SetActive(true);
+        resetSequenceAnimator.SetTrigger("Death");
+        Invoke(nameof(ShowRespawnSequence), 3f);
+    }
+    private void ShowRespawnSequence()
+    {
+        resetSequenceAnimator.SetTrigger("Respawn");
     }
     private void NotificationSlideOut()
     {
