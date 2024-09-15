@@ -10,9 +10,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float rotateSpeed = 0.2f;
 
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Sprite[] directionSprites;
-
     private Vector2 movement;
     private Animator animator;
     private string currentAnimationName;
