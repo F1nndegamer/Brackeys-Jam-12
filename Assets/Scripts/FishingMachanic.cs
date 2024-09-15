@@ -54,6 +54,7 @@ public class FishingMachanic : MonoBehaviour
             {
                 SoundManager.Instance.PlayThrowRodSound();
                 WaitForFish();
+                GetComponent<PlayerMovement>().ChangeAnimation("Idle");
             }
             else
             {

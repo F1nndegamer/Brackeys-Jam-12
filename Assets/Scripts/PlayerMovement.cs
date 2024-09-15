@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     {
         moveSpeed += amount;
     }
-    private void ChangeAnimation(string animationName)
+    public void ChangeAnimation(string animationName)
     {
         if (currentAnimationName != animationName)
         {
