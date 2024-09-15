@@ -13171,7 +13171,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1413219170
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22230,7 +22230,7 @@ MonoBehaviour:
   whitePointer: {fileID: 29464634}
   catchProgressText: {fileID: 1689841019}
   zoneBoundary: {fileID: 1811648553}
-  waitingForFish: {fileID: 0}
+  waitingForFish: {fileID: 1413219169}
   maxFishingDistance: 80
 --- !u!50 &1774373234
 Rigidbody2D:
@@ -22275,6 +22275,7 @@ MonoBehaviour:
   rb: {fileID: 1774373234}
   moveSpeed: 5
   rotateSpeed: 10
+  animator: {fileID: 1774373241}
 --- !u!212 &1774373236
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -22316,7 +22317,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 72a5c06381d60cb4a80a2a6d65dbc237, type: 3}
+  m_Sprite: {fileID: 674649099, guid: 8c7d7c9d7ae67924688ceb3aa4e85552, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -22410,7 +22411,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.5, y: 1.5}
+    oldSize: {x: 2.5, y: 1.5}
     newSize: {x: 5.12, y: 5.12}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -22427,7 +22428,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1774373232}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 48c8aec2b6058d34a8771ee88e199680, type: 2}
   m_CullingMode: 0
