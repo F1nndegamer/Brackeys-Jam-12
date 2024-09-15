@@ -2053,6 +2053,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c271d30ac81ca84eaac79b237ac6fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Shore: {fileID: 1811648555}
 --- !u!4 &219503475
 Transform:
   m_ObjectHideFlags: 0
@@ -11266,7 +11267,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1537.2472, y: 0.000100016594}
+  m_Size: {x: 1537.2472, y: 0.1}
   m_EdgeRadius: 0
 --- !u!4 &1206542855
 Transform:
@@ -25104,7 +25105,7 @@ MonoBehaviour:
   stormPrefab: {fileID: 2486701580138375598, guid: 79f0c4d5e09c1c64c98efb832055af8b, type: 3}
   player: {fileID: 1774373237}
   spawnInterval: 60
-  stormSpeed: 12
+  stormSpeed: 5.5
   outrunDistance: 40
   currentStorm: {fileID: 0}
   particleSystem: {fileID: 1074704246}
