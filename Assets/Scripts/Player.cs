@@ -24,10 +24,6 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            UpdateMoney(100);
-        }
         if (Input.GetKeyDown(KeyCode.B))
         {
             ToggleShop();

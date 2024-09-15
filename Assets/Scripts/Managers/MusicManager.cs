@@ -29,10 +29,6 @@ public class MusicManager : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            PlayNextGameTrack();
-        }
         lengthofMusic -= Time.deltaTime;
         if (lengthofMusic <= 0)
         {

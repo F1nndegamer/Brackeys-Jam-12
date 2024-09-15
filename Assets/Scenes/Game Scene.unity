@@ -3590,7 +3590,7 @@ MonoBehaviour:
   upgradePriceText: {fileID: 1573134719}
   icon: {fileID: 1665668274}
   nameText: {fileID: 1116203411}
-  buyPrice: 100
+  buyPrice: 500
   upgradePriceArray: 
 --- !u!114 &522656830
 MonoBehaviour:
@@ -14187,8 +14187,8 @@ MonoBehaviour:
   upgradePriceText: {fileID: 593366905}
   icon: {fileID: 1725000950}
   nameText: {fileID: 505399741}
-  buyPrice: 0
-  upgradePriceArray: 64000000c80000002c010000
+  buyPrice: 200
+  upgradePriceArray: 900100005802000020030000
   firstApplyTime: 1
   levelUpIncrement: 0.75
   fishingMechanic: {fileID: 1774373233}
@@ -20186,7 +20186,7 @@ MonoBehaviour:
   upgradePriceText: {fileID: 972431675}
   icon: {fileID: 1093602416}
   nameText: {fileID: 1857920821}
-  buyPrice: 200
+  buyPrice: 300
   upgradePriceArray: 
 --- !u!114 &1665008084
 MonoBehaviour:
@@ -21747,8 +21747,8 @@ MonoBehaviour:
   upgradePriceText: {fileID: 1903094254}
   icon: {fileID: 1330585599}
   nameText: {fileID: 1767936475}
-  buyPrice: 300
-  upgradePriceArray: c80000002c01000090010000
+  buyPrice: 400
+  upgradePriceArray: f401000020030000b0040000
   playerMovement: {fileID: 1774373235}
   boostMultiplier: 1
 --- !u!114 &1733136042
