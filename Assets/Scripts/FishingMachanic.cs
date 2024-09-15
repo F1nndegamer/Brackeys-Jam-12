@@ -29,6 +29,7 @@ public class FishingMachanic : MonoBehaviour
     [SerializeField] private RectTransform whitePointer;
     [SerializeField] private TextMeshProUGUI catchProgressText;
     [SerializeField] private GameObject zoneBoundary;
+    [SerializeField] private GameObject waitingForFish;
     [SerializeField] private int maxFishingDistance;
 
     private bool isInSafeZone = true;
@@ -86,6 +87,7 @@ public class FishingMachanic : MonoBehaviour
         currentFish = fishList[Random.Range(0, fishList.Count)];
         InitializeSweetSpot();
         currentCatchProgress = 0;
+        waitingForFish.SetActive(true);
     }
 
     private void AttemptToCatchFish()
@@ -151,6 +153,7 @@ public class FishingMachanic : MonoBehaviour
     }
     private void StartCatchingProcess()
     {
+        waitingForFish.SetActive(false);
         isCatching = true;
         isWaitingForFish = false;
         bar.gameObject.SetActive(true);
