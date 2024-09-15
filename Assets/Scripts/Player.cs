@@ -18,15 +18,9 @@ public class Player : MonoBehaviour
     public bool isNearShop = true;
     private bool isShopOpened = false;
     private bool isInventoryOpened = false;
-    private Animator animator;
     private void Awake()
     {
         Instance = this;
-    }
-    private void Start()
-    {
-        animator = GetComponent<Animator>();
-        animator.enabled = false;
     }
     void Update()
     {
