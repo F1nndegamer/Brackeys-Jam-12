@@ -9,12 +9,16 @@ public class Propeller : ShopItem
     protected override void ApplyItem()
     {
         playerMovement.IncreaseSpeed(boostMultiplier * currentLevel);
+        StormManager.instance.stormSpeed += boostMultiplier * currentLevel;
+        StormManager.instance.outrunDistance += 10f;
         InventoryUI.Instance.PropellerItem(true, "increases the speed of the boat", currentLevel);
     }
     protected override void LevelUp()
     {
         base.LevelUp();
         playerMovement.IncreaseSpeed(boostMultiplier * currentLevel);
+        StormManager.instance.stormSpeed += boostMultiplier * currentLevel;
+        StormManager.instance.outrunDistance += 10f;
         InventoryUI.Instance.PropellerItem(true, "increases the speed of the boat", currentLevel);
     }
 }

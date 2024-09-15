@@ -17,9 +17,11 @@ public class StormManager : MonoBehaviour
     private int x = 0; // Counter to track interval
     public bool Colliding;
     public Transform LinePos;
+    public static StormManager instance;
 
     private void Start()
     {
+        instance = this;
         StartCoroutine(StormRoutine());
     }
 
