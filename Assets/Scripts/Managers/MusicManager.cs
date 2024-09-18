@@ -25,7 +25,16 @@ public class MusicManager : MonoBehaviour
         }
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = OptionsUI.MusicVolume;
-        lengthofMusic = (double)(audioSource.clip.samples / audioSource.clip.frequency);
+        if (audioSource.clip != null && audioSource.clip.frequency > 0)
+        {
+            lengthofMusic = (double)(audioSource.clip.samples / audioSource.clip.frequency);
+        }
+        else
+        {
+            Debug.LogWarning("Audio clip is null or has an invalid frequency.");
+            lengthofMusic = 0;  // Fallback or handle as needed
+        }
+
     }
     private void Update()
     {
